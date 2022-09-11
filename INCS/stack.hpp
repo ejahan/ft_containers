@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:07:23 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 18:58:36 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/11 20:41:39 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,39 @@
 # define STACK_HPP
  
 # include <iostream>
+# include "vector.hpp"
 
-template <class T, class Container = deque<T> > // vector?
+namespace ft {
+
+template <class T, class Container = std::vector<T> >
 class	stack {
 
 	private:
-	
+
+		Container	c;
 
 	public:
 
-		stack();//(const container_type& ctnr = container_type());
+		typedef typename	Container::value_type value_type;
+		typedef typename	Container::size_type size_type;
+		typedef Container container_type;
+
+		stack(const Container& ctnr = Container()) : c(ctnr){}
 		bool				empty(void) const;
 		size_type			size(void) const;
 		value_type			&top(void);
 		const value_type	&top(void) const;
 		void				push(const value_type &val);
 
-		template <class... Args>
-		void	emplace(Args&&... args);
+		// template <class... Args>
+		// void	emplace(Args&&... args);
 
 		void				pop(void);
-		void				swap(stack& x); // noexcept(); ?
-
-		// stack(stack & cpy);
-		// ~stack (void);
-		// stack & operator=(stack const & rhs);
+		// void				swap(stack& x)
 
 };
+
+}
 
 #endif
 
@@ -60,17 +66,12 @@ class	stack {
 (relational operators)
 (swap (stack))
 
-*/
 
-/*
 
 MEMBER TYPE				DEFINITION										NOTES
 
-
-value_type				The first template parameter (T)				Type of the elements
-
-container_type			The second template parameter (Container)		Type of the underlying container
-
-size_type				an unsigned integral type						usually the same as size_t
+- value_type			The first template parameter (T)				Type of the elements
+- container_type		The second template parameter (Container)		Type of the underlying container
+- size_type				an unsigned integral type						usually the same as size_t
 
 */

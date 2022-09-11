@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 18:07:10 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/11 20:46:25 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,26 @@
  
 # include <iostream>
 
+namespace ft {
+
 template < class T, class Alloc = allocator<T> > 
 class	vector {
 
 	private:
-	
+
+
 
 	public:
 
-		// vector & operator=(vector const & rhs);
+		vector & operator=(vector const & rhs);
 
-		// explicit vector(const allocator_type& alloc = allocator_type());
-		// explicit vector(size_type n, const value_type& val = value_type(),
-		//			const allocator_type& alloc = allocator_type());
-		// template <class InputIterator>
-        // vector(InputIterator first, InputIterator last,
-		//			const allocator_type& alloc = allocator_type());
-		// vector(const vector& x);
+		explicit vector(const allocator_type& alloc = allocator_type());
+		explicit vector(size_type n, const value_type& val = value_type(),
+					const allocator_type& alloc = allocator_type());
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last,
+					const allocator_type& alloc = allocator_type());
+		vector(const vector& x);
 		~vector();
 		vector& operator=(const vector& x);
 
@@ -43,10 +46,10 @@ class	vector {
 		const_reverse_iterator	rbegin() const;
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
-		const_iterator			cbegin() const noexcept;
-		const_iterator			cend() const noexcept;
-		const_reverse_iterator	crbegin() const noexcept;
-		const_reverse_iterator	crend() const noexcept;
+		const_iterator			cbegin() const;
+		const_iterator			cend() const;
+		const_reverse_iterator	crbegin() const;
+		const_reverse_iterator	crend() const;
 
 		size_type	size() const;
 		size_type	max_size() const;
@@ -65,8 +68,8 @@ class	vector {
 		const_reference	front() const;
 		reference		back();
 		const_reference	back() const;
-		value_type*			data() noexcept;
-		const value_type*	data() const noexcept;
+		value_type*			data();
+		const value_type*	data() const;
 
 		template <class InputIterator>
 		void	assign(InputIterator first, InputIterator last);
@@ -88,8 +91,9 @@ class	vector {
 
 		allocator_type get_allocator() const;
 
-
 };
+
+}
 
 #endif
 
@@ -139,38 +143,22 @@ class	vector {
 (relational operators)
 (swap)
 
-*/
-
-
-/*
 
 MEMBER TYPE					DEFINITION										NOTES
 
-
-value_type					The first template parameter (T)	
-
-allocator_type				The second template parameter (Alloc)			defaults to: allocator<value_type>
-
-reference					allocator_type::reference						for the default allocator: value_type&
-
-const_reference				allocator_type::const_reference					for the default allocator: const value_type&
-
-pointer						allocator_type::pointer							for the default allocator: value_type*
-
-const_pointer				allocator_type::const_pointer					for the default allocator: const value_type*
-
-iterator					a random access iterator to value_type			convertible to const_iterator
-
-const_iterator				a random access iterator to const value_type	
-
-reverse_iterator			reverse_iterator<iterator>	
-
-const_reverse_iterator		reverse_iterator<const_iterator>	
-
-difference_type				a signed integral type, identical to: 
+- value_type				The first template parameter (T)	
+- allocator_type			The second template parameter (Alloc)			defaults to: allocator<value_type>
+- reference					allocator_type::reference						for the default allocator: value_type&
+- const_reference			allocator_type::const_reference					for the default allocator: const value_type&
+- pointer					allocator_type::pointer							for the default allocator: value_type*
+- const_pointer				allocator_type::const_pointer					for the default allocator: const value_type*
+- iterator					a random access iterator to value_type			convertible to const_iterator
+- const_iterator			a random access iterator to const value_type	
+- reverse_iterator			reverse_iterator<iterator>	
+- const_reverse_iterator	reverse_iterator<const_iterator>	
+- difference_type			a signed integral type, identical to: 
 							iterator_traits<iterator>::difference_type		usually the same as ptrdiff_t
-
-size_type					an unsigned integral type that can represent 
+- size_type					an unsigned integral type that can represent 
 							any non-negative value of difference_type		usually the same as size_t
 
 */
