@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 20:42:53 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/13 14:29:15 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,18 @@
 
 namespace ft {
 
-template < class Key,                                     // map::key_type
-		   class T,                                       // map::mapped_type
-           class Compare = less<Key>,                     // map::key_compare
-           class Alloc = allocator<pair<const Key,T> >    // map::allocator_type
-           >
+template <	class Key,                                     // map::key_type
+			class T,                                       // map::mapped_type
+			class Compare = less<Key>,                     // map::key_compare
+			class Alloc = allocator<pair<const Key,T> >    // map::allocator_type
+		>
 class	map {
 
 	private:
 
 
 	public:
-		// map (void);
-		// map(map & cpy);
-		// ~map (void);
 
-		// map & operator=(map const & rhs);
 		map();
 		~map();
 		map & operator=(map const & rhs);
@@ -45,10 +41,6 @@ class	map {
 		const_reverse_iterator	rbegin() const;
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
-		const_iterator			cbegin() const;
-		const_iterator			cend() const;
-		const_reverse_iterator	crbegin() const;
-		const_reverse_iterator	crend() const;
 
 		bool		empty() const;
 		size_type	size() const;
@@ -64,17 +56,11 @@ class	map {
 		template <class InputIterator>
 		void				insert (InputIterator first, InputIterator last);
 
-		void		erase(iterator position);
-		size_type	erase(const key_type& k);
-		void		erase(iterator first, iterator last);
-		void		swap(map& x);
-		void		clear();
-
-		template <class... Args>
-		pair<iterator,bool>	emplace(Args&&... args);
-
-		template <class... Args>
-		iterator		emplace_hint(const_iterator position, Args&&... args);
+		void			erase(iterator position);
+		size_type		erase(const key_type& k);
+		void			erase(iterator first, iterator last);
+		void			swap(map& x);
+		void			clear();
 
 		key_compare		key_comp() const;
 		value_compare	value_comp() const;

@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:07:23 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 20:41:39 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/13 13:52:11 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,13 @@ class	stack {
 		typedef Container container_type;
 
 		stack(const Container& ctnr = Container()) : c(ctnr){}
+		~stack();
 		bool				empty(void) const;
 		size_type			size(void) const;
 		value_type			&top(void);
 		const value_type	&top(void) const;
 		void				push(const value_type &val);
-
-		// template <class... Args>
-		// void	emplace(Args&&... args);
-
 		void				pop(void);
-		// void				swap(stack& x)
 
 };
 

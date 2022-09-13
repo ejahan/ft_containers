@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pair.hpp                                           :+:      :+:    :+:   */
+/*   lexicographical_compare.hpp                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/13 15:36:12 by ejahan           ###   ########.fr       */
+/*   Created: 2022/09/13 14:03:08 by ejahan            #+#    #+#             */
+/*   Updated: 2022/09/13 14:13:26 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PAIR_HPP
-#define PAIR_HPP
+#ifndef LEXICOGRAPHICAL_COMPARE_HPP
+#define LEXICOGRAPHICAL_COMPARE_HPP
 
 namespace	ft {
 
-template <class T1, class T2>
-struct	pair
+template <class InputIt1, class InputIt2>
+bool	lexicographical_compare(InputIt1 first1, InputIt1 last1,
+				InputIt2 first2, InputIt2 last2)
 {
-	T1	first;
-	T2	second;
-
-	pair();
-
-	pair(const T1 &x, const T2 &y) : first(x), second(y) {};
-
-	template< class U1, class U2 >
-	pair(const pair<U1, U2> &p);
-
-	pair &operator=(const pair &other);
-
-};
+	for ( ; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2 )
+	{
+		if (*first1 < *first2)
+			return true;
+		if (*first2 < *first1)
+			return false;
+	}
+	return (first1 == last1) && (first2 != last2);
+}
 
 }
 

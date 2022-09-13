@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 20:46:25 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/13 13:42:47 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ class	vector {
 		const_reverse_iterator	rbegin() const;
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
-		const_iterator			cbegin() const;
-		const_iterator			cend() const;
-		const_reverse_iterator	crbegin() const;
-		const_reverse_iterator	crend() const;
 
 		size_type	size() const;
 		size_type	max_size() const;
@@ -57,8 +53,6 @@ class	vector {
 		size_type	capacity() const;
 		bool		empty() const;
 		void		reserve(size_type n);
-		void		shrink_to_fit();
-
 
 		reference		operator[](size_type n);
 		const_reference	operator[](size_type n) const;
@@ -84,11 +78,6 @@ class	vector {
 		iterator	erase(iterator first, iterator last);
 		void	swap(vector& x);
 		void	clear();
-		template <class... Args>
-		iterator	emplace(const_iterator position, Args&&... args);
-		template <class... Args>
-		void		emplace_back (Args&&... args);
-
 		allocator_type get_allocator() const;
 
 };

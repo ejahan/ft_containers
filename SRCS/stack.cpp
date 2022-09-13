@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:09:18 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 20:35:21 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/13 13:38:32 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,3 @@ void	stack::pop(void)
 {
 	this->c.pop_back();
 }
-
-// void	stack::swap(stack& x)
-// {
-// 	this->c.swap(x);
-// }
