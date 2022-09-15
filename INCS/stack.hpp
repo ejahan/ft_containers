@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:07:23 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/13 13:52:11 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:11:23 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 namespace ft {
 
-template <class T, class Container = std::vector<T> >
+template <class T, class Container = vector<T> >
 class	stack {
 
 	private:
@@ -45,29 +45,3 @@ class	stack {
 }
 
 #endif
-
-/*
-
-	MEMBERS FUNCTIONS
-
-- constructor
-- empty
-- size
-- top
-- push
-- emplace
-- pop
-- swap
-
-(relational operators)
-(swap (stack))
-
-
-
-MEMBER TYPE				DEFINITION										NOTES
-
-- value_type			The first template parameter (T)				Type of the elements
-- container_type		The second template parameter (Container)		Type of the underlying container
-- size_type				an unsigned integral type						usually the same as size_t
-
-*/

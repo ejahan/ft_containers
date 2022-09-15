@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/13 14:29:15 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:10:54 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
- 
+
 # include <iostream>
 
 namespace ft {
 
-template <	class Key,                                     // map::key_type
-			class T,                                       // map::mapped_type
-			class Compare = less<Key>,                     // map::key_compare
-			class Alloc = allocator<pair<const Key,T> >    // map::allocator_type
-		>
+template <	class Key, class T, class Compare = std::less<Key>,
+			class Allocator = std::allocator<std::pair<const Key,T> > >
 class	map {
 
 	private:
@@ -29,10 +26,55 @@ class	map {
 
 	public:
 
-		map();
-		~map();
-		map & operator=(map const & rhs);
 
+		/*
+			TYPES
+		*/
+
+		typedef Key key_type;
+		typedef T mapped_type;
+		typedef pair<const Key, T> value_type;
+		typedef Compare key_compare;
+		typedef Allocator allocator_type;
+		typedef typename Allocator::reference reference;
+		typedef typename Allocator::const_reference const_reference;
+		typedef implementation defined iterator;
+		typedef implementation defined const_iterator;
+		typedef implementation defined size_type;
+		typedef implementation defined difference_type;
+		typedef typename Allocator::pointer pointer;
+		typedef typename Allocator::const_pointer const_pointer;
+		typedef std::reverse_iterator<iterator> reverse_iterator;
+		typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+		class value_compare : public binary_function<value_type,value_type,bool>
+		{
+			// friend class map;	// j ai pas compris pk y avait ca
+			protected:
+				Compare comp;
+				value_compare(Compare c) : comp(c) {} // j ai pas compris pk y avait ca
+			public:
+				bool operator()(const value_type& x, const value_type& y) const
+				{
+					return comp(x.first, y.first);
+				}
+		};
+
+
+		/*
+			MEMBER FUNCTIONS
+		*/
+
+
+		// map();
+		explicit map( const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
+		template< class InputIterator >
+		map( InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() );
+		map( const map& other );	//	map<Key, T, Compare, Allocator> ?
+		~map();
+		map & operator=(map const & rhs);	//	map<Key, T, Compare, Allocator> ?
+
+
+		//	ITERATORS
 		iterator				begin();
 		const_iterator			begin() const;
 		iterator				end();
@@ -42,14 +84,20 @@ class	map {
 		reverse_iterator		rend();
 		const_reverse_iterator	rend() const;
 
+
+		//	CAPACITY
 		bool		empty() const;
 		size_type	size() const;
 		size_type	max_size() const;
 
+
+		// 	ELEMENT ACCESS
 		mapped_type&		operator[](const key_type& k);
 		mapped_type&		at(const key_type& k);
 		const mapped_type&	at(const key_type& k) const;
 
+
+		// 	MODIFIERS
 		pair<iterator,bool> insert (const value_type& val);
 		iterator			insert (iterator position, const value_type& val);
 		
@@ -62,94 +110,48 @@ class	map {
 		void			swap(map& x);
 		void			clear();
 
+
+		// 	OBSERVERS
 		key_compare		key_comp() const;
 		value_compare	value_comp() const;
+		iterator		find(const key_type &k);
+		const_iterator	find(const key_type &k) const;
+		size_type		count(const key_type &k) const;
+		iterator		lower_bound(const key_type &k);
+		const_iterator	lower_bound(const key_type &k) const;
+		iterator		upper_bound(const key_type &k);
+		const_iterator	upper_bound(const key_type &k) const;
+		pair<const_iterator,const_iterator> equal_range(const key_type &k) const;
+		pair<iterator,iterator>             equal_range(const key_type &k);
 
-		iterator		find(const key_type& k);
-		const_iterator	find(const key_type& k) const;
-
-		size_type		count(const key_type& k) const;
-
-		iterator		lower_bound(const key_type& k);
-		const_iterator	lower_bound(const key_type& k) const;
-
-		iterator		upper_bound(const key_type& k);
-		const_iterator	upper_bound(const key_type& k) const;
-
-		pair<const_iterator,const_iterator> equal_range(const key_type& k) const;
-		pair<iterator,iterator>             equal_range(const key_type& k);
 
 		allocator_type	get_allocator() const;
+
+		template< class Key, class T, class Compare, class Alloc >
+		void swap( map<Key,T,Compare,Alloc> &lhs, map<Key,T,Compare,Alloc> &rhs );
+
+
+		// OPERATORS
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator==( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
+
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator!=( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
+
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator<( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
+
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator<=( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
+
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator>( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
+
+		template< class Key, class T, class Compare, class Alloc >
+		bool operator>=( const std::map<Key,T,Compare,Alloc> &lhs, const std::map<Key,T,Compare,Alloc> &rhs );
 
 };
 
 }
 
 #endif
-
-/*
-
-	MEMBER FUNCTIONS
-
-- constructor
-- destructor
-- operator=
-
-- begin
-- end
-- rbegin
-- rend
-- cbegin
-- cend
-- crbegin
-- crend
-
-- empty
-- size
-- max_size
-
-- operator[]
-- at
-
-- insert
-- erase
-- swap
-- clear
-- emplace
-- emplace_hint
-
-- key_comp
-- value_comp
-
-- find
-- count
-- lower_bound
-- upper_bound
-- equal_range
-
-- get_allocator
-
-
-
-MEMBER TYPE					DEFINITION										NOTES
-
-- key_type					The first template parameter (Key)	
-- mapped_type				The second template parameter (T)
-- value_type				pair<const key_type,mapped_type>	
-- key_compare				The third template parameter (Compare)			defaults to: less<key_type>
-- value_compare				Nested function class to compare elements		see value_comp
-- allocator_type			The second template parameter (Alloc)			defaults to: allocator<value_type>
-- reference					allocator_type::reference						for the default allocator: value_type&
-- const_reference			allocator_type::const_reference					for the default allocator: const value_type&
-- pointer					allocator_type::pointer							for the default allocator: value_type*
-- const_pointer				allocator_type::const_pointer					for the default allocator: const value_type*
-- iterator					a bidirectional iterator to value_type			convertible to const_iterator
-- const_iterator			a bidirectional iterator to const value_type	
-- reverse_iterator			reverse_iterator<iterator>	
-- const_reverse_iterator	reverse_iterator<const_iterator>	
-- difference_type			a signed integral type, identical to: 
-							iterator_traits<iterator>::difference_type		usually the same as ptrdiff_t
-- size_type					an unsigned integral type that can represent 
-							any non-negative value of difference_type		usually the same as size_t
-
-*/

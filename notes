@@ -1,6 +1,185 @@
+
+========================================================================
+LIENS
+========================================================================
+
+http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf
+https://fr.acervolima.com/std-allocator-en-c-avec-des-exemples/
+
+
  www.cplusplus.com/reference/stl/
  http://tvaira.free.fr/bts-sn/poo-c++/cours-poo-c++/cours-c++-conteneurs.pdf
  https://cplusplus.com/reference/stack/stack/
  https://cplusplus.com/reference/vector/vector/
  https://cplusplus.com/reference/map/map/
- 
+
+
+
+========================================================================
+VECTOR
+========================================================================
+
+	MEMBER FUNCTIONS
+
+- constructor
+- destructor
+- operator=
+
+- begin
+- end
+- rbegin
+- rend
+- cbegin
+- cend
+- crbegin
+- crend
+
+- size
+- max_size
+- resize
+- capacity
+- empty
+- reserve
+- shrink_to_fit
+
+- operator[]
+- at
+- front
+- back
+- data
+
+- assign
+- push_back
+- pop_back
+- insert
+- erase
+- swap
+- clear
+- emplace
+- emplace_back
+
+- get_allocator
+
+(relational operators)
+(swap)
+
+
+MEMBER TYPE					DEFINITION										NOTES
+
+- value_type				The first template parameter (T)	
+- allocator_type			The second template parameter (Alloc)			defaults to: allocator<value_type>
+- reference					allocator_type::reference						for the default allocator: value_type&
+- const_reference			allocator_type::const_reference					for the default allocator: const value_type&
+- pointer					allocator_type::pointer							for the default allocator: value_type*
+- const_pointer				allocator_type::const_pointer					for the default allocator: const value_type*
+- iterator					a random access iterator to value_type			convertible to const_iterator
+- const_iterator			a random access iterator to const value_type	
+- reverse_iterator			reverse_iterator<iterator>	
+- const_reverse_iterator	reverse_iterator<const_iterator>	
+- difference_type			a signed integral type, identical to: 
+							iterator_traits<iterator>::difference_type		usually the same as ptrdiff_t
+- size_type					an unsigned integral type that can represent 
+							any non-negative value of difference_type		usually the same as size_t
+
+
+
+
+
+
+
+========================================================================
+MAP
+========================================================================
+
+	MEMBER FUNCTIONS
+
+- constructor
+- destructor
+- operator=
+
+- begin
+- end
+- rbegin
+- rend
+- cbegin
+- cend
+- crbegin
+- crend
+
+- empty
+- size
+- max_size
+
+- operator[]
+- at
+
+- insert
+- erase
+- swap
+- clear
+- emplace
+- emplace_hint
+
+- key_comp
+- value_comp
+
+- find
+- count
+- lower_bound
+- upper_bound
+- equal_range
+
+- get_allocator
+
+
+
+MEMBER TYPE					DEFINITION										NOTES
+
+- key_type					The first template parameter (Key)	
+- mapped_type				The second template parameter (T)
+- value_type				pair<const key_type,mapped_type>	
+- key_compare				The third template parameter (Compare)			defaults to: less<key_type>
+- value_compare				Nested function class to compare elements		see value_comp
+- allocator_type			The second template parameter (Alloc)			defaults to: allocator<value_type>
+- reference					allocator_type::reference						for the default allocator: value_type&
+- const_reference			allocator_type::const_reference					for the default allocator: const value_type&
+- pointer					allocator_type::pointer							for the default allocator: value_type*
+- const_pointer				allocator_type::const_pointer					for the default allocator: const value_type*
+- iterator					a bidirectional iterator to value_type			convertible to const_iterator
+- const_iterator			a bidirectional iterator to const value_type	
+- reverse_iterator			reverse_iterator<iterator>	
+- const_reverse_iterator	reverse_iterator<const_iterator>	
+- difference_type			a signed integral type, identical to: 
+							iterator_traits<iterator>::difference_type		usually the same as ptrdiff_t
+- size_type					an unsigned integral type that can represent 
+							any non-negative value of difference_type		usually the same as size_t
+
+
+
+
+========================================================================
+STACK
+========================================================================
+
+	MEMBERS FUNCTIONS
+
+- constructor
+- empty
+- size
+- top
+- push
+- emplace
+- pop
+- swap
+
+(relational operators)
+(swap (stack))
+
+
+
+MEMBER TYPE				DEFINITION										NOTES
+
+- value_type			The first template parameter (T)				Type of the elements
+- container_type		The second template parameter (Container)		Type of the underlying container
+- size_type				an unsigned integral type						usually the same as size_t
+
