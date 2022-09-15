@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:09:03 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 20:56:05 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:54:45 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 vector &vector::operator=(vector const & rhs)
 {
+    value_type  *
+    return (*this);
 }
 
 explicit vector::vector(const allocator_type& alloc = allocator_type())

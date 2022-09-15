@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/13 16:40:39 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:30:23 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ class	reverse_iterator
 
 #endif
 
-    explicit reverse_iterator(Itr itr): itr(itr) {}
-    auto& operator*() {
-        return *std::prev(itr); // <== returns the content of prev
-    }
-    auto& operator++() {
-        --itr;
-        return *this;
-    }
-    friend bool operator!=(reverse_iterator<Itr> a, reverse_iterator<Itr> b) {
-        return a.itr != b.itr;
-    }
+    // explicit reverse_iterator(Itr itr): itr(itr) {}
+    // auto& operator*() {
+    //     return *std::prev(itr); // <== returns the content of prev
+    // }
+    // auto& operator++() {
+    //     --itr;
+    //     return *this;
+    // }
+    // friend bool operator!=(reverse_iterator<Itr> a, reverse_iterator<Itr> b) {
+    //     return a.itr != b.itr;
+    // }
