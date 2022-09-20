@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:07:23 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/15 18:11:23 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/19 15:55:21 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 namespace ft {
 
-template <class T, class Container = vector<T> >
+template <class T, class Container = ft::vector<T> >
 class	stack {
 
-	private:
+	protected:
 
 		Container	c;
 
@@ -33,12 +33,30 @@ class	stack {
 
 		stack(const Container& ctnr = Container()) : c(ctnr){}
 		~stack();
-		bool				empty(void) const;
-		size_type			size(void) const;
-		value_type			&top(void);
-		const value_type	&top(void) const;
-		void				push(const value_type &val);
-		void				pop(void);
+		bool				empty(void) const
+		{
+			return (this->c.empty());
+		};
+		size_type			size(void) const
+		{
+			return (this->c.size());
+		};
+		value_type			&top(void)
+		{
+			return (this->c.back());
+		};
+		const value_type	&top(void) const
+		{
+			return (this->c.back());
+		};
+		void				push(const value_type &val)
+		{
+			this->c.push_back(val);
+		};
+		void				pop(void)
+		{
+			this->c.pop_back();
+		};
 
 };
 
