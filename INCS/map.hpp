@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/19 15:40:52 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/23 01:37:39 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ class	map {
 
 	private:
 
+		allocator_type	_allocator;
+		value_type		*_p;
+		size_type		_size;
 
 	public:
 
@@ -86,9 +89,23 @@ class	map {
 
 
 		//	CAPACITY
-		bool		empty() const;
-		size_type	size() const;
-		size_type	max_size() const;
+		bool		empty() const
+		{
+			if (this->_size <= 0)
+				return true;
+			else
+				return false;
+		};
+
+		size_type	size() const
+		{
+			return (this->_size);
+		};
+
+		size_type	max_size() const
+		{
+			return (this->_allocator.max_size());
+		};
 
 
 		// 	ELEMENT ACCESS
@@ -131,7 +148,7 @@ class	map {
 		template< class Key, class T, class Compare, class Alloc >
 		void swap( map<Key,T,Compare,Alloc> &lhs, map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			lhs.swap(rhs);
 		};
 
 
@@ -139,37 +156,51 @@ class	map {
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator==( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator!=( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (equal(lhs.front(), lhs.back(), rhs.front()) == false)
+				return (true);
+			return (false);
 		};
 
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator<( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator<=( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true
+					|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator>( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false)
+				return (true);
+			return (false);
 		};
 
 		template< class Key, class T, class Compare, class Alloc >
 		bool operator>=( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false
+					|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 }

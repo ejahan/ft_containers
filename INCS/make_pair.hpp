@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_pair.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:14:20 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/13 15:40:36 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/23 02:20:25 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,7 @@ pair<T1,T2> make_pair( T1 x, T2 y )
 }
 
 #endif
+
+/*
+	>>>>> sert plus a rien -> voir pair.hpp
+*/

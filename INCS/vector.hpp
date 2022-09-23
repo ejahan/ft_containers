@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/20 02:41:13 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/23 01:37:21 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ namespace ft {
 template < class T, class Allocator = std::allocator<T> > 
 class	vector {
 
-	private:
+	private:	//	protected? (stack)
 
+		Allocator	_allocator;
 		pointer		_p;
 		size_type	_capacity;	// nbr elements possible
 		size_type	_size;		// nbr elements 
@@ -53,19 +54,25 @@ class	vector {
 
 
 		//  CONSTRUCT / COPY / DESTROY
-		vector & operator=(vector const & rhs);
 
 		explicit vector(const Allocator& alloc = Allocator());
+
 		explicit vector(size_type n, const T& val = T(), const Allocator& alloc = Allocator());
 
 		template <class InputIterator>
 		vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator());
 
 		vector(const vector<T,Allocator>& x);
-		~vector();
+
+		~vector()
+		{
+			this->clear();
+			this->_allocator.deallocate();
+		};
 
 		template <class InputIterator>
 		void	assign(InputIterator first, InputIterator last);
+
 		void	assign(size_type n, const T& val);
 
 		vector& operator=(const vector& x); // vector<T, Allocator> ?
@@ -90,7 +97,7 @@ class	vector {
 
 		size_type	max_size() const
 		{
-			return (Allocator.max_size());
+			return (this->_allocator.max_size());
 		};
 
 		size_type	capacity() const
@@ -150,11 +157,13 @@ class	vector {
 		reference		back()
 		{
 			//	return le dernier element
+			return (*this->_p.end());
 		};
 
 		const_reference	back() const
 		{
 			//	return le dernier element
+			return (*this->_p.end());
 		};
 
 		pointer			data()
@@ -227,11 +236,12 @@ class	vector {
 			}
 		};
 
-		void		swap(vector& x) // vector<T,Allocator>
+		void		swap(vector<T, Allocator>& x)
 		{
-			ft::vector	tmp;
-
-			//	Walter il a utilisé std::swap j suis perdue on verra plus tard
+			std::swap(this->_p, x.p);
+			std::swap(this->_allocator, x._allocator);
+			std::swap(this->_size, x._size);
+			std::swap(this->_capacity, x.capacity);
 		};
 
 		void		clear()
@@ -245,9 +255,8 @@ class	vector {
 
 		allocator_type get_allocator() const
 		{
-			return (Allocator);
+			return (this->_allocator);
 		};
-
 
 };
 
@@ -255,43 +264,57 @@ class	vector {
 		template< class T, class Alloc >
 		void swap( ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs )
 		{
-			
+			lhs.swap(rhs);
 		};
 
 		template< class T, class Alloc >
 		bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class T, class Alloc >
 		bool	operator!=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (equal(lhs.front(), lhs.back(), rhs.front()) == false)
+				return (true);
+			return (false);
 		};
 
 		template< class T, class Alloc >
 		bool	operator<( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class T, class Alloc >
 		bool	operator<=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true
+					|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 		template< class T, class Alloc >
 		bool	operator>( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false)
+				return (true);
+			return (false);
 		};
 
 		template< class T, class Alloc >
 		bool	operator>=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			
+			if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false
+					|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+				return (true);
+			return (false);
 		};
 
 }
