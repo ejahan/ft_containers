@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/23 02:33:11 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:45:47 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,6 @@
 #define PAIR_HPP
 
 namespace	ft {
-
-// template <class T1, class T2>
-// struct	pair
-// {
-// 	T1	first;
-// 	T2	second;
-
-// 	pair() : first(0), second(0) {};
-
-// 	pair(const T1 &x, const T2 &y) : first(x), second(y) {};
-
-// 	template< class U1, class U2 >
-// 	pair(const pair<U1, U2> &p) {*this = p};
-
-// 	pair &operator=(const pair &other)
-// 	{
-// 		first = other.first;
-// 		second = other.second;
-// 		return (*this);
-// 	};
-
-// };
 
 template <class T1, class T2>
 struct pair

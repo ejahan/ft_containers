@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/23 01:28:45 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/25 01:18:09 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ class	reverse_iterator /*: public
 	typename iterator_traits<Iterator>::value_type,
 	typename iterator_traits<Iterator>::difference_type,
 	typename iterator_traits<Iterator>::pointer,
-	typename iterator_traits<Iterator>::reference>*/	//	jsp trop si je dois le mettre
+	typename iterator_traits<Iterator>::reference>*/	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
 {
-    protected:
+
+	protected:
 
 		It _current = It();
 

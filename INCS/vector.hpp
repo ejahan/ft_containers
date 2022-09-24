@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/23 01:37:21 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/25 00:56:22 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,57 @@ class	vector {
 
 		//  CONSTRUCT / COPY / DESTROY
 
-		explicit vector(const Allocator& alloc = Allocator());
+		explicit vector(const Allocator& alloc = Allocator()) : _allocator(alloc), _p(_allocator.allocate(0)), _size(0), _capacity(0) {};
 
-		explicit vector(size_type n, const T& val = T(), const Allocator& alloc = Allocator());
+		explicit vector(size_type n, const T& val = T(), const Allocator& alloc = Allocator())
+		{
+			this->_allocator = alloc;
+			this->_p = this->_allocator.allocate(n);
+			this->_size = n;
+			this->_capacity = n;
+			while (n > 0)
+			{
+				this->_allocator.construct(this->_p[n - 1], val);
+				n--;
+			}
+		};
 
 		template <class InputIterator>
-		vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator());
+		vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator())
+		{
+			InputIterator	i = first;
+			int	j = 0;
 
-		vector(const vector<T,Allocator>& x);
+			while (first + i != last)
+			{
+				j++;	
+				i++;
+			}
+			this->_allocator = alloc;
+			this->_p = this->_allocator.allocate(j);
+			this->_size = j;
+			this->_capacity = j;
+			while (j > 0)
+			{
+				this->_allocator.construct(this->_p[j], first + i);
+				i--;
+				j--;
+			}
+		};
+
+		vector(const vector<T,Allocator>& x)
+		{
+			size_type	i = 0;
+			this->_allocator = x.get_allocator();
+			this->_p = this->_alloc.allocate(x._capacity);
+			while (i < x._size)
+			{
+				_alloc.construct(this->_p[i], x._p[i]));
+				i++;
+			}
+			this->_size = x._size;
+			this->_capacity = x._capacity;
+		};
 
 		~vector()
 		{
@@ -71,11 +114,48 @@ class	vector {
 		};
 
 		template <class InputIterator>
-		void	assign(InputIterator first, InputIterator last);
+		void	assign(InputIterator first, InputIterator last)
+		{
+			InputIterator	i = first;
+			int	j = 0;
 
-		void	assign(size_type n, const T& val);
+			while (first + i != last)
+			{
+				j++;	
+				i++;
+			}
+			while (j > 0)
+			{
+				this->_allocator.construct(this->_p[j], first + i);
+				i--;
+				j--;
+			}
+		};
 
-		vector& operator=(const vector& x); // vector<T, Allocator> ?
+		void	assign(size_type n, const T& val)
+		{
+			if (n > this->_size)
+				this->size = n;
+			while (n > 0)
+			{
+				this->_allocator.construct(this->_p[n - 1], val);
+				n--;
+			}
+		};
+
+		vector& operator=(const vector& x) // vector<T, Allocator> ?
+		{
+			size_type	i = 0;
+			this->_allocator = x.get_allocator();
+			this->_p = this->_alloc.allocate(x._capacity);
+			while (i < x._size)
+			{
+				_alloc.construct(this->_p[i], x._p[i]));
+				i++;
+			}
+			this->_size = x._size;
+			this->_capacity = x._capacity;
+		};
 
 
 		// ITERATORS
@@ -83,9 +163,19 @@ class	vector {
 		const_iterator			begin() const;
 		iterator				end();
 		const_iterator			end() const;
-		reverse_iterator		rbegin();
+
+		reverse_iterator		rbegin()
+		{
+			// end?
+		};
+
 		const_reverse_iterator	rbegin() const;
-		reverse_iterator		rend();
+
+		reverse_iterator		rend()
+		{
+			// begin?
+		};
+
 		const_reverse_iterator	rend() const;
 
 
