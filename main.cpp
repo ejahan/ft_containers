@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/11 18:46:39 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/25 18:50:09 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,16 @@
 // 	return (0);
 // }
 
+#include "./INCS/vector.hpp"
+// #include <vector>
+
 int main()
 {
+	ft::vector<std::string> test(8, "test");
 	
+	test.assign(4, "change");
+	test.assign(1, "first");
+	std::cout << test.begin() << std::endl;
 
 	return (0);
 }
