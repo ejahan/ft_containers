@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/25 18:50:46 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/27 01:15:35 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace	ft {
 		typename iter_traits<Iter>::value_type,
 		typename iter_traits<Iter>::difference_type,
 		typename iter_traits<Iter>::pointer,
-		typename iter_traits<Iter>::reference> */	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
+		typename iter_traits<Iter>::reference>*/ 	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
 	{
 
 		protected:
@@ -35,18 +35,18 @@ namespace	ft {
 			// typedef	Iter	iterator_type;
 
 			typedef	typename	ft::iterator_traits<Iter>::iterator_category	iterator_type;
-			typedef	typename	ft::iterator_traits<Iter>::value_type	value_type;
-			typedef	typename	ft::iterator_traits<Iter>::difference_type	difference_type;
-			typedef	typename	ft::iterator_traits<Iter>::pointer	pointer;
-			typedef	typename	ft::iterator_traits<Iter>::reference	reference;
+			typedef	typename	ft::iterator_traits<Iter>::value_type			value_type;
+			typedef	typename	ft::iterator_traits<Iter>::difference_type		difference_type;
+			typedef	typename	ft::iterator_traits<Iter>::pointer				pointer;
+			typedef	typename	ft::iterator_traits<Iter>::reference			reference;
 
-/*		WALTER
-			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::value_type		value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::iterator_category	iterator_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::reference			reference;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>:: pointer			pointer;
-*/
+// /*		WALTER
+			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::value_type		value_type;
+			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::iterator_category	iterator_type;
+			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::difference_type	difference_type;
+			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::reference			reference;
+			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>:: pointer			pointer;
+// */
 			random_access_iterator() : _current(0) {};
 
 			explicit	random_access_iterator(iterator_type x) : _current(x) {};

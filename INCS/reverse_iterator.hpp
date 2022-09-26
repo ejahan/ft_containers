@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_iterator.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/25 18:50:35 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/27 01:03:41 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ j ai pas compris a quoi ca servait
 
 	template<class Iter>
 	class	reverse_iterator /*: public
-		iterator<typename iterator_traits<Iterator>::iterator_category,
-		typename iterator_traits<Iterator>::value_type,
-		typename iterator_traits<Iterator>::difference_type,
-		typename iterator_traits<Iterator>::pointer,
-		typename iterator_traits<Iterator>::reference>*/	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
+		iterator<typename iterator_traits<Iter>::iterator_category,
+		typename iterator_traits<Iter>::value_type,
+		typename iterator_traits<Iter>::difference_type,
+		typename iterator_traits<Iter>::pointer,
+		typename iterator_traits<Iter>::reference>*/	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
 	{
 
 		protected:

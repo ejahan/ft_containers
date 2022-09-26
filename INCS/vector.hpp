@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/25 18:19:32 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/27 01:18:42 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 #include "random_access.hpp"
 #include "iterator_traits.hpp"
 #include "lexicographical_compare.hpp"
+
+
+# include <algorithm>
+# include <memory>
+# include <cstddef>
 
 namespace ft {
 
@@ -183,15 +188,18 @@ namespace ft {
 	// 		// ITERATORS
 			iterator				begin()
 			{
-				// return (this->_p);
-				return (iterator(this->_p));
+				// return ((this->_p));
+				iterator	test(_p);
+				return (test);
 			};
 
-			const_iterator			begin() const
-			{
-				// return (&this->_p);
-				return (const_iterator(this->_p));
-			};
+			// iterator begin() { return iterator(_p); };
+
+			// const_iterator			begin() const
+			// {
+			// 	// return (&this->_p);
+			// 	return (const_iterator(this->_p));
+			// };
 
 			// iterator				end()
 			// {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator_traits.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:05:50 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/25 18:51:17 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/27 01:14:30 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace	ft {
 	
-/*	WALTER
+// /*	WALTER
 
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
@@ -35,7 +35,7 @@ namespace	ft {
 			typedef Category	iterator_category;
 	};
 
-*/
+// */
 
 	template <class Iterator>
 	struct	iterator_traits
@@ -44,7 +44,7 @@ namespace	ft {
 		typedef typename Iterator::value_type value_type;
 		typedef typename Iterator::pointer pointer;
 		typedef typename Iterator::reference reference;
-		typedef typename Iterator::iterator_type iterator_category;
+		typedef typename Iterator::iterator iterator_category; // jsp quoi  mettre
 	};
 
 	template <class T>

@@ -183,3 +183,12 @@ MEMBER TYPE				DEFINITION										NOTES
 - container_type		The second template parameter (Container)		Type of the underlying container
 - size_type				an unsigned integral type						usually the same as size_t
 
+
+
+
+
+
+
+
+
+

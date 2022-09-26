@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/25 18:50:09 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/09/27 01:08:19 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,16 +127,76 @@
 // 	return (0);
 // }
 
-#include "./INCS/vector.hpp"
+// #include "./INCS/vector.hpp"
+// // #include <vector>
+
+// #include <iostream>
+// #include "./INCS/reverse_iterator.hpp"
+// #include "./INCS/random_access.hpp"
+// #include "./INCS/iterator_traits.hpp"
+// #include "./INCS/lexicographical_compare.hpp"
+
+// # include <algorithm>
+// # include <memory>
+// # include <cstddef>
+
+// int main()
+// {
+// 	std::string	test_str = "test";
+// 	ft::vector<std::string> test(8, test_str);
+	
+// 	test.assign(4, "change");
+// 	test.assign(1, "first");
+// 	std::cout << test.begin() << std::endl;
+
+// 	return (0);
+// }
+
+
 // #include <vector>
+
+// #include <iostream>
+
+// # include <algorithm>
+// # include <memory>
+// # include <cstddef>
+
+// #include <stdlib.h>
+
+// int main()
+// {
+// 	std::string	test_str = "test";
+// 	std::vector<int> test(8, 8);
+	
+// 	test.assign(4, 7);
+// 	test.assign(1, 2);
+// 	std::vector<int>::iterator it = test.begin();
+// 	std::cout << *it << std::endl;
+
+// 	return (0);
+// }
+
+
+
+#include "./INCS/vector.hpp"
+
+#include <iostream>
+#include "./INCS/reverse_iterator.hpp"
+#include "./INCS/random_access.hpp"
+#include "./INCS/iterator_traits.hpp"
+#include "./INCS/lexicographical_compare.hpp"
+
+// #include <stdlib.h>
 
 int main()
 {
-	ft::vector<std::string> test(8, "test");
+	std::string	str = "test";
+	ft::vector<std::string> test(8, str);
 	
 	test.assign(4, "change");
 	test.assign(1, "first");
-	std::cout << test.begin() << std::endl;
+	ft::vector<int>::iterator it = test.begin();
+	std::cout << *it << std::endl;
 
 	return (0);
 }
