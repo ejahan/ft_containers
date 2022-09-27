@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 01:08:19 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/27 19:08:59 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@
 // }
 
 
+
+
+
 // #include <vector>
 
 // #include <iostream>
@@ -168,13 +171,30 @@
 // 	std::string	test_str = "test";
 // 	std::vector<int> test(8, 8);
 	
-// 	test.assign(4, 7);
-// 	test.assign(1, 2);
+// 	test.assign(7, 78);
+// 	test.assign(4, 45);
+// 	test.assign(1, 1);
 // 	std::vector<int>::iterator it = test.begin();
 // 	std::cout << *it << std::endl;
+// 	std::cout << "size : " << test.size() << std::endl;
+// 	std::cout << "capacity : " << test.capacity() << std::endl;
+// 	std::cout << "max_size : " << test.max_size() << std::endl;
+// 	std::cout << "front = " << test.front() << std::endl;
+// 	std::cout << "back = " << test.back() << std::endl;
+// 	std::cout << "data = " << test.data() << std::endl;
+// 	test.reserve(12);
+// 	std::cout << "new capacity = " << test.capacity() << std::endl;
 
 // 	return (0);
 // }
+
+
+
+
+
+
+
+
 
 
 
@@ -190,13 +210,75 @@
 
 int main()
 {
-	std::string	str = "test";
-	ft::vector<std::string> test(8, str);
+	// std::string	str = "test";
+	ft::vector<int> test(8, 8);
+	ft::vector<int>	test_swap(5, 6);
+	// ft::vector<int>	test;
 	
-	test.assign(4, "change");
-	test.assign(1, "first");
-	ft::vector<int>::iterator it = test.begin();
-	std::cout << *it << std::endl;
+	test.assign(7, 78);
+	test.assign(4, 45);
+	// test.assign(1, 1);
+
+	// ft::vector<int>::iterator it = test.begin();
+	// std::cout << *it << std::endl;
+	std::cout << "size : " << test.size() << std::endl;
+	std::cout << "capacity : " << test.capacity() << std::endl;
+	std::cout << "max_size : " << test.max_size() << std::endl;
+	// test.clear();
+	if (test.empty() == true)
+		std::cout << "vector is empty" << std::endl;
+	else
+		std::cout << "vector is not empty" << std::endl;
+	std::cout << "test[2] = "<< test[2] << std::endl;		// je comprends paaaaas
+	std::cout << "test[0] = "<< test.at(0) << std::endl;
+	std::cout << "front = " << test.front() << std::endl;
+	std::cout << "back = " << test.back() << std::endl;
+	std::cout << "data = " << test.data() << std::endl;
+	test.pop_back();
+	std::cout << "size : " << test.size() << std::endl;
+	std::cout << "capacity : " << test.capacity() << std::endl;
+	test.push_back(56);
+	std::cout << "size : " << test.size() << std::endl;
+	std::cout << "capacity : " << test.capacity() << std::endl;
+	std::cout << "test[1] = "<< test[1] << std::endl;
+	std::cout << "test[2] = "<< test[2] << std::endl;
+	std::cout << "test[3] = "<< test[3] << std::endl;
+	test.push_back(6);
+	std::cout << "size : " << test.size() << std::endl;
+	std::cout << "capacity : " << test.capacity() << std::endl;
+	std::cout << "test[4] = "<< test[4] << std::endl;
+	test.pop_back();
+	std::cout << "size : " << test.size() << std::endl;
+	std::cout << "capacity : " << test.capacity() << std::endl;
+	// test.resize(2, 5);
+	// std::cout << "size : " << test.size() << std::endl;
+	// test.pop_back();
+	// std::cout << "size : " << test.size() << std::endl;
+	// std::cout << "capacity : " << test.capacity() << std::endl;
+	// test.resize(2, 5);
+	// std::cout << "size : " << test.size() << std::endl;
+	// std::cout << "test[0] = "<< test[0] << std::endl;
+	// std::cout << "test[1] = "<< test[1] << std::endl;
+	// test.resize(1, 7);
+	// std::cout << "size : " << test.size() << std::endl;
+	// std::cout << "test[0] = "<< test[0] << std::endl;
+	test.reserve(12);
+	std::cout << "new capacity = " << test.capacity() << std::endl;
+	std::cout << "size : " << test.size() << std::endl;
+
+	// test.swap(test_swap);
+	// std::cout << test.get_allocator() << std::endl;
+
+	// if (test < test_swap)
+	// 	std::cout << "test < test_swap" << std::endl;
+	// else
+	// 	std::cout << "test > test_swap" << std::endl;
+
+	std::cout << std::endl;
 
 	return (0);
 }
+
+
+// ITERATOR INVALIDATED ? 
+

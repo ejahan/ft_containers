@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexicographical_compare.hpp                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:03:08 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/21 18:15:12 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/27 18:13:50 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	equal(InputIt1 first1, InputIt1 last1,
 	}
 	return (true);
 };
-
+		
 }
 
 #endif

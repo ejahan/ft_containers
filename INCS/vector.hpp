@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 01:18:42 by elisa            ###   ########.fr       */
+/*   Updated: 2022/09/27 19:09:38 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <algorithm>
 # include <memory>
 # include <cstddef>
+#include <stdexcept>
 
 namespace ft {
 
@@ -127,14 +128,14 @@ namespace ft {
 
 			~vector()
 			{
-				size_type	n = 0;
-				while (n < this->_size)
-				{
-					std::cout << this->_p[n] << std::endl;
-					n++;
-				}
-				std::cout << "size = " << this->_size << std::endl;
-				std::cout << "capacity = " << this->_capacity << std::endl;
+				// size_type	n = 0;
+				// while (n < this->_size)
+				// {
+				// 	std::cout << this->_p[n] << std::endl;
+				// 	n++;
+				// }
+				// std::cout << "size = " << this->_size << std::endl;
+				// std::cout << "capacity = " << this->_capacity << std::endl;
 				this->clear();
 				this->_allocator.deallocate(this->_p, this->_capacity);
 				std::cout << "destructor" << std::endl;
@@ -161,8 +162,8 @@ namespace ft {
 
 			void	assign(size_type n, const T& val)
 			{
-				if (n > this->_size)
-					this->_size = n;
+				this->clear();
+				this->_size = n;
 				while (n > 0)
 				{
 					this->_allocator.construct(&(this->_p[n - 1]), val);
@@ -189,8 +190,10 @@ namespace ft {
 			iterator				begin()
 			{
 				// return ((this->_p));
-				iterator	test(_p);
-				return (test);
+				// random_access_iterator<T>	test(_p);
+				// iterator	test(this->_p);
+				// return (test);
+				return (this->_p[0]);
 			};
 
 			// iterator begin() { return iterator(_p); };
@@ -244,107 +247,124 @@ namespace ft {
 
 
 	// 		// CAPACITY
-	// 		size_type	size() const
-	// 		{
-	// 			return (this->_size);
-	// 		};
+			size_type	size() const
+			{
+				return (this->_size);
+			};
 
-	// 		size_type	max_size() const
-	// 		{
-	// 			return (this->_allocator.max_size());
-	// 		};
+			size_type	max_size() const
+			{
+				return (this->_allocator.max_size());
+			};
 
-	// 		size_type	capacity() const
-	// 		{
-	// 			return (this->_capacity);
-	// 		};
+			size_type	capacity() const
+			{
+				return (this->_capacity);
+			};
 
-	// 		bool		empty() const
-	// 		{
-	// 			if (this->_size <= 0)
-	// 				return true;
-	// 			else
-	// 				return false;
-	// 		};
+			bool		empty() const
+			{
+				if (this->_size <= 0)
+					return true;
+				else
+					return false;
+			};
 
-	// 		void		reserve(size_type n)
-	// 		{
-	// 			//	pas trop trop compris je crois
-	// 		};
+			void		reserve(size_type n)
+			{
+				if (this->_capacity < n)
+				{
+					T	*tmp;
+					tmp = this->_allocator.allocate(n);
+					size_type	i = 0;
+					while(i < this->_size)
+					{
+						this->_allocator.construct(&tmp[i], this->_p[i]);
+						i++;
+					}
+					size_type	size_tmp = this->_size;
+					clear();
+					this->_size = size_tmp;
+					this->_allocator.deallocate(this->_p, this->_capacity);
+					this->_p = tmp;
+					this->_capacity = n;
+				}
+			};
 
 
 	// 		// ELEMENT ACCESS
-	// 		reference		operator[](size_type n)
-	// 		{
-	// 			return (this->_p[n]);
-	// 		};
+			reference		operator[](size_type n)
+			{
+				return (this->_p[n]);
+			};
 
-	// 		const_reference	operator[](size_type n) const
-	// 		{
-	// 			return (this->_p[n]);
-	// 		};
+			const_reference	operator[](size_type n) const
+			{
+				return (this->_p[n]);
+			};
 
-	// 		reference		at(size_type n)
-	// 		{
-	// 			if (this->_size - 1 < n)
-	// 				throw std::out_of_range();
-	// 			return (this->_p[n]);
-	// 		};
+			reference		at(size_type n)
+			{
+				if (this->_size - 1 < n)
+					throw std::out_of_range("ERROR : out_of_range exception");
+				return (this->_p[n]);
+			};
 
-	// 		const_reference	at(size_type n) const
-	// 		{
-	// 			if (this->_size - 1 < n)
-	// 				throw std::out_of_range();
-	// 			return (this->_p[n]);
-	// 		};
+			const_reference	at(size_type n) const
+			{
+				if (this->_size - 1 < n)
+					throw std::out_of_range("ERROR : out_of_range exception");
+				return (this->_p[n]);
+			};
 
-	// 		reference		front()
-	// 		{
-	// 			return (this->_p[0]);	//	*this->_p.begin()	?
-	// 		};
+			reference		front()
+			{
+				return (this->_p[0]);	//	*this->_p.begin()	?
+			};
 
-	// 		const_reference	front() const
-	// 		{
-	// 			return (this->_p[0]);	//	*this->_p.begin()	?
-	// 		};
+			const_reference	front() const
+			{
+				return (this->_p[0]);	//	*this->_p.begin()	?
+			};
 
 			reference		back()
 			{
-				//	return le dernier element
-				// return (this->end());
-				return (*(this->_p + this->_size));
+				return (this->_p[this->_size - 1]);
 			};
 
-	// 		const_reference	back() const
-	// 		{
-	// 			//	return le dernier element
-	// 			return (*this->_p.end());
-	// 		};
+			const_reference	back() const
+			{
+				// return (*this->_p.end());
+				return (this->_p[this->_size - 1]);
+			};
 
-	// 		pointer			data()
-	// 		{
-	// 			return (&this->_p[0]);
-	// 		};
+			pointer			data()
+			{
+				return (&this->_p[0]);
+			};
 
-	// 		const pointer	data() const
-	// 		{
-	// 			return (&this->_p[0]);
-	// 		};
+			const pointer	data() const
+			{
+				return (&this->_p[0]);
+			};
 
 
 	// 		// MODIFIERS
-	// 		void		resize(size_type n, T val = T())
-	// 		{
-	// 			//	resize le container a n elements
-	// 			//	si n est plus petit que size -> garde que les n premiers elements
-	// 			//	si plus grand -> ajoute n - size val
-	// 		};
+			void		resize(size_type n, T val = T())
+			{
+				if (this->_size > n)
+					while (this->_size > n)
+						this->pop_back();
+				else if (this->_size < n) // capacity ?
+					while (this->_size < n)
+						push_back(val);
+			};
 
-	// 		void		push_back(const T& val)
-	// 		{
-	// 			//	ajoute T a la fin
-	// 			this->_size++;
-	// 		};
+			void		push_back(const T& val)
+			{
+				this->_allocator.construct(&(this->_p[this->_size]), val);
+				this->_size++;
+			};
 
 			void		pop_back()	//	manque pleins de trucs mais dans l idee c est peut etre ca 
 			{
@@ -368,109 +388,106 @@ namespace ft {
 	// 			//	tout pareil
 	// 		};
 
-	// 		iterator	erase(iterator position)	//	pas fini du tout
-	// 		{
-	// 			Allocator.destroy(this->_p[position - 1]);
-	// 			while (position <= end)
-	// 			{
-	// 				this->_p[position - 1] = this->_p[position];
-	// 				position++;
-	// 			}
-	// 			// Allocator.destroy(this->back());
-	// 			this->_size--;			
-	// 		};
+			iterator	erase(iterator position)	//	pas fini du tout
+			{
+				// Allocator.destroy(this->_p[position - 1]);
+				while (position < this->end())
+				{
+					this->_p[position] = this->_p[position + 1];
+					position++;
+				}
+				this->_allocator.destroy(&this->back());
+				this->_size--;			
+			};
 
-	// 		iterator	erase(iterator first, iterator last)	//	pas fini du tout
-	// 		{
-	// 			while (first <= last)
-	// 			{
-	// 				Allocator.destroy(this->_p[first]);
-	// 				this->_p[first] = this->_p[first + 1];
-	// 				first++;
-	// 				this->_size--;
-	// 			}
-	// 		};
+			// iterator	erase(iterator first, iterator last)	//	pas fini du tout
+			// {
+			// 	while (first < last)
+			// 	{
+			// 		this->_p[first] = this->_p[first + 1];
+			// 		first++;
+			// 		this->_size--;
+			// 		this->_allocator.destroy(first - 1);
+			// 	}
+			// };
 
-	// 		void		swap(vector<T, Allocator>& x)
-	// 		{
-	// 			std::swap(this->_p, x.p);
-	// 			std::swap(this->_allocator, x._allocator);
-	// 			std::swap(this->_size, x._size);
-	// 			std::swap(this->_capacity, x.capacity);
-	// 		};
+			void		swap(vector<T, Allocator>& x)
+			{
+				std::swap(this->_p, x._p);
+				std::swap(this->_allocator, x._allocator);
+				std::swap(this->_size, x._size);
+				std::swap(this->_capacity, x._capacity);
+			};
 
 			void		clear()
 			{
 				while (this->_size > 0)
-				{
 					this->pop_back();
-					this->_size--;
-				}
 			};
 
-	// 		allocator_type get_allocator() const
-	// 		{
-	// 			return (this->_allocator);
-	// 		};
+			allocator_type get_allocator() const
+			{
+				return (this->_allocator);
+			};
 
 	};
 
 	// 	// OPERATORS
-	// 	template< class T, class Alloc >
-	// 	void swap( ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		lhs.swap(rhs);
-	// 	};
+		// template< class T, class Alloc >
+		// void swap( ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs )
+		// {
+		// 	lhs.swap(rhs);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (equal(lhs.front(), lhs.back(), rhs.front()) == true)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (equal(lhs.front(), lhs.back(), rhs.front()) == true)
+		// 		return (true);
+		// 	return (false);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator!=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (equal(lhs.front(), lhs.back(), rhs.front()) == false)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator!=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (equal(lhs.front(), lhs.back(), rhs.front()) == false)
+		// 		return (true);
+		// 	return (false);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator<( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator<( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true)
+		// 		return (true);
+		// 	return (false);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator<=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true
-	// 				|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator<=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == true
+		// 			|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+		// 		return (true);
+		// 	return (false);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator>( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator>( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false)
+		// 		return (true);
+		// 	return (false);
+		// };
 
-	// 	template< class T, class Alloc >
-	// 	bool	operator>=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
-	// 	{
-	// 		if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false
-	// 				|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
-	// 			return (true);
-	// 		return (false);
-	// 	};
+		// template< class T, class Alloc >
+		// bool	operator>=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
+		// {
+		// 	if (lexicographical_compare(lhs.front(), lhs.back(), rhs.front(), rhs.back()) == false
+		// 			|| equal(lhs.front(), lhs.back(), rhs.front()) == true)
+		// 		return (true);
+		// 	return (false);
+		// };
 
 }
 
