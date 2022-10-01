@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   iterator_traits.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:05:50 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 01:14:30 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/01 20:11:26 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_TRAITS_HPP
 # define ITERATOR_TRAITS_HPP
 
-#include <iostream>
+// #include <iostream>
 
 namespace	ft {
 	
@@ -25,15 +25,6 @@ namespace	ft {
 	struct bidirectional_iterator_tag: public forward_iterator_tag {};
 	struct random_access_iterator_tag: public bidirectional_iterator_tag {};
 
-	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
-	struct iterator
-	{
-			typedef T			value_type;
-			typedef Distance	difference_type;
-			typedef Pointer		pointer;
-			typedef Reference	reference;
-			typedef Category	iterator_category;
-	};
 
 // */
 
@@ -66,6 +57,19 @@ namespace	ft {
 		typedef	const T		&reference;
 		typedef	ft::random_access_iterator_tag	iterator_category;
 	};
+
+// /*WALTER
+
+	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
+	struct iterator
+	{
+			typedef T			value_type;
+			typedef Distance	difference_type;
+			typedef Pointer		pointer;
+			typedef Reference	reference;
+			typedef Category	iterator_category;
+	};
+// */
 
 }
 

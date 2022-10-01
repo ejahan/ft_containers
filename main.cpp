@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 19:08:59 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/01 19:59:37 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@
 // {
 // 	std::string	test_str = "test";
 // 	std::vector<int> test(8, 8);
-	
+// 	std::vector<int>	test_swap(5, 6);
+
 // 	test.assign(7, 78);
 // 	test.assign(4, 45);
 // 	test.assign(1, 1);
@@ -184,6 +185,10 @@
 // 	std::cout << "data = " << test.data() << std::endl;
 // 	test.reserve(12);
 // 	std::cout << "new capacity = " << test.capacity() << std::endl;
+// 	if (test == test_swap)
+// 		std::cout << "test == test_swap" << std::endl;
+// 	else
+// 		std::cout << "test != test_swap" << std::endl;
 
 // 	return (0);
 // }
@@ -210,13 +215,13 @@
 
 int main()
 {
-	// std::string	str = "test";
-	ft::vector<int> test(8, 8);
-	ft::vector<int>	test_swap(5, 6);
+	std::string	str = "test";
+	ft::vector<std::string> test(8, str);
+	ft::vector<std::string>	test_swap(5, str);
 	// ft::vector<int>	test;
 	
-	test.assign(7, 78);
-	test.assign(4, 45);
+	test.assign(7, "78");
+	test.assign(4, "45");
 	// test.assign(1, 1);
 
 	// ft::vector<int>::iterator it = test.begin();
@@ -237,13 +242,13 @@ int main()
 	test.pop_back();
 	std::cout << "size : " << test.size() << std::endl;
 	std::cout << "capacity : " << test.capacity() << std::endl;
-	test.push_back(56);
+	test.push_back("56");
 	std::cout << "size : " << test.size() << std::endl;
 	std::cout << "capacity : " << test.capacity() << std::endl;
 	std::cout << "test[1] = "<< test[1] << std::endl;
 	std::cout << "test[2] = "<< test[2] << std::endl;
 	std::cout << "test[3] = "<< test[3] << std::endl;
-	test.push_back(6);
+	test.push_back("6");
 	std::cout << "size : " << test.size() << std::endl;
 	std::cout << "capacity : " << test.capacity() << std::endl;
 	std::cout << "test[4] = "<< test[4] << std::endl;
@@ -269,10 +274,10 @@ int main()
 	// test.swap(test_swap);
 	// std::cout << test.get_allocator() << std::endl;
 
-	// if (test < test_swap)
-	// 	std::cout << "test < test_swap" << std::endl;
-	// else
-	// 	std::cout << "test > test_swap" << std::endl;
+	if (test == test_swap)
+		std::cout << "test == test_swap" << std::endl;
+	else
+		std::cout << "test != test_swap" << std::endl;
 
 	std::cout << std::endl;
 

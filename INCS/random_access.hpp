@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 01:15:35 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/01 20:09:10 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ namespace	ft {
 			typedef	typename	ft::iterator_traits<Iter>::pointer				pointer;
 			typedef	typename	ft::iterator_traits<Iter>::reference			reference;
 
-// /*		WALTER
-			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::value_type		value_type;
-			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::iterator_category	iterator_type;
-			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::difference_type	difference_type;
-			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::reference			reference;
-			// typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>:: pointer			pointer;
-// */
+/*		WALTER
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::iterator_category	iterator_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>:: pointer			pointer;
+*/
 			random_access_iterator() : _current(0) {};
 
 			explicit	random_access_iterator(iterator_type x) : _current(x) {};

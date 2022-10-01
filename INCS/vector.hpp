@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 19:09:38 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/01 20:14:02 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ namespace ft {
 			typedef ft::random_access_iterator<T> iterator;
 			typedef ft::random_access_iterator<const T> const_iterator;
 			typedef size_t size_type;
-			// typedef implementation defined difference_type;
+			typedef std::ptrdiff_t							difference_type;
 			typedef T value_type;
 			typedef Allocator allocator_type;
 			typedef typename Allocator::pointer pointer;	//	= T*
@@ -204,15 +204,15 @@ namespace ft {
 			// 	return (const_iterator(this->_p));
 			// };
 
-			// iterator				end()
-			// {
-			// 	// iterator	it = begin();
+			iterator				end()
+			{
+				// iterator	it = begin();
 
-			// 	// while (it != NULL)
-			// 	// 	it++;
-			// 	// return (it);
-			// 	return (iterator(this->_p + this->_size));
-			// };
+				// while (it != NULL)
+				// 	it++;
+				// return (it);
+				return (iterator(this->_p + this->_size));
+			};
 
 			// const_iterator			end() const
 			// {
@@ -433,16 +433,16 @@ namespace ft {
 	};
 
 	// 	// OPERATORS
-		// template< class T, class Alloc >
-		// void swap( ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs )
-		// {
-		// 	lhs.swap(rhs);
-		// };
+		template< class T, class Alloc >
+		void swap( ft::vector<T,Alloc> &lhs, ft::vector<T,Alloc> &rhs )
+		{
+			lhs.swap(rhs);
+		};
 
 		// template< class T, class Alloc >
 		// bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
 		// {
-		// 	if (equal(lhs.front(), lhs.back(), rhs.front()) == true)
+		// 	if (ft::equal(lhs.front(), lhs.back(), rhs.front()) == true)
 		// 		return (true);
 		// 	return (false);
 		// };
@@ -450,7 +450,7 @@ namespace ft {
 		// template< class T, class Alloc >
 		// bool	operator!=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		// {
-		// 	if (equal(lhs.front(), lhs.back(), rhs.front()) == false)
+		// 	if (ft::equal(lhs.front(), lhs.back(), rhs.front()) == false)
 		// 		return (true);
 		// 	return (false);
 		// };
