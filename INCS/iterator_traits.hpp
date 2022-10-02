@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:05:50 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/01 20:11:26 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/02 18:28:57 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,12 @@
 // #include <iostream>
 
 namespace	ft {
-	
-// /*	WALTER
 
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
 	struct forward_iterator_tag: public input_iterator_tag {};
 	struct bidirectional_iterator_tag: public forward_iterator_tag {};
 	struct random_access_iterator_tag: public bidirectional_iterator_tag {};
-
-
-// */
 
 	template <class Iterator>
 	struct	iterator_traits
@@ -35,7 +30,7 @@ namespace	ft {
 		typedef typename Iterator::value_type value_type;
 		typedef typename Iterator::pointer pointer;
 		typedef typename Iterator::reference reference;
-		typedef typename Iterator::iterator iterator_category; // jsp quoi  mettre
+		typedef typename Iterator::iterator_type iterator_category; // jsp quoi  mettre
 	};
 
 	template <class T>

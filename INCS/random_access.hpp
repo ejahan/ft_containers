@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/01 20:09:10 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/02 18:46:42 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,31 @@
 namespace	ft {
 
 	template<class Iter>
-	class	random_access_iterator /*: public
-		Iter<typename iterator_traits<Iter>::iter_category,
-		typename iter_traits<Iter>::value_type,
-		typename iter_traits<Iter>::difference_type,
-		typename iter_traits<Iter>::pointer,
-		typename iter_traits<Iter>::reference>*/ 	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
+	class	random_access_iterator
 	{
 
 		protected:
 
-			Iter _current;
+			typename	ft::iterator<ft::random_access_iterator_tag, Iter>::pointer _current;
 
 		public:
 
-			// typedef	Iter	iterator_type;
-
-			typedef	typename	ft::iterator_traits<Iter>::iterator_category	iterator_type;
-			typedef	typename	ft::iterator_traits<Iter>::value_type			value_type;
-			typedef	typename	ft::iterator_traits<Iter>::difference_type		difference_type;
-			typedef	typename	ft::iterator_traits<Iter>::pointer				pointer;
-			typedef	typename	ft::iterator_traits<Iter>::reference			reference;
-
-/*		WALTER
 			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::value_type		value_type;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::iterator_category	iterator_type;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::difference_type	difference_type;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>::reference			reference;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, Iter>:: pointer			pointer;
-*/
+
 			random_access_iterator() : _current(0) {};
 
-			explicit	random_access_iterator(iterator_type x) : _current(x) {};
+			explicit	random_access_iterator(pointer x) : _current(x) {};
 
 			template< class U >
-			random_access_iterator(const random_access_iterator<U>& other) : _current(other.base()) {};
-
+			random_access_iterator(const random_access_iterator<U>& other)
+			{
+				this->_current = other.base();
+			};
+	
 			template< class U >
 			random_access_iterator	&operator=(const random_access_iterator<U>& other)
 			{
@@ -61,14 +50,14 @@ namespace	ft {
 				return (*this);
 			};
 
-			iterator_type base() const
+			pointer base() const
 			{
 				return (this->_current);
 			};
 
 			reference operator*() const
 			{
-				Iter tmp = this->_current;
+				pointer tmp = this->_current;
 				return (*++tmp);
 			};
 
