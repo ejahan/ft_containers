@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/02 20:03:50 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/04 01:05:17 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace ft {
 	template < class T, class Allocator = std::allocator<T> > 
 	class	vector {
 
-		private:	//	protected? (stack)
+		protected:	// ->stack
 
 			Allocator	_allocator;
 			T		*_p;
@@ -79,7 +79,7 @@ namespace ft {
 				this->_capacity = n;
 				while (n > 0)
 				{
-					this->_allocator.construct(&(this->_p[n - 1]), val);
+					this->_allocator.construct(&(this->_p[n]), val);
 					n--;
 				}
 			};
@@ -111,8 +111,8 @@ namespace ft {
 			{
 				size_type	i = 0;
 				this->_allocator = x.get_allocator();
-				this->_p = this->_alloc.allocate(x._capacity);
-				while (i < x._size)
+				this->_p = this->_allocator.allocate(x._capacity);
+				while (i <= x._size)
 				{
 					_allocator.construct(&(this->_p[i]), x._p[i]);
 					i++;
@@ -133,7 +133,6 @@ namespace ft {
 				// std::cout << "capacity = " << this->_capacity << std::endl;
 				this->clear();
 				this->_allocator.deallocate(this->_p, this->_capacity);
-				std::cout << "destructor" << std::endl;
 			};
 
 	// 		template <class InputIterator>
@@ -210,29 +209,32 @@ namespace ft {
 
 			reverse_iterator		rbegin()
 			{
-				reverse_iterator	it = end();
-				it++;
+				// reverse_iterator	it = end();
+				reverse_iterator	it(end());
 				return (it);
 			};
 
 			const_reverse_iterator	rbegin() const
 			{
-				const_reverse_iterator	it = end();
-				it++;
+				// const_reverse_iterator	it = end();
+				const_reverse_iterator	it(end());
 				return (it);
 			};
 
 			reverse_iterator		rend()
 			{
-				reverse_iterator	it = begin();
+				// reverse_iterator	it = begin();
+				reverse_iterator	it(begin());
 				return (it);
 			};
 
 			const_reverse_iterator	rend() const
 			{
-				const_reverse_iterator	it = begin();
+				// const_reverse_iterator	it = begin();
+				const_reverse_iterator	it(begin());
 				return (it);
 			};
+
 
 //			____________________________________________________________________________________
 // 			CAPACITY
@@ -286,26 +288,28 @@ namespace ft {
 
 			reference		operator[](size_type n)
 			{
-				return (this->_p[n]);
+				// return (this->_p[n]);
+				return (*(this->begin() + n));
 			};
 
 			const_reference	operator[](size_type n) const
 			{
-				return (this->_p[n]);
+				// return (this->_p[n]);
+				return (*(this->begin() + n));
 			};
 
 			reference		at(size_type n)
 			{
 				if (this->_size - 1 < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
-				return (this->_p[n]);
+				return (*(this->begin() + n));
 			};
 
 			const_reference	at(size_type n) const
 			{
 				if (this->_size - 1 < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
-				return (this->_p[n]);
+				return (*(this->begin() + n));
 			};
 
 			reference		front()
@@ -320,17 +324,18 @@ namespace ft {
 
 			reference		back()
 			{
-				iterator	it(this->_p + this->_size);
-				--it;
-				return (*it);
-				// return (*--this->end());
+				// iterator	it(this->_p + this->_size);
+				// --it;
+				// return (*it);
+				return (*--this->end());
 			};
 
 			const_reference	back() const
 			{
-				const_iterator	it(this->_p + this->_size);
-				--it;
-				return (*it);
+				// const_iterator	it(this->_p + this->_size);
+				// --it;
+				// return (*it);
+				return (*--this->end());
 			};
 
 			pointer			data()
@@ -461,7 +466,8 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator<( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true)
+			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
+					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false)
 				return (true);
 			return (false);
 		};
@@ -470,7 +476,7 @@ namespace ft {
 		bool	operator<=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
 			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
-					|| ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
+					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
 				return (true);
 			return (false);
 		};
@@ -478,7 +484,8 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator>( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false)
+			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
+					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false)
 				return (true);
 			return (false);
 		};
@@ -487,7 +494,7 @@ namespace ft {
 		bool	operator>=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
 			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
-					|| ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
+					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
 				return (true);
 			return (false);
 		};

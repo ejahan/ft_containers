@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/27 01:03:41 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/03 18:54:52 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,12 @@
 
 namespace	ft {
 
-/*
-std::iterator<
-  std::iterator_traits<Iter>::iterator_category
-, std::iterator_traits<Iter>::value_type
-, std::iterator_traits<Iter>::difference_type
-, std::iterator_traits<Iter>::pointer
-, std::iterator_traits<Iter>::reference
->
-j ai pas compris a quoi ca servait
-*/
-
 	template<class Iter>
-	class	reverse_iterator /*: public
-		iterator<typename iterator_traits<Iter>::iterator_category,
+	class	reverse_iterator  : public	iterator<typename iterator_traits<Iter>::iterator_category,
 		typename iterator_traits<Iter>::value_type,
 		typename iterator_traits<Iter>::difference_type,
 		typename iterator_traits<Iter>::pointer,
-		typename iterator_traits<Iter>::reference>*/	//	jsp trop si je dois le mettre c est pareil qu en dessous je crois
+		typename iterator_traits<Iter>::reference> 
 	{
 
 		protected:
@@ -44,19 +32,11 @@ j ai pas compris a quoi ca servait
 
 		public:
 
-			typedef	Iter	iterator_type;
-			typedef	typename	ft::iterator_traits<Iter>::iterator_category	iterator_category;
-			typedef	typename	ft::iterator_traits<Iter>::value_type	value_type;
+			typedef	Iter													iterator_type;
 			typedef	typename	ft::iterator_traits<Iter>::difference_type	difference_type;
-			typedef	typename	ft::iterator_traits<Iter>::pointer	pointer;
-			typedef	typename	ft::iterator_traits<Iter>::reference	reference;
+			typedef	typename	ft::iterator_traits<Iter>::reference		reference;
+			typedef	typename	ft::iterator_traits<Iter>::pointer			pointer;
 
-/*		WALTER
-			typedef Iter	iterator_type;
-			typedef typename ft::iterator_traits<Iter>::difference_type		difference_type;
-			typedef typename ft::iterator_traits<Iter>::reference			reference;
-			typedef typename ft::iterator_traits<Iter>::pointer				pointer;
-*/
 
 			reverse_iterator() : _current(0) {};
 
