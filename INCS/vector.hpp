@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/04 01:05:17 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/08 04:06:29 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 #include "random_access.hpp"
 #include "iterator_traits.hpp"
 #include "lexicographical_compare.hpp"
-
-
-# include <algorithm>
-# include <memory>
-# include <cstddef>
-#include <stdexcept>
 
 namespace ft {
 
@@ -84,26 +78,22 @@ namespace ft {
 				}
 			};
 
+/*
+	je comprends pas pk ca compile paaaaas
+*/
 			// template <class InputIterator>
 			// vector(InputIterator first, InputIterator last, const Allocator& alloc = Allocator())
 			// {
-			// 	InputIterator	i = first;
-			// 	int	j = 0;
-
-			// 	while (first + i != last)
-			// 	{
-			// 		j++;	
-			// 		i++;
-			// 	}
+			// 	size_type	i = 0;
+			// 	difference_type	j = last - first;
 			// 	this->_allocator = alloc;
 			// 	this->_p = this->_allocator.allocate(j);
 			// 	this->_size = j;
 			// 	this->_capacity = j;
-			// 	while (j > 0)
+			// 	while ((first + i) <= last)
 			// 	{
-			// 		this->_allocator.construct(this->_p[j], first + i);
-			// 		i--;
-			// 		j--;
+			// 		this->_allocator.construct(&this->_p[i], first + i);
+			// 		i++;
 			// 	}
 			// };
 
@@ -123,14 +113,6 @@ namespace ft {
 
 			~vector()
 			{
-				// size_type	n = 0;
-				// while (n < this->_size)
-				// {
-				// 	std::cout << this->_p[n] << std::endl;
-				// 	n++;
-				// }
-				// std::cout << "size = " << this->_size << std::endl;
-				// std::cout << "capacity = " << this->_capacity << std::endl;
 				this->clear();
 				this->_allocator.deallocate(this->_p, this->_capacity);
 			};
@@ -165,19 +147,20 @@ namespace ft {
 				}
 			};
 
-	// 		vector& operator=(const vector& x) // vector<T, Allocator> ?
-	// 		{
-	// 			size_type	i = 0;
-	// 			this->_allocator = x.get_allocator();
-	// 			this->_p = this->_alloc.allocate(x._capacity);
-	// 			while (i < x._size)
-	// 			{
-	// 				_alloc.construct(this->_p[i], x._p[i]));
-	// 				i++;
-	// 			}
-	// 			this->_size = x._size;
-	// 			this->_capacity = x._capacity;
-	// 		};
+			vector<T, Allocator>	&operator=(const vector<T, Allocator> &x)
+			{
+				size_type	i = 0;
+				this->_allocator = x.get_allocator();
+				this->_p = this->_allocator.allocate(x._capacity);
+				while (i <= x._size)
+				{
+					_allocator.construct(&(this->_p[i]), x._p[i]);
+					i++;
+				}
+				this->_size = x._size;
+				this->_capacity = x._capacity;
+				return (*this);
+			};
 
 
 //			____________________________________________________________________________________
@@ -216,21 +199,18 @@ namespace ft {
 
 			const_reverse_iterator	rbegin() const
 			{
-				// const_reverse_iterator	it = end();
 				const_reverse_iterator	it(end());
 				return (it);
 			};
 
 			reverse_iterator		rend()
 			{
-				// reverse_iterator	it = begin();
 				reverse_iterator	it(begin());
 				return (it);
 			};
 
 			const_reverse_iterator	rend() const
 			{
-				// const_reverse_iterator	it = begin();
 				const_reverse_iterator	it(begin());
 				return (it);
 			};
@@ -269,7 +249,7 @@ namespace ft {
 					T	*tmp;
 					tmp = this->_allocator.allocate(n);
 					size_type	i = 0;
-					while(i < this->_size)
+					while(i <= this->_size) // juste < ?
 					{
 						this->_allocator.construct(&tmp[i], this->_p[i]);
 						i++;
@@ -282,6 +262,7 @@ namespace ft {
 					this->_capacity = n;
 				}
 			};
+
 
 //			____________________________________________________________________________________
 //			ELEMENT ACCESS
@@ -351,7 +332,7 @@ namespace ft {
 //			____________________________________________________________________________________
 //			MODIFIERS
 
-			void		resize(size_type n, T val = T())
+			void		resize(size_type n, T val = T())	//	-> PAS BON!!
 			{
 				if (this->_size > n)
 					while (this->_size > n)
@@ -363,26 +344,69 @@ namespace ft {
 
 			void		push_back(const T& val)
 			{
-				this->_allocator.construct(this->_p + this->_size, val);
+				if (this->_capacity == 0)
+					reserve(1);
+				if (this->_size >= this->_capacity)
+					reserve(this->_capacity * 2);
+				this->_allocator.construct(&(this->_p[this->_size + 1]), val);
 				this->_size++;
 				// std::cout << _p[_size - 1] << std::endl;
+						// this->_allocator.construct(&tmp[i], this->_p[i]);
 			};
 
-			void		pop_back()	//	manque pleins de trucs mais dans l idee c est peut etre ca 
+			void		pop_back() 
 			{
 				this->_allocator.destroy(&this->back());
 				this->_size--;
 			};
 
-	// 		iterator	insert(iterator position, const T& val)
-	// 		{
-	// 			//	flemme
-	// 		};
+			iterator	insert(iterator position, const T& val)
+			{
+				pointer	new_p;
+				size_t	i = 0;
+				if (_capacity == 0)
+					_capacity = 1;
+				else if (_capacity == _size)
+					_capacity = _capacity * 2;
+				new_p = this->_allocator.allocate(this->_capacity);
 
-	// 		void		insert(iterator position, size_type n, const T& val)
-	// 		{
-	// 			//	flemme aussi
-	// 		};
+
+				for(; begin() + i <= position ; i++)
+					this->_allocator.construct(&new_p[i], this->_p[i]);
+
+				// while((begin() + i) <= position)
+				// {
+				// 	this->_allocator.construct(&new_p[i], this->_p[i]);
+				// 	i++;
+				// }
+				this->_allocator.construct(&new_p[i], val);
+				_size++;
+				for(; i <= _size ; i++)
+					this->_allocator.construct(&new_p[i + 1], this->_p[i]);
+				// while(i <= _size)
+				// {
+				// 	this->_allocator.construct(&new_p[i + 1], this->_p[i]);
+				// 	i++;
+				// }
+				clear();
+				this->_allocator.deallocate(this->_p, this->_capacity);
+				_size = i - 1;
+				_p = new_p;
+				return (position);
+			};
+
+			void		insert(iterator position, size_type n, const T& val)
+			{
+				size_t	i = position - begin();
+				if (_capacity == 0)
+					reserve(n);
+				else if (_capacity <= _size + n)
+					reserve(_capacity * 2);
+				if (_capacity < _size + n)
+					reserve(_size + n);
+				while (n-- > 0)
+					insert(begin() + i, val);
+			};
 
 	// 		template <class InputIterator>
 	// 		void		insert(iterator position, InputIterator first, InputIterator last)
@@ -390,28 +414,33 @@ namespace ft {
 	// 			//	tout pareil
 	// 		};
 
-			iterator	erase(iterator position)	//	pas fini du tout
+			iterator	erase(iterator position)
 			{
 				// Allocator.destroy(this->_p[position - 1]);
-				while (position < this->end())
+				size_type	i = position - begin();
+				i++;
+				while (i < _size)
 				{
-					this->_p[position] = this->_p[position + 1];
-					position++;
+					_p[i] = _p[i + 1];
+					i++;
 				}
 				this->_allocator.destroy(&this->back());
-				this->_size--;			
+				this->_size--;	
+				return (position);
 			};
 
-			// iterator	erase(iterator first, iterator last)	//	pas fini du tout
-			// {
-			// 	while (first < last)
-			// 	{
-			// 		this->_p[first] = this->_p[first + 1];
-			// 		first++;
-			// 		this->_size--;
-			// 		this->_allocator.destroy(first - 1);
-			// 	}
-			// };
+			iterator	erase(iterator first, iterator last)
+			{
+				iterator	ret = first;
+
+				while (first != last)
+				{
+					erase(first);
+					--last;
+				}
+				return (ret);
+
+			};
 
 			void		swap(vector<T, Allocator>& x)
 			{

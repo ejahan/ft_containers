@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/02 18:46:42 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/06 01:28:59 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ namespace	ft {
 				return &(operator*());	//	??
 			};
 
-			Iter	operator[]( difference_type n ) const   // a changer
+			reference	operator[]( difference_type n ) const   // a changer
 			{
-				return (this->_current[-n-1]);	//	== base()[-n-1]
+				return *(this->base() + n + 1);	//	je comprends pas pk +1 ??
+				// *(this->begin() + n)
 			};
 
 			random_access_iterator& operator++()
@@ -100,6 +101,9 @@ namespace	ft {
 			random_access_iterator operator+( difference_type n ) const
 			{
 				return (random_access_iterator(this->_current + n));
+				// random_access_iterator	i(*this);
+				// i = i + n;
+				// return (i);
 			};
 
 			random_access_iterator& operator+=( difference_type n )
@@ -111,6 +115,9 @@ namespace	ft {
 			random_access_iterator operator-( difference_type n ) const
 			{
 				return (random_access_iterator(this->_current - n));
+				// random_access_iterator	i(*this);
+				// i = i - n;
+				// return (i);
 			};
 
 			random_access_iterator& operator-=( difference_type n )
@@ -169,6 +176,12 @@ namespace	ft {
 		operator-(const random_access_iterator<Iterator>& lhs, const random_access_iterator<Iterator>& rhs)
 	{
 		return (lhs.base() - rhs.base());
+	};
+
+// WALTER
+	template <class T1, class T2>
+	typename random_access_iterator<T1>::difference_type operator-(const random_access_iterator<T1>& x, const random_access_iterator<T2>& y) {
+		return x.base() - y.base();
 	};
 
 }

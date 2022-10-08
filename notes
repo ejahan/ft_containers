@@ -192,3 +192,23 @@ MEMBER TYPE				DEFINITION										NOTES
 
 
 
+
+
+
+
+
+
+				// size_type	n = 0;
+				// while (n < this->_size)
+				// {
+				// 	std::cout << this->_p[n] << std::endl;
+				// 	n++;
+				// }
+				// std::cout << "size = " << this->_size << std::endl;
+				// std::cout << "capacity = " << this->_capacity << std::endl;
+
+
+
+
+
+	std::cout << "capacity: " << isCapacityOk << " -> " << capacity << std::endl;
