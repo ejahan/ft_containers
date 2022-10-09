@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/09 02:43:22 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/10 00:38:32 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,11 +400,21 @@ namespace ft {
 					insert(begin() + i, val);
 			};
 
-	// 		template <class InputIterator>
-	// 		void		insert(iterator position, InputIterator first, InputIterator last)
-	// 		{
-	// 			//	tout pareil
-	// 		};
+			// template <class InputIterator>
+			// void		insert(iterator position, InputIterator first, InputIterator last)
+			// {
+			// 	if (_capacity == 0)
+			// 		reserve(n);
+			// 	else if (_capacity <= _size + n)
+			// 		reserve(_capacity * 2);
+			// 	if (_capacity < _size + n)
+			// 		reserve(_size + n);
+			// 	while (first != last)
+			// 	{
+			// 		insert(first, val);
+			// 		--last;
+			// 	}
+			// };
 
 			iterator	erase(iterator position)
 			{

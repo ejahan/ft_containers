@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/09 03:01:14 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/10 00:43:24 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ namespace ft {
 		private:
 
 			Allocator			_allocator;
-			pair<const Key, T>	*_p;
+			Compare				_cmp;
+			pair<const Key, T>	*_p;	//	first -> Key, second -> T
 			size_t				_size;
 
 		public:
@@ -56,7 +57,7 @@ namespace ft {
 			typedef ft::reverse_iterator<const_iterator> 	const_reverse_iterator;
 
 
-			class value_compare : public binary_function<value_type,value_type,bool>
+			class value_compare : public binary_function< value_type, value_type,bool >
 			{
 				friend class map;
 				protected:
@@ -75,25 +76,40 @@ namespace ft {
 			*/
 
 
-			// map();
-			// explicit map( const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
-			// {
-			// };
+			map()
+			{
+				_cmp = Compare();
+				_allocator = Allocator();
+				_p = _allocator.allocate(0);
+				_size = 0;
+			};
+
+			explicit map( const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
+			{
+				_cmp = comp;
+				_allocator = alloc;
+				_p = _allocator.allocate(0);
+				_size = 0;
+			};
 
 			// template< class InputIterator >
 			// map( InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
 			// {
 			// };
 
-			// map( const map<Key, T, Compare, Allocator>	&other )	//	map<Key, T, Compare, Allocator> ?
+			// map( const map<Key, T, Compare, Allocator>	&other )
 			// {	
 			// };
 
-			// ~map()
-			// {
-			// };
+			~map()
+			{
+				size_t	size = _size;
 
-			// map<Key, T, Compare, Allocator> & operator=(map<Key, T, Compare, Allocator> const & rhs)	//	map<Key, T, Compare, Allocator> ?
+				clear();
+				_allocator.deallocate(_p, _size);
+			};
+
+			// map<Key, T, Compare, Allocator> & operator=(map<Key, T, Compare, Allocator> const & rhs)
 			// {
 			// };
 
@@ -169,12 +185,37 @@ namespace ft {
 
 
 			// 	ELEMENT ACCESS
-			// mapped_type&		operator[](const key_type& k);
-			// mapped_type&		at(const key_type& k);
-			// const mapped_type&	at(const key_type& k) const;
+
+
+			const_reference	at(size_type n) const
+			{
+				if (this->_size - 1 < n)
+					throw std::out_of_range("ERROR : out_of_range exception");
+				return (*(this->begin() + n));
+			};
+
+			// mapped_type&		operator[](const key_type& k)
+			// {
+			// 	return (*(this->begin() + k));
+			// };
+
+			// mapped_type&		at(const key_type& k)
+			// {
+			// 	if (this->_size - 1 < k)
+			// 		throw std::out_of_range("ERROR : out_of_range exception");
+			// 	return (*(this->begin() + k));
+			// };
+
+			// const mapped_type&	at(const key_type& k) const
+			// {
+			// 	if (this->_size - 1 < k)
+			// 		throw std::out_of_range("ERROR : out_of_range exception");
+			// 	return (*(this->begin() + k));
+			// };
 
 
 			// 	MODIFIERS
+
 			// pair<iterator,bool> insert (const value_type& val);
 			// iterator			insert (iterator position, const value_type& val);
 			
@@ -184,20 +225,39 @@ namespace ft {
 			// void			erase(iterator position);
 			// size_type		erase(const key_type& k);
 			// void			erase(iterator first, iterator last);
-			// void			swap(map& x);
-			// void			clear();
+
+			void			swap(map& x)
+			{
+				std::swap(this->_p, x._p);
+				std::swap(this->_allocator, x._allocator);
+				std::swap(this->_size, x._size);
+				std::swap(this->_cmp, x._cmp);
+			};
+
+			void			clear()
+			{
+				while (_size > 0)
+					erase(begin());
+			};
 
 
 			// 	OBSERVERS
+
 			// key_compare		key_comp() const;
+
 			// value_compare	value_comp() const;
+
 			// iterator		find(const key_type &k);
 			// const_iterator	find(const key_type &k) const;
+
 			// size_type		count(const key_type &k) const;
+
 			// iterator		lower_bound(const key_type &k);
 			// const_iterator	lower_bound(const key_type &k) const;
+
 			// iterator		upper_bound(const key_type &k);
 			// const_iterator	upper_bound(const key_type &k) const;
+
 			// pair<const_iterator,const_iterator> equal_range(const key_type &k) const;
 			// pair<iterator,iterator>             equal_range(const key_type &k);
 
