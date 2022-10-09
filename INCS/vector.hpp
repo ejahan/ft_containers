@@ -6,7 +6,7 @@
 /*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/08 04:06:29 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/09 02:43:22 by elisa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ namespace ft {
 				TYPES
 			======================================================================================
 			*/
-			typedef typename Allocator::reference reference;	//	= T&
-			typedef typename Allocator::const_reference const_reference;
-			typedef ft::random_access_iterator<T> iterator;
-			typedef ft::random_access_iterator<const T> const_iterator;
-			typedef size_t size_type;
+			typedef typename Allocator::reference 			reference;	//	= T&
+			typedef typename Allocator::const_reference 	const_reference;
+			typedef ft::random_access_iterator<T> 			iterator;
+			typedef ft::random_access_iterator<const T> 	const_iterator;
+			typedef size_t 									size_type;
 			typedef std::ptrdiff_t							difference_type;
-			typedef T value_type;
-			typedef Allocator allocator_type;
-			typedef typename Allocator::pointer pointer;	//	= T*
-			typedef typename Allocator::const_pointer const_pointer;
-			typedef ft::reverse_iterator<iterator> reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+			typedef T 										value_type;
+			typedef Allocator 								allocator_type;
+			typedef typename Allocator::pointer 			pointer;	//	= T*
+			typedef typename Allocator::const_pointer 		const_pointer;
+			typedef ft::reverse_iterator<iterator> 			reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator> 	const_reverse_iterator;
 
 
 
@@ -364,30 +364,22 @@ namespace ft {
 			{
 				pointer	new_p;
 				size_t	i = 0;
+
 				if (_capacity == 0)
 					_capacity = 1;
 				else if (_capacity == _size)
 					_capacity = _capacity * 2;
 				new_p = this->_allocator.allocate(this->_capacity);
 
-
 				for(; begin() + i <= position ; i++)
 					this->_allocator.construct(&new_p[i], this->_p[i]);
 
-				// while((begin() + i) <= position)
-				// {
-				// 	this->_allocator.construct(&new_p[i], this->_p[i]);
-				// 	i++;
-				// }
 				this->_allocator.construct(&new_p[i], val);
 				_size++;
+
 				for(; i <= _size ; i++)
 					this->_allocator.construct(&new_p[i + 1], this->_p[i]);
-				// while(i <= _size)
-				// {
-				// 	this->_allocator.construct(&new_p[i + 1], this->_p[i]);
-				// 	i++;
-				// }
+
 				clear();
 				this->_allocator.deallocate(this->_p, this->_capacity);
 				_size = i - 1;
