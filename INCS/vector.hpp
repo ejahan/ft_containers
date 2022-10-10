@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/10 00:38:32 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/10 18:22:09 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ namespace ft {
 				this->_capacity = n;
 				while (n > 0)
 				{
-					this->_allocator.construct(&(this->_p[n]), val);
 					n--;
+					this->_allocator.construct(&(this->_p[n]), val);
 				}
 			};
 
@@ -102,7 +102,7 @@ namespace ft {
 				size_type	i = 0;
 				this->_allocator = x.get_allocator();
 				this->_p = this->_allocator.allocate(x._capacity);
-				while (i <= x._size)
+				while (i <= x._size)	//	PK '=' ???
 				{
 					_allocator.construct(&(this->_p[i]), x._p[i]);
 					i++;
@@ -152,7 +152,7 @@ namespace ft {
 				size_type	i = 0;
 				this->_allocator = x.get_allocator();
 				this->_p = this->_allocator.allocate(x._capacity);
-				while (i <= x._size)
+				while (i <= x._size)	//	PK '=' ???
 				{
 					_allocator.construct(&(this->_p[i]), x._p[i]);
 					i++;
@@ -170,29 +170,32 @@ namespace ft {
 			{
 				iterator	test(this->_p);
 				return (test);
+				// return (iterator(_p));
 			};
 
 			const_iterator			begin() const
 			{
 				const_iterator	it(this->_p);
 				return (it);
+				// return (const_iterator(_p));
 			};
 
 			iterator				end()
 			{
 				iterator	it(_p + _size);
 				return (it);
+				// return (iterator(_p + _size));
 			};
 
 			const_iterator			end() const
 			{
 				const_iterator	it(this->_p + this->_size);
 				return (it);
+				// return (const_iterator(_p + _size));
 			};
 
 			reverse_iterator		rbegin()
 			{
-				// reverse_iterator	it = end();
 				reverse_iterator	it(end());
 				return (it);
 			};
@@ -249,7 +252,7 @@ namespace ft {
 					T	*tmp;
 					tmp = this->_allocator.allocate(n);
 					size_type	i = 0;
-					while(i <= this->_size) // juste < ?
+					while(i <= this->_size)	//	PK '=' ???
 					{
 						this->_allocator.construct(&tmp[i], this->_p[i]);
 						i++;
@@ -344,14 +347,14 @@ namespace ft {
 
 			void		push_back(const T& val)
 			{
+				// std::cout << "test avant" << std::endl;
 				if (this->_capacity == 0)
 					reserve(1);
-				if (this->_size >= this->_capacity)
+				else if (this->_size >= this->_capacity)
 					reserve(this->_capacity * 2);
-				this->_allocator.construct(&(this->_p[this->_size + 1]), val);
+				this->_allocator.construct(&(this->_p[this->_size]), val);
 				this->_size++;
-				// std::cout << _p[_size - 1] << std::endl;
-						// this->_allocator.construct(&tmp[i], this->_p[i]);
+				// std::cout << "test apres" << std::endl;
 			};
 
 			void		pop_back() 
