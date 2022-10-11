@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/06 01:28:59 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/11 19:06:48 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ namespace	ft {
 			reference operator*() const
 			{
 				pointer tmp = this->_current;
-				return (*++tmp);
+				return (*tmp);
 			};
 
 			pointer operator->() const
 			{
-				return &(operator*());	//	??
+				return &(operator*());
 			};
 
 			reference	operator[]( difference_type n ) const   // a changer
 			{
-				return *(this->base() + n + 1);	//	je comprends pas pk +1 ??
-				// *(this->begin() + n)
+				// return *(this->base() + n + 1);	//	je comprends pas pk +1 ??
+				return *(_current + n);
 			};
 
 			random_access_iterator& operator++()
@@ -101,9 +101,6 @@ namespace	ft {
 			random_access_iterator operator+( difference_type n ) const
 			{
 				return (random_access_iterator(this->_current + n));
-				// random_access_iterator	i(*this);
-				// i = i + n;
-				// return (i);
 			};
 
 			random_access_iterator& operator+=( difference_type n )
@@ -115,9 +112,6 @@ namespace	ft {
 			random_access_iterator operator-( difference_type n ) const
 			{
 				return (random_access_iterator(this->_current - n));
-				// random_access_iterator	i(*this);
-				// i = i - n;
-				// return (i);
 			};
 
 			random_access_iterator& operator-=( difference_type n )

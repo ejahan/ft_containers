@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:18 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/11 18:34:22 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,95 +140,94 @@
 # include <cstddef>
 
 #include <stdlib.h>
+#include "./INCS/vector.hpp"
+
+void	printVect(ft::vector<int> vect)
+{
+	ft::vector<int>::iterator	it = vect.begin();
+	ft::vector<int>::iterator	ite = vect.end();
+	int	i = 0;
+
+	for (; it != ite; it++, i++)
+	{
+		std::cout << "vect[" << i << "] = " << *it << std::endl;
+		// std::cout << it[i] << std::endl;
+	}
+}
+
+void	printVectstd(std::vector<int> vect)
+{
+	std::vector<int>::iterator	it = vect.begin();
+	std::vector<int>::iterator	ite = vect.end();
+	int	i = 0;
+
+	for (; it != ite; it++, i++)
+	{
+		std::cout << "vect[" << i << "] = " << *it << std::endl;
+		// std::cout << it[i] << std::endl;
+	}
+}
+
+int main()
+{
+	ft::vector<int>	vect(5, 78);
+	std::vector<int>	vectstd(5, 78);
+	
+	// std::cout << "vect[0] = " << vect[0] << std::endl;
+	// std::cout << "vect[1] = " << vect[1] << std::endl;
+	// std::cout << "vect[2] = " << vect[2] << std::endl;
+	// std::cout << "vect[3] = " << vect[3] << std::endl;
+	// std::cout << "vect[4] = " << vect[4] << std::endl;
+
+	printVect(vect);
+	printVectstd(vectstd);
+
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
+
+// #include "./INCS/vector.hpp"
+
+// #include <iostream>
+// #include "./INCS/reverse_iterator.hpp"
+// #include "./INCS/random_access.hpp"
+// #include "./INCS/iterator_traits.hpp"
+// #include "./INCS/lexicographical_compare.hpp"
+
+// // #include <stdlib.h>
 
 // int main()
 // {
 // 	std::string	str = "test";
-// 	std::vector<std::string> test(8, str);
-// 	// std::vector<std::string>	test_swap(5, str);
-// 	// std::vector<int>	test;
+// 	ft::vector<std::string> test(8, str);
+// 	ft::vector<std::string>	test_swap(8, "testt");
+// 	ft::vector<std::string>::iterator it = test.begin(), ite = test.end();
+// 	// ft::vector<int>	test;
+
+// 	// ft::vector<std::string>::iterator it = test.begin();
+// 	// ++it;
+// 	// std::cout << "it begin = " << *it << std::endl;
+// 	// // test.push_back("6");
+// 	// ft::vector<std::string>::iterator it2 = test.end();
+// 	// std::cout << "it end = " << *it2 << *(it + 2) << std::endl;	
+
+// 	// ft::vector<std::string> vct_range(it, --(--ite));
+
 	
-// 	// test.assign(7, "78");
-// 	// test.assign(4, "45");
-// 	// test.assign(1, 1);
 
-// 	std::cout << "size = " << test.size() << " | capacity = " << test.capacity() << std::endl;
-// 	test.push_back("test capacity");
-// 	std::cout << "size = " << test.size() << " | capacity = " << test.capacity() << std::endl;
-// 	// std::vector<std::string>::iterator it = test.begin();
-// 	// std::cout << *it << std::endl;
-// 	// test.push_back("6");
-// 	// std::vector<std::string>::iterator it2 = test.end();
-// 	// std::cout << "it end = " << *--it2 << std::endl;
-// 	// std::string	test_str = "test";
-// 	// std::vector<int> test(8, 8);
-// 	// std::vector<int>	test_swap(5, 6);
-
-// 	// test.assign(7, 78);
-// 	// test.assign(4, 45);
-// 	// test.assign(1, 1);
-// 	// std::vector<int>::iterator it = test.begin();
-// 	// std::cout << *it << std::endl;
-// 	// std::cout << "size : " << test.size() << std::endl;
-// 	// std::cout << "capacity : " << test.capacity() << std::endl;
-// 	// std::cout << "max_size : " << test.max_size() << std::endl;
-// 	// std::cout << "front = " << test.front() << std::endl;
-// 	// std::cout << "back = " << test.back() << std::endl;
-// 	// std::cout << "data = " << test.data() << std::endl;
-// 	// test.reserve(12);
-// 	// std::cout << "new capacity = " << test.capacity() << std::endl;
-// 	// if (test == test_swap)
-// 	// 	std::cout << "test == test_swap" << std::endl;
-// 	// else
-// 	// 	std::cout << "test != test_swap" << std::endl;
+// 	std::cout << std::endl;
 
 // 	return (0);
 // }
-
-
-
-
-
-
-
-
-
-
-
-#include "./INCS/vector.hpp"
-
-#include <iostream>
-#include "./INCS/reverse_iterator.hpp"
-#include "./INCS/random_access.hpp"
-#include "./INCS/iterator_traits.hpp"
-#include "./INCS/lexicographical_compare.hpp"
-
-// #include <stdlib.h>
-
-int main()
-{
-	std::string	str = "test";
-	ft::vector<std::string> test(8, str);
-	ft::vector<std::string>	test_swap(8, "testt");
-	ft::vector<std::string>::iterator it = test.begin(), ite = test.end();
-	// ft::vector<int>	test;
-
-	// ft::vector<std::string>::iterator it = test.begin();
-	// ++it;
-	// std::cout << "it begin = " << *it << std::endl;
-	// // test.push_back("6");
-	// ft::vector<std::string>::iterator it2 = test.end();
-	// std::cout << "it end = " << *it2 << *(it + 2) << std::endl;	
-
-	// ft::vector<std::string> vct_range(it, --(--ite));
-
-	test.insert(it, "azert");
-	
-
-	std::cout << std::endl;
-
-	return (0);
-}
 
 
 // #include "./INCS/stack.hpp"

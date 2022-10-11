@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_iterator.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/06 05:17:36 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/11 17:13:57 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ namespace	ft {
 			reference operator[]( difference_type n ) const
 			{
 				// return (this->_current[-n-1]);	//	== base()[-n-1]
-				return (*(this->base() - n - 1));
+				// return (*(this->base() - n - 1));
+				return (*(this->_current - n - 1));
 			};
 
 			reverse_iterator& operator++()
