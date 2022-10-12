@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/12 17:28:43 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/12 17:46:46 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,7 @@ namespace ft {
 		bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
 		{
 			if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true
-					&& (lhs.capacity() == rhs.capacity()) && (lhs.size() == rhs.size()))
+					&& (lhs.size() == rhs.size()))
 				return (true);
 			return (false);
 		};
@@ -497,7 +497,7 @@ namespace ft {
 		bool	operator!=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
 			if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false
-					|| (lhs.capacity() != rhs.capacity()) || (lhs.size() != rhs.size()))
+					|| (lhs.size() != rhs.size()))
 				return (true);
 			return (false);
 		};
@@ -505,8 +505,10 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator<( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (lhs.size() < rhs.size() || (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
-					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false))
+		// 	if (lhs.size() < rhs.size() || (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
+		// 			&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false))
+		// 		return (true);
+			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true)
 				return (true);
 			return (false);
 		};
@@ -514,8 +516,11 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator<=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
-					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
+			// if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true
+			// 		&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
+			// 	return (true);
+			// return (false);
+			if (lhs < rhs || lhs == rhs)
 				return (true);
 			return (false);
 		};
@@ -523,20 +528,77 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator>( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
-					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false)
-				return (true);
-			return (false);
+			// if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
+			// 		&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false)
+			// 	return (true);
+			// return (false);
+			if (lhs <= rhs)
+				return (false);
+			return (true);
 		};
 
 		template< class T, class Alloc >
 		bool	operator>=( const ft::vector<T,Alloc> &lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
-					&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
-				return (true);
-			return (false);
+			// if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == false
+			// 		&& ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true)
+			// 	return (true);
+			// return (false);
+			if (lhs < rhs)
+				return (false);
+			return (true);
 		};
+
+
+
+
+
+
+
+
+		// template <class T, class Allocator>
+		// bool operator==(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	if (x.size() != y.size())
+		// 		return false;
+		// 	for (size_t j = 0; j < x.size(); j++) {
+		// 		if (x.at(j) != y.at(j))
+		// 			return false;
+		// 	}
+		// 	return true;
+		// };
+
+		// template <class T, class Allocator>
+		// bool operator< (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+		// };
+
+		// template <class T, class Allocator>
+		// bool operator!=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	return (!(x==y));
+		// };
+
+		// template <class T, class Allocator>
+		// bool operator> (const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	return (y < x);
+
+		// };
+
+		// template <class T, class Allocator>
+		// bool operator>=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	return (!(x < y));
+		// };
+
+		// template <class T, class Allocator>
+		// bool operator<=(const vector<T,Allocator>& x, const vector<T,Allocator>& y) {
+		// 	return (!(y < x));
+		// };
+	
+
+
+
+
+
+		
 
 }
 
