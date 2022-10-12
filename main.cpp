@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/11 18:34:22 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/12 16:48:18 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@
 #include <stdlib.h>
 #include "./INCS/vector.hpp"
 
-void	printVect(ft::vector<int> vect)
+void	printSize(ft::vector<int> vect)
 {
 	ft::vector<int>::iterator	it = vect.begin();
 	ft::vector<int>::iterator	ite = vect.end();
@@ -168,22 +168,86 @@ void	printVectstd(std::vector<int> vect)
 	}
 }
 
-int main()
-{
-	ft::vector<int>	vect(5, 78);
-	std::vector<int>	vectstd(5, 78);
+// int main()
+// {
+// 	ft::vector<int>	vect(5, 78);
+// 	// ft::vector<int>::iterator it = vect.begin(), ite = vect.end();
+// 	// ft::vector<int> vct_range(it, --(--ite));
 	
-	// std::cout << "vect[0] = " << vect[0] << std::endl;
-	// std::cout << "vect[1] = " << vect[1] << std::endl;
-	// std::cout << "vect[2] = " << vect[2] << std::endl;
-	// std::cout << "vect[3] = " << vect[3] << std::endl;
-	// std::cout << "vect[4] = " << vect[4] << std::endl;
+// 	// std::cout << "vect[0] = " << vect[0] << std::endl;
+// 	// std::cout << "vect[1] = " << vect[1] << std::endl;
+// 	// std::cout << "vect[2] = " << vect[2] << std::endl;
+// 	// std::cout << "vect[3] = " << vect[3] << std::endl;
+// 	// std::cout << "vect[4] = " << vect[4] << std::endl;
 
-	printVect(vect);
-	printVectstd(vectstd);
+// 	printSize(vect);
+// 	// printVect(vct_range);
+// 	// printVectstd(vectstd);
 
+// 	return (0);
+// }
+
+
+#include <list>
+int		main(void)
+{
+	std::list<int> lst;
+	std::list<int>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+
+	ft::vector<int> vct(lst.begin(), lst.end());
+	printSize(vct);
+
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	printSize(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
 	return (0);
 }
+
+
+// int		main(void)
+// {
+// 	ft::vector<int> vct(5);
+// 	ft::vector<int>::iterator it = vct.begin(), ite = vct.end();
+
+// 	std::cout << "len: " << (ite - it) << std::endl;
+// 	for (; it != ite; ++it)
+// 		*it = (ite - it);
+
+// 	it = vct.begin();
+// 	ft::vector<int> vct_range(it, --(--ite));
+// 	for (int i = 0; it != ite; ++it)
+// 		*it = ++i * 5;
+
+// 	it = vct.begin();
+// 	ft::vector<int> vct_copy(vct);
+// 	for (int i = 0; it != ite; ++it)
+// 		*it = ++i * 7;
+// 	vct_copy.push_back(42);
+// 	vct_copy.push_back(21);
+
+// 	std::cout << "\t-- PART ONE --" << std::endl;
+// 	printSize(vct);
+// 	printSize(vct_range);
+// 	printSize(vct_copy);
+
+// 	vct = vct_copy;
+// 	vct_copy = vct_range;
+// 	vct_range.clear();
+
+// 	std::cout << "\t-- PART TWO --" << std::endl;
+// 	printSize(vct);
+// 	printSize(vct_range);
+// 	printSize(vct_copy);
+// 	return (0);
+// }
+
 
 
 
