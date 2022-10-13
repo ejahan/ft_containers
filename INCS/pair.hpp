@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pair.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elisa <elisa@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/09/24 17:45:47 by elisa            ###   ########.fr       */
+/*   Updated: 2022/10/13 19:01:12 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ pair<T1, T2> make_pair(const T1& x, const T2& y)
 {
 	return (pair<T1, T2>(x, y));
 };
+
+// template< class T1, class T2 >
+// pair<T1,T2> make_pair( T1 x, T2 y )
+// {
+// 	return (pair<T1, T2>(x, y));
+// }
+
 
 }
 

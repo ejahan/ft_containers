@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/12 16:48:18 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/13 13:48:59 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,51 @@ void	printVectstd(std::vector<int> vect)
 	}
 }
 
+
+int		main(void)
+{
+	ft::vector<int> vct(7);
+	ft::vector<int> vct_two(4);
+	ft::vector<int> vct_three;
+	ft::vector<int> vct_four;
+
+	for (unsigned long int i = 0; i < vct.size(); ++i)
+		vct[i] = (vct.size() - i) * 3;
+	for (unsigned long int i = 0; i < vct_two.size(); ++i)
+		vct_two[i] = (vct_two.size() - i) * 5;
+	printSize(vct);
+	printSize(vct_two);
+
+	vct_three.assign(vct.begin(), vct.end());
+	vct.assign(vct_two.begin(), vct_two.end());
+	vct_two.assign(2, 42);
+	vct_four.assign(4, 21);
+
+	std::cout << "\t### After assign(): ###" << std::endl;
+
+	printSize(vct);
+	printSize(vct_two);
+	printSize(vct_three);
+	printSize(vct_four);
+
+	vct_four.assign(6, 84);
+	printSize(vct_four);
+
+	std::cout << "\t### assign() on enough capacity and low size: ###" << std::endl;
+
+	vct.assign(5, 53);
+	vct_two.assign(vct_three.begin(), vct_three.begin() + 3);
+
+	printSize(vct);
+	printSize(vct_two);
+
+	return (0);
+}
+
+
+
+
+
 // int main()
 // {
 // 	ft::vector<int>	vect(5, 78);
@@ -188,27 +233,27 @@ void	printVectstd(std::vector<int> vect)
 // }
 
 
-#include <list>
-int		main(void)
-{
-	std::list<int> lst;
-	std::list<int>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
+// #include <list>
+// int		main(void)
+// {
+// 	std::list<int> lst;
+// 	std::list<int>::iterator lst_it;
+// 	for (int i = 1; i < 5; ++i)
+// 		lst.push_back(i * 3);
 
-	ft::vector<int> vct(lst.begin(), lst.end());
-	printSize(vct);
+// 	ft::vector<int> vct(lst.begin(), lst.end());
+// 	printSize(vct);
 
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	printSize(vct);
+// 	lst_it = lst.begin();
+// 	for (int i = 1; lst_it != lst.end(); ++i)
+// 		*lst_it++ = i * 5;
+// 	vct.assign(lst.begin(), lst.end());
+// 	printSize(vct);
 
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	printSize(vct);
-	return (0);
-}
+// 	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+// 	printSize(vct);
+// 	return (0);
+// }
 
 
 // int		main(void)
