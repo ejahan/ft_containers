@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/13 18:50:18 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/16 20:52:26 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ namespace ft {
 //			____________________________________________________________________________________
 //			CONSTRUCT / COPY / DESTROY
 
-			explicit vector(const Allocator& alloc = Allocator()) : _allocator(alloc), _p(_allocator.allocate(0)), _capacity(0), _size(0) {};
+			explicit vector(const Allocator& alloc = Allocator()) : _allocator(alloc), _p(0), _capacity(0), _size(0) {};
 
 			explicit vector(size_type n, const T& val = T(), const Allocator& alloc = Allocator()) : _allocator(alloc), _p(0), _capacity(n), _size(n)
 			{
@@ -86,22 +86,25 @@ namespace ft {
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, bool>::type = true) : _allocator(alloc), _p(NULL), _capacity(0), _size(0)
 			{
 				this->_allocator = alloc;
-				this->_p = this->_allocator.allocate(0);
+				// this->_p = this->_allocator.allocate(0);
 				insert(begin(), first, last);
 			};
 
 			vector(const vector<T,Allocator>& x) : _allocator(x._allocator)
 			{
 				size_type	i = 0;
-				// this->_allocator = x.get_allocator();
-				this->_p = this->_allocator.allocate(x._capacity);
+
+				_capacity = 0;
+				_size = 0;
+				// _p = _allocator.allocate(x._size);
+				reserve(x._size);
 				while (i < x._size)
 				{
 					_allocator.construct(&(this->_p[i]), x._p[i]);
 					i++;
 				}
 				this->_size = x._size;
-				this->_capacity = x._capacity;
+				this->_capacity = x._size;
 			};
 
 			~vector()
@@ -212,6 +215,8 @@ namespace ft {
 
 			void		reserve(size_type n)
 			{
+				if (n > max_size())
+					throw (std::length_error("vector::reserve"));
 				if (n == 1 && _capacity <= _size)
 				{
 					_p = _allocator.allocate(1);
@@ -229,7 +234,8 @@ namespace ft {
 					size_type	size_tmp = this->_size;
 					clear();
 					this->_size = size_tmp;
-					this->_allocator.deallocate(this->_p, this->_capacity);
+					if (_capacity > 0)
+						this->_allocator.deallocate(this->_p, this->_capacity);
 					this->_p = tmp;
 					this->_capacity = n;
 				}
@@ -251,14 +257,16 @@ namespace ft {
 
 			reference		at(size_type n)
 			{
-				if (this->_size - 1 < n)
+				// if (this->_size - 1 < n)
+				if (this->_size < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
 				return (*(this->begin() + n));
 			};
 
 			const_reference	at(size_type n) const
 			{
-				if (this->_size - 1 < n)
+				// if (this->_size - 1 < n)
+				if (this->_size < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
 				return (*(this->begin() + n));
 			};
@@ -319,7 +327,7 @@ namespace ft {
 
 			void		pop_back() 
 			{
-				this->_allocator.destroy(this->_p + _size);
+				this->_allocator.destroy(this->_p + _size - 1);
 				this->_size--;
 			};
 
@@ -334,15 +342,17 @@ namespace ft {
 				else if (_capacity == _size && _capacity!= 0) {
 					reserve(2 * _capacity);
 				}
+				
+				_allocator.construct(&(_p[size]), val);
 				while (size > i)
 				{
-					_allocator.construct(&(_p[size]), _p[size - 1]);
-					_allocator.destroy(_p + size);
+					_p[size] = _p[size- 1];
 					size--;
 				}
-				_allocator.construct(&(_p[size]), val);
+				_p[size] = val;
 				_size++;
-				return ((begin() + size));
+
+				return (begin() + size);
 			};
 
 			void		insert(iterator position, size_type n, const T& val)
@@ -352,10 +362,6 @@ namespace ft {
 				size_t	i = position - begin();
 				if (_capacity == 0)
 					reserve(n);
-				// else if (_capacity <= _size + n)
-				// 	reserve(_capacity * 2);
-				// else if (_capacity < _size + n)
-				// 	reserve(_size + n);
 				if (_capacity < _size + n && _size * 2 >= _size + n) {
 						reserve(2 * _size);
 				}
@@ -363,7 +369,10 @@ namespace ft {
 					reserve(_size + n);
 				}
 				while (n-- > 0)
+				{
 					insert(begin() + i, val);
+					i++;
+				}
 			};
 
 			template <class InputIterator>
@@ -393,13 +402,13 @@ namespace ft {
 			iterator	erase(iterator position)
 			{
 				size_type	i = position - begin();
-				_size--;
-				while (i < _size)
+				while (i < _size - 1)
 				{
 					i++;
 					_p[i - 1] = _p[i];
 				}
-				this->_allocator.destroy(&this->back());
+				this->_allocator.destroy(&back());
+				_size--;
 				return (position);
 			};
 
@@ -452,8 +461,8 @@ namespace ft {
 		template< class T, class Alloc >
 		bool	operator==( const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc> &rhs )
 		{
-			if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == true
-					&& (lhs.size() == rhs.size()))
+			if ((lhs.size() == rhs.size())
+					&& (ft::equal(lhs.begin(), lhs.end(), rhs.begin())) == true)
 				return (true);
 			return (false);
 		};
