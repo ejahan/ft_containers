@@ -6,12 +6,22 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:12:22 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/15 16:12:50 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:45:41 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 // Implementing Red-Black Tree in C++
+
+# include <algorithm>
+# include <memory>
+# include <cstddef>
+# include <iomanip>
+# include <utility>
+# include <string>
+# include <sstream>
+
+
 
 #include <iostream>
 using namespace std;
@@ -82,66 +92,138 @@ class RedBlackTree
 			return searchTreeHelper(node->right, key);
 		}
 
-		// For balancing the tree after deletion
-		void deleteFix(NodePtr x) {
-			NodePtr s;
-			while (x != root && x->color == 0) {
-				if (x == x->parent->left) {
-					s = x->parent->right;
-					if (s->color == 1) {
-						s->color = 0;
+		// // For balancing the tree after deletion
+		// void deleteFix(NodePtr x) {
+		// 	NodePtr s;
+		// 	while (x != root && x->color == 0) {
+		// 		if (x == x->parent->left) {
+		// 			s = x->parent->right;
+		// 			if (s->color == 1) {
+		// 				s->color = 0;
+		// 				x->parent->color = 1;
+		// 				leftRotate(x->parent);
+		// 				s = x->parent->right;
+		// 			}
+
+		// 			if (s->left->color == 0 && s->right->color == 0) {
+		// 				s->color = 1;
+		// 				x = x->parent;
+		// 			} else {
+		// 				if (s->right->color == 0) {
+		// 					s->left->color = 0;
+		// 					s->color = 1;
+		// 					rightRotate(s);
+		// 					s = x->parent->right;
+		// 				}
+
+		// 				s->color = x->parent->color;
+		// 				x->parent->color = 0;
+		// 				s->right->color = 0;
+		// 				leftRotate(x->parent);
+		// 				x = root;
+		// 			}
+		// 		} else {
+		// 			s = x->parent->left;
+		// 			if (s->color == 1) {
+		// 				s->color = 0;
+		// 				x->parent->color = 1;
+		// 				rightRotate(x->parent);
+		// 				s = x->parent->left;
+		// 			}
+
+		// 			if (s->right->color == 0 && s->right->color == 0) {
+		// 				s->color = 1;
+		// 				x = x->parent;
+		// 			} else {
+		// 				if (s->left->color == 0) {
+		// 					s->right->color = 0;
+		// 					s->color = 1;
+		// 					leftRotate(s);
+		// 					s = x->parent->left;
+		// 				}
+
+		// 				s->color = x->parent->color;
+		// 				x->parent->color = 0;
+		// 				s->left->color = 0;
+		// 				rightRotate(x->parent);
+		// 				x = root;
+		// 			}
+		// 		}
+		// 	}
+		// 	x->color = 0;
+		// }
+
+
+		void	deleteFix(NodePtr x)
+		{
+			NodePtr	w;
+			while (x != root && x->color == 0)
+			{
+				if (x == x->parent->left)
+				{
+					w = x->parent->right;
+					if (w->color == 1)
+					{
+						w->color = 0;
 						x->parent->color = 1;
 						leftRotate(x->parent);
-						s = x->parent->right;
+						w = x->parent->right;
 					}
-
-					if (s->left->color == 0 && s->right->color == 0) {
-						s->color = 1;
+					if (w->left->color == 0 && w->right->color == 0)
+					{
+						w->color = 1;
 						x = x->parent;
-					} else {
-						if (s->right->color == 0) {
-							s->left->color = 0;
-							s->color = 1;
-							rightRotate(s);
-							s = x->parent->right;
+					}
+					else
+					{
+						if (w->right->color == 0)
+						{
+							w->left->color = 0;
+							w->color = 1;
+							rightRotate(w);
+							w = x->parent->right;
 						}
-
-						s->color = x->parent->color;
+						w->color = x->parent->color;
 						x->parent->color = 0;
-						s->right->color = 0;
+						w->right->color = 0;
 						leftRotate(x->parent);
 						x = root;
 					}
-				} else {
-					s = x->parent->left;
-					if (s->color == 1) {
-						s->color = 0;
+				}
+				else
+				{
+					w = x->parent->left;
+					if (w->color == 1)
+					{
+						w->color = 0;
 						x->parent->color = 1;
 						rightRotate(x->parent);
-						s = x->parent->left;
+						w = x->parent->left;
 					}
-
-					if (s->right->color == 0 && s->right->color == 0) {
-						s->color = 1;
+					if (w->right->color == 0 && w->right->color == 0)
+					{
+						w->color = 1;
 						x = x->parent;
-					} else {
-						if (s->left->color == 0) {
-							s->right->color = 0;
-							s->color = 1;
-							leftRotate(s);
-							s = x->parent->left;
+					}
+					else
+					{
+						if (w->left->color == 0)
+						{
+							w->right->color = 0;
+							w->color = 1;
+							leftRotate(w);
+							w = x->parent->left;
 						}
-
-						s->color = x->parent->color;
+						w->color = x->parent->color;
 						x->parent->color = 0;
-						s->left->color = 0;
+						w->left->color = 0;
 						rightRotate(x->parent);
 						x = root;
 					}
 				}
 			}
 			x->color = 0;
-		}
+		};
 
 		void rbTransplant(NodePtr u, NodePtr v) {
 			if (u->parent == NULL)
@@ -205,6 +287,7 @@ class RedBlackTree
 			if (y_original_color == 0)
 				deleteFix(x);
 		}
+
 
 		// For balancing the tree after insertion
 		void insertFix(NodePtr k)
@@ -386,6 +469,44 @@ class RedBlackTree
 			x->parent = y;
 		}
 
+		void	delete_node(NodePtr z)
+		{
+			NodePtr	y = z;
+			NodePtr	x;
+			int	color = y->color;
+
+			if (z->left == _nil)
+			{
+				x = z->right;
+				rbTransplant(z, z->right);
+			}
+			else if (z->right == _nil)
+			{
+				x = z->left;
+				rbTransplant(z, z->left);
+			}
+			else
+			{
+				y = rbt_min(z->right);
+				color = y->color;
+				x = y->right;
+				if (y->parent == z)
+					x->parent = y;
+				else
+				{
+					rbTransplant(y, y->right);
+					y->right = z->right;
+					y->right->parent = y;
+				}
+				rbTransplant(z, y);
+				y->left = z->left;
+				y->left->parent = y;
+				y->color = z->color;
+			}
+			if (color == 0)
+				deleteFix(x);
+		};
+
 		// Inserting a node
 		void insert(int key) {
 			NodePtr node = new Node;
@@ -432,15 +553,40 @@ class RedBlackTree
 			return this->root;
 		}
 
-		void deleteNode(int data) {
-			deleteNodeHelper(this->root, data);
-		}
+		// void deleteNode(int data) {
+		// 	deleteNodeHelper(this->root, data);
+		// }
 
 		void printTree() {
 			if (root) {
 				printHelper(this->root, "", true);
 			}
 		}
+
+		void	_print(Node * node, std::stringstream &buffer, bool isTail, std::string prefix)
+		{
+			if (node->right != TNULL)
+				_print(node->right, buffer, false, std::string(prefix).append(isTail ? "│   " : "    "));
+			buffer << prefix << (isTail ? "└── " : "┌── ");
+			if (node->color == 1)
+				buffer << "\033[31m";
+			buffer << node->data << "\033[0m" << std::endl;
+			if (node->left != TNULL)
+				_print(node->left, buffer, true, std::string(prefix).append(isTail ? "    " : "│   "));
+		};
+
+		void	print(void)
+		{
+			std::stringstream	buffer;
+
+			// std::cout << "size: " << this->size() << std::endl;
+			if (root != TNULL)
+			{
+				_print(root, buffer, true, "");
+				std::cout << buffer.str();
+			}
+		};
+
 
 };
 
@@ -454,9 +600,12 @@ int main()
 	bst.insert(75);
 	bst.insert(57);
 
-	bst.printTree();
+	// bst.printTree();
+	bst.print();
 	cout << endl
 		 << "After deleting" << endl;
-	bst.deleteNode(40);
-	bst.printTree();
+	bst.delete_node(bst.searchTree(40));
+	// bst.deleteNode(40);
+	// bst.printTree();
+	bst.print();
 }
