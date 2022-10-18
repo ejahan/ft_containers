@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/11 19:06:48 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/18 18:00:22 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ namespace	ft {
 				return &(operator*());
 			};
 
-			reference	operator[]( difference_type n ) const   // a changer
+			reference	operator[]( difference_type n ) const
 			{
-				// return *(this->base() + n + 1);	//	je comprends pas pk +1 ??
 				return *(_current + n);
 			};
 

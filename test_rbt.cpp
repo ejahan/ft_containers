@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 16:12:22 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/17 21:45:41 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/18 20:11:09 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,138 +92,66 @@ class RedBlackTree
 			return searchTreeHelper(node->right, key);
 		}
 
-		// // For balancing the tree after deletion
-		// void deleteFix(NodePtr x) {
-		// 	NodePtr s;
-		// 	while (x != root && x->color == 0) {
-		// 		if (x == x->parent->left) {
-		// 			s = x->parent->right;
-		// 			if (s->color == 1) {
-		// 				s->color = 0;
-		// 				x->parent->color = 1;
-		// 				leftRotate(x->parent);
-		// 				s = x->parent->right;
-		// 			}
-
-		// 			if (s->left->color == 0 && s->right->color == 0) {
-		// 				s->color = 1;
-		// 				x = x->parent;
-		// 			} else {
-		// 				if (s->right->color == 0) {
-		// 					s->left->color = 0;
-		// 					s->color = 1;
-		// 					rightRotate(s);
-		// 					s = x->parent->right;
-		// 				}
-
-		// 				s->color = x->parent->color;
-		// 				x->parent->color = 0;
-		// 				s->right->color = 0;
-		// 				leftRotate(x->parent);
-		// 				x = root;
-		// 			}
-		// 		} else {
-		// 			s = x->parent->left;
-		// 			if (s->color == 1) {
-		// 				s->color = 0;
-		// 				x->parent->color = 1;
-		// 				rightRotate(x->parent);
-		// 				s = x->parent->left;
-		// 			}
-
-		// 			if (s->right->color == 0 && s->right->color == 0) {
-		// 				s->color = 1;
-		// 				x = x->parent;
-		// 			} else {
-		// 				if (s->left->color == 0) {
-		// 					s->right->color = 0;
-		// 					s->color = 1;
-		// 					leftRotate(s);
-		// 					s = x->parent->left;
-		// 				}
-
-		// 				s->color = x->parent->color;
-		// 				x->parent->color = 0;
-		// 				s->left->color = 0;
-		// 				rightRotate(x->parent);
-		// 				x = root;
-		// 			}
-		// 		}
-		// 	}
-		// 	x->color = 0;
-		// }
-
-
-		void	deleteFix(NodePtr x)
-		{
-			NodePtr	w;
-			while (x != root && x->color == 0)
-			{
-				if (x == x->parent->left)
-				{
-					w = x->parent->right;
-					if (w->color == 1)
-					{
-						w->color = 0;
+		// For balancing the tree after deletion
+		void deleteFix(NodePtr x) {
+			NodePtr s;
+			while (x != root && x->color == 0) {
+				if (x == x->parent->left) {
+					s = x->parent->right;
+					if (s->color == 1) {
+						s->color = 0;
 						x->parent->color = 1;
 						leftRotate(x->parent);
-						w = x->parent->right;
+						s = x->parent->right;
 					}
-					if (w->left->color == 0 && w->right->color == 0)
-					{
-						w->color = 1;
+
+					if (s->left->color == 0 && s->right->color == 0) {
+						s->color = 1;
 						x = x->parent;
-					}
-					else
-					{
-						if (w->right->color == 0)
-						{
-							w->left->color = 0;
-							w->color = 1;
-							rightRotate(w);
-							w = x->parent->right;
+					} else {
+						if (s->right->color == 0) {
+							s->left->color = 0;
+							s->color = 1;
+							rightRotate(s);
+							s = x->parent->right;
 						}
-						w->color = x->parent->color;
+
+						s->color = x->parent->color;
 						x->parent->color = 0;
-						w->right->color = 0;
+						s->right->color = 0;
 						leftRotate(x->parent);
 						x = root;
 					}
-				}
-				else
-				{
-					w = x->parent->left;
-					if (w->color == 1)
-					{
-						w->color = 0;
+				} else {
+					s = x->parent->left;
+					if (s->color == 1) {
+						s->color = 0;
 						x->parent->color = 1;
 						rightRotate(x->parent);
-						w = x->parent->left;
+						s = x->parent->left;
 					}
-					if (w->right->color == 0 && w->right->color == 0)
-					{
-						w->color = 1;
+
+					if (s->right->color == 0 && s->right->color == 0) {
+						s->color = 1;
 						x = x->parent;
-					}
-					else
-					{
-						if (w->left->color == 0)
-						{
-							w->right->color = 0;
-							w->color = 1;
-							leftRotate(w);
-							w = x->parent->left;
+					} else {
+						if (s->left->color == 0) {
+							s->right->color = 0;
+							s->color = 1;
+							leftRotate(s);
+							s = x->parent->left;
 						}
-						w->color = x->parent->color;
+
+						s->color = x->parent->color;
 						x->parent->color = 0;
-						w->left->color = 0;
+						s->left->color = 0;
 						rightRotate(x->parent);
 						x = root;
 					}
 				}
 			}
 			x->color = 0;
-		};
+		}
 
 		void rbTransplant(NodePtr u, NodePtr v) {
 			if (u->parent == NULL)
@@ -469,43 +397,43 @@ class RedBlackTree
 			x->parent = y;
 		}
 
-		void	delete_node(NodePtr z)
-		{
-			NodePtr	y = z;
-			NodePtr	x;
-			int	color = y->color;
+		// void	delete_node(NodePtr z)
+		// {
+		// 	NodePtr	y = z;
+		// 	NodePtr	x;
+		// 	int	color = y->color;
 
-			if (z->left == _nil)
-			{
-				x = z->right;
-				rbTransplant(z, z->right);
-			}
-			else if (z->right == _nil)
-			{
-				x = z->left;
-				rbTransplant(z, z->left);
-			}
-			else
-			{
-				y = rbt_min(z->right);
-				color = y->color;
-				x = y->right;
-				if (y->parent == z)
-					x->parent = y;
-				else
-				{
-					rbTransplant(y, y->right);
-					y->right = z->right;
-					y->right->parent = y;
-				}
-				rbTransplant(z, y);
-				y->left = z->left;
-				y->left->parent = y;
-				y->color = z->color;
-			}
-			if (color == 0)
-				deleteFix(x);
-		};
+		// 	if (z->left == _nil)
+		// 	{
+		// 		x = z->right;
+		// 		rbTransplant(z, z->right);
+		// 	}
+		// 	else if (z->right == _nil)
+		// 	{
+		// 		x = z->left;
+		// 		rbTransplant(z, z->left);
+		// 	}
+		// 	else
+		// 	{
+		// 		y = rbt_min(z->right);
+		// 		color = y->color;
+		// 		x = y->right;
+		// 		if (y->parent == z)
+		// 			x->parent = y;
+		// 		else
+		// 		{
+		// 			rbTransplant(y, y->right);
+		// 			y->right = z->right;
+		// 			y->right->parent = y;
+		// 		}
+		// 		rbTransplant(z, y);
+		// 		y->left = z->left;
+		// 		y->left->parent = y;
+		// 		y->color = z->color;
+		// 	}
+		// 	if (color == 0)
+		// 		deleteFix(x);
+		// };
 
 		// Inserting a node
 		void insert(int key) {
@@ -553,9 +481,9 @@ class RedBlackTree
 			return this->root;
 		}
 
-		// void deleteNode(int data) {
-		// 	deleteNodeHelper(this->root, data);
-		// }
+		void deleteNode(int data) {
+			deleteNodeHelper(this->root, data);
+		}
 
 		void printTree() {
 			if (root) {
@@ -593,7 +521,7 @@ class RedBlackTree
 int main()
 {
 	RedBlackTree bst;
-	bst.insert(55);
+	bst.insert(-55);
 	bst.insert(40);
 	bst.insert(65);
 	bst.insert(60);
@@ -604,8 +532,8 @@ int main()
 	bst.print();
 	cout << endl
 		 << "After deleting" << endl;
-	bst.delete_node(bst.searchTree(40));
-	// bst.deleteNode(40);
+	// bst.delete_node(bst.searchTree(40));
+	bst.deleteNode(40);
 	// bst.printTree();
 	bst.print();
 }
