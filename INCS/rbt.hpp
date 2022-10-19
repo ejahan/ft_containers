@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/18 21:00:20 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/19 22:35:21 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,23 +385,15 @@ namespace	ft
 	};
 
 
-
-
-
-
-
-
-
-
-
+	/*
+	======================================================================================
+	ITERATORS
+	======================================================================================
+	*/
 
 	template<class T, class Allocator = std::allocator<T> >
 	struct rbt_iterator
 	{
-		// protected:
-
-		// 	typename	ft::iterator<ft::random_access_iterator_tag, Node<T> * >::pointer _current;
-
 		public:
 
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T >::value_type			value_type;
@@ -412,8 +404,8 @@ namespace	ft
 
 		protected:
 
-			pointer _node;
-			T		_nil;
+			pointer		_node;
+			T			_nil;
 			Allocator	_alloc;
 
 			void Increment()
@@ -578,13 +570,11 @@ namespace	ft
 	};
 
 
-
-
-
-
-
-
-
+	/*
+	======================================================================================
+	REVERSE ITERATORS
+	======================================================================================
+	*/
 
 	template<class T, class Allocator = std::allocator<T> >
 	class rev_rbt_iterator : public	iterator<typename iterator_traits<T >::iterator_category,
@@ -710,7 +700,6 @@ namespace	ft
 
 			rev_rbt_iterator& operator++()
 			{
-				// Increment();
 				Decrement();
 				return *this;
 			};
@@ -718,14 +707,12 @@ namespace	ft
 			rev_rbt_iterator& operator++(int)
 			{
 				rev_rbt_iterator tmp = *this;
-				// Increment();
 				Decrement();
 				return tmp;
 			};
 
 			rev_rbt_iterator& operator--()
 			{
-				// Decrement();
 				Increment();
 				return *this;
 			};
@@ -733,7 +720,6 @@ namespace	ft
 			rev_rbt_iterator& operator--(int)
 			{
 				rev_rbt_iterator tmp = *this;
-				// Decrement();
 				Increment();
 				return tmp;
 			};

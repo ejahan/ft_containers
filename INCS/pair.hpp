@@ -6,88 +6,162 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/18 21:01:48 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/19 21:55:33 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
 #define PAIR_HPP
 
+#include <iostream>
+
 namespace	ft {
 
-template <class T1, class T2>
-struct pair
-{
-	typedef T1 first_type;
-	typedef T2 second_type;
-
-	// static	T1 first;
-	// static	T2 second;
-	
-	T1 first;
-	T2 second;
-
-	pair() : first(T1()), second(T2()) {};
-
-	pair(const T1& x, const T2& y) : first(x), second(y) {};
-
-	template<class U, class V>
-	pair(const pair<U, V> &p) : first(p.first), second(p.second) {};
-
-
-	pair &operator=(const pair &other)
+	template <class T1, class T2>
+	struct pair
 	{
-		first = other.first;
-		second = other.second;
-		return (*this);
+		typedef T1 first_type;
+		typedef T2 second_type;
+
+		// static	T1 first;
+		// static	T2 second;
+
+		T1 first;
+		T2 second;
+
+		pair() : first(T1()), second(T2()) {};
+
+		pair(const T1& x, const T2& y) : first(x), second(y) {};
+
+		template<class U, class V>
+		pair(const pair<U, V> &p) : first(p.first), second(p.second) {};
+
+		pair &operator=(const pair &other)
+		{
+			this->first = other.first;
+			this->second = other.second;
+			return (*this);
+		};
+
 	};
 
-};
+	template <class T1, class T2>
+	bool operator==(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y)
+	{
+		return (x.first == y.first && x.second == y.second);
+	};
 
-template <class T1, class T2>
-bool operator==(const pair<T1, T2>& x, const pair<T1, T2>& y)
-{
-	return (x.first == y.first && x.second == y.second);
-};
+	template< class T1, class T2 >
+	bool operator!=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
+	{
+		return (x.first != y.first || x.second != y.second);
+	};
 
-template< class T1, class T2 >
-bool operator!=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
-{
-	return (x.first != y.first || x.second != y.second);
-};
+	template <class T1, class T2>
+	bool operator<(const ft::pair<T1, T2>& x, const ft::pair<T1, T2>& y)
+	{
+		if (x.first < y.first)
+			return (true);
+		else if (x.first == y.first && x.second < y.second)
+			return (true);
+		return (false);
+	};
 
-template <class T1, class T2>
-bool operator<(const pair<T1, T2>& x, const pair<T1, T2>& y)
-{
-	return (x.first < y.first || (!(y.first < x.first) && x.second < y.second));
-};
+	template< class T1, class T2 >
+	bool operator<=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
+	{
+		if (x == y || x < y)
+			return (true);
+		return (false);
+	};
 
-// template< class T1, class T2 >
-// bool operator<=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs )
-// {
-// 	//	flemme
-// };
+	template< class T1, class T2 >
+	bool operator>( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
+	{
+		if (x.first > y.first)
+			return (true);
+		else if (x.first == y.first && x.second > y.second)
+			return (true);
+		return (false);
+	};
 
-// template< class T1, class T2 >
-// bool operator>( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs )
-// {
-// 	//	flemme
-// };
-
-// template< class T1, class T2 >
-// bool operator>=( const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs )
-// {
-// 	//	flemme
-// };
-
-template <class T1, class T2>
-pair<T1, T2> make_pair(const T1& x, const T2& y)
-{
-	return (pair<T1, T2>(x, y));
-};
+	template< class T1, class T2 >
+	bool operator>=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
+	{
+		if (x == y || x > y)
+			return (true);
+		return (false);
+	};
 
 
 
+
+
+
+
+
+
+
+
+
+
+	// template< class T1, class T2 >
+	// bool	operator==( const ft::pair<T1, T2>& lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if ((lhs.size() == rhs.size())
+	// 			&& (ft::equal(lhs.begin(), lhs.end(), rhs.begin())) == true)
+	// 		return (true);
+	// 	return (false);
+	// };
+
+	// template< class T1, class T2 >
+	// bool	operator!=( const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false
+	// 			|| (lhs.size() != rhs.size()))
+	// 		return (true);
+	// 	return (false);
+	// };
+
+	// template< class T1, class T2 >
+	// bool	operator<( const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true)
+	// 		return (true);
+	// 	return (false);
+	// };
+
+	// template< class T1, class T2 >
+	// bool	operator<=( const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if (lhs < rhs || lhs == rhs)
+	// 		return (true);
+	// 	return (false);
+	// };
+
+	// template< class T1, class T2 >
+	// bool	operator>( const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if (lhs <= rhs)
+	// 		return (false);
+	// 	return (true);
+	// };
+
+	// template< class T1, class T2 >
+	// bool	operator>=( const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs )
+	// {
+	// 	if (lhs < rhs)
+	// 		return (false);
+	// 	return (true);
+	// };
+
+//=================================================================================
+
+	template <class T1, class T2>
+	ft::pair<T1, T2> make_pair(const T1& x, const T2& y)
+	{
+		return (ft::pair<T1, T2>(x, y));
+	};
 
 
 // template< class T1, class T2 >
@@ -95,7 +169,6 @@ pair<T1, T2> make_pair(const T1& x, const T2& y)
 // {
 // 	return (pair<T1, T2>(x, y));
 // }
-
 
 }
 
