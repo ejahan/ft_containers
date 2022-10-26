@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/21 03:46:38 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:36:03 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ namespace	ft {
 
 		pair &operator=(const pair &other)
 		{
-			this->first = other.first;
-			this->second = other.second;
+			// if (this == &other)
+			// 	return *this;
+			first = other.first;
+			second = other.second;
 			return (*this);
 		};
 
@@ -53,7 +55,7 @@ namespace	ft {
 		return (x.first == y.first && x.second == y.second);
 	};
 
-	template< class T1, class T2 >
+	template < class T1, class T2 >
 	bool operator!=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
 	{
 		return (x.first != y.first || x.second != y.second);
@@ -69,7 +71,7 @@ namespace	ft {
 		return (false);
 	};
 
-	template< class T1, class T2 >
+	template < class T1, class T2 >
 	bool operator<=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
 	{
 		if (x == y || x < y)
@@ -77,7 +79,7 @@ namespace	ft {
 		return (false);
 	};
 
-	template< class T1, class T2 >
+	template < class T1, class T2 >
 	bool operator>( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
 	{
 		if (x.first > y.first)
@@ -87,7 +89,7 @@ namespace	ft {
 		return (false);
 	};
 
-	template< class T1, class T2 >
+	template < class T1, class T2 >
 	bool operator>=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
 	{
 		if (x == y || x > y)
@@ -102,7 +104,6 @@ namespace	ft {
 	{
 		return (ft::pair<T1, T2>(x, y));
 	};
-
 
 	// template< class T1, class T2 >
 	// ft::pair<T1,T2> make_pair( T1 x, T2 y )

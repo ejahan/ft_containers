@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/21 03:36:36 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 11:03:10 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,10 +215,10 @@ namespace	ft
 				if (_node->parent->parent == _node && _node->color == 1)
 					_node = _node->leftChild;
 
-				else if (_node->leftChild != _node._nil)
+				else if (_node->leftChild != _node->_nil)
 				{
 					_node = _node->leftChild;
-					while (_node->rightChild != _node._nil)
+					while (_node->rightChild != _node->_nil)
 						_node = _node->rightChild;
 				}
 				else

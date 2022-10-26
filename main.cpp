@@ -6,16 +6,16 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/21 05:17:08 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 11:52:50 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./INCS/vector.hpp"
-#include "./INCS/stack.hpp"
+// #include "./INCS/vector.hpp"
+// #include "./INCS/stack.hpp"
 #include "./INCS/rbt.hpp"
 #include "./INCS/map.hpp"
-#include <vector>
-#include <stack>
+// #include <vector>
+// #include <stack>
 
 // int main()
 // {
@@ -57,6 +57,11 @@
 
 
 
+
+
+
+
+
 // #include <map>
 
 // int main()
@@ -75,11 +80,17 @@
 // }
 
 
-#include <iostream>
-#include <map>
-#include <string>
-#include <iterator>
-#include <algorithm>
+// int main()
+// {
+// 	ft::red_black_tree<ft::pair<std::string, int > > bst;
+// 	ft::pair<std::string, int>	test("first", 1);
+
+// 	bst.insert(test);
+
+// 	return (0);
+// }
+
+
 
 int main()
 {
@@ -89,8 +100,22 @@ int main()
 
 	std::cout << "size = " << maptest.size() << std::endl;
 	// Insert Element in map
-	maptest.insert(ft::make_pair<std::string, int>("first", 1));
+
+	// ft::pair<std::string, int> test;
+	// test = ft::make_pair<std::string, int>("first", 1);
+
+
+	ft::pair<std::string, int>	test("first", 1);
+
+	// maptest.insert(ft::make_pair<std::string, int>("first", 1));
+
+	maptest.insert(test);
+
 	// maptest.find("first");
+	// maptest.count("test");
+	// maptest.lower_bound("salut");
+	// maptest.upper_bound("salut");
+	// maptest.equal_range("test");
 	// maptest.insert(ft::pair<std::string, int>("second", 2));
 	// maptest.insert(ft::pair<std::string, int>("third", 3));
 	// maptest.insert(ft::pair<std::string, int>("third", 4));
@@ -113,6 +138,8 @@ int main()
 	// }
 	return 0;
 }
+
+
 
 // #include "./INCS/pair.hpp"
 

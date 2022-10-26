@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/21 02:02:29 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 14:31:58 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include <algorithm>
 # include <memory>
 # include <cstddef>
-# include <iomanip>
+// # include <iomanip>
 # include <utility>
-# include <string>
+// # include <string>
 # include <sstream>
 # include <iostream>
 # include "node.hpp"
 # include "rbt_iterator.hpp"
+# include "pair.hpp"
 
 namespace	ft
 {
@@ -284,55 +285,20 @@ namespace	ft
 				return rbt_search(this->_root, k);
 			};
 
-			// void	insert(T key)
-			// {
-			// 	Node<T>	*z = _alloc.allocate(1);
-			// 	Node<T>	*y = NULL;
-			// 	Node<T>	*x = _root;
-
-			// 	z->parent = NULL;
-			// 	this->_alloc.construct(z, Node<T>());
-			// 	z->key = key;
-			// 	z->leftChild = _nil;
-			// 	z->rightChild = _nil;
-			// 	z->color = 1;
-
-			// 	while (x != _nil)
-			// 	{
-			// 		y = x;
-			// 		if (z->key < x->key)
-			// 			x = x->leftChild;
-			// 		else
-			// 			x = x->rightChild;
-			// 	}
-			// 	z->parent = y;
-			// 	if (y == NULL)
-			// 		_root = z;
-			// 	else if (z->key < y->key)
-			// 		y->leftChild = z;
-			// 	else
-			// 		y->rightChild = z;
-
-			// 	_size++;
-			// 	if (z->parent == NULL)
-			// 	{
-			// 		z->color = 0;
-			// 		return;
-			// 	}
-			// 	if (z->parent->parent == NULL)
-			// 		return;
-			// 	insert_fix(z);
-			// };
-
 			Node<T>	*insert(T key)
 			{
 				Node<T>	*z = _alloc.allocate(1);
 				Node<T>	*y = _nil; // NULL
 				Node<T>	*x = _root;
+				// T test;
 
 				z->parent = _nil; // NULL
 				this->_alloc.construct(z, Node<T>());
 				z->key = key;
+
+				// test = key;
+				
+				// key = key;  // pk ca marche pas non plus?
 				z->leftChild = _nil;
 				z->rightChild = _nil;
 				z->color = 1;
@@ -434,9 +400,7 @@ namespace	ft
 				}
 			};
 
-			// insert
-			// erase
-			// find
+
 			// count
 			// lower_bound
 			// upper_bound
