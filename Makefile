@@ -6,7 +6,7 @@
 #    By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 17:49:12 by ejahan            #+#    #+#              #
-#    Updated: 2022/10/18 20:14:25 by ejahan           ###   ########.fr        #
+#    Updated: 2022/10/26 20:58:00 by ejahan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS		=	${SRCS:.cpp=.o}
 
 CC			=	c++
 
-CFLAGS		=	-Wall -Werror -Wextra -std=c++98 -g3
+CFLAGS		=	-Wall -Werror -Wextra -std=c++98 
 
 NAME		=	ft_containers
 

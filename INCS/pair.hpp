@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 14:36:03 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 18:05:31 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,13 @@ namespace	ft {
 		if (x == y || x > y)
 			return (true);
 		return (false);
+	};
+
+	template<class T1, class T2>
+	std::ostream &operator<<(std::ostream &o, ft::pair<T1, T2> const &x)
+	{
+		o << "[" << x.first << " | " << x.second << "]";
+		return (o);
 	};
 
 //=================================================================================

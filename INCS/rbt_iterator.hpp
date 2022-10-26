@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 11:03:10 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 23:12:09 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,17 @@ namespace	ft
 
 			void Increment()
 			{
+				std::cout << "increment" << std::endl;
+				if (_node == _node->_nil)
+					return ;
 				if (_node->rightChild != _node->_nil)
 				{
 					ft::Node<T> *temp = _node->rightChild;
-					while (temp->leftChild != _node->_nil)// && temp != _node->_nil)
+					while (temp->leftChild != _node->_nil)
+					{
+						std::cout << "ici" << std::endl;
 						temp = temp->leftChild;
+					}
 					_node = temp;
 
 				}
@@ -88,6 +94,10 @@ namespace	ft
 			{
 			};
 
+			rbt_iterator(const Allocator& alloc = Allocator()) : _node(0), _alloc(alloc)
+			{
+			};
+
 			template< class U >
 			rbt_iterator(const rbt_iterator<U>& other)
 			{
@@ -115,21 +125,23 @@ namespace	ft
 				return _node->key;
 			};
 
-			T* operator->()
+			T* operator->() const 
 			{
 				return &(_node->key);
 			};
 
 			rbt_iterator<T>& operator++()
 			{
-				Increment();
+				if (_node != _node->_nil)
+					Increment();
 				return *this;
 			};
 
 			rbt_iterator<T> operator++(int)
 			{
 				rbt_iterator tmp = *this;
-				Increment();
+				if (_node != _node->_nil)
+					Increment();
 				// std::cout << "la" << std::endl;
 				return tmp;
 			};
@@ -189,7 +201,7 @@ namespace	ft
 				if (_node->rightChild != _node->_nil)
 				{
 					ft::Node<T> *temp = _node->rightChild;
-					while (temp->leftChild != _node->_nil)// && temp != _node->_nil)
+					while (temp->leftChild != _node->_nil)
 						temp = temp->leftChild;
 					_node = temp;
 
@@ -273,14 +285,16 @@ namespace	ft
 
 			const_rbt_iterator& operator++()
 			{
-				Increment();
+				if (_node != _node->_nil)
+					Increment();
 				return *this;
 			};
 
 			const_rbt_iterator operator++(int)
 			{
 				const_rbt_iterator tmp = *this;
-				Increment();
+				if (_node != _node->_nil)
+					Increment();
 				return tmp;
 			};
 

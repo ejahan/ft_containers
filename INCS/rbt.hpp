@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 14:31:58 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 19:46:01 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,14 +290,16 @@ namespace	ft
 				Node<T>	*z = _alloc.allocate(1);
 				Node<T>	*y = _nil; // NULL
 				Node<T>	*x = _root;
-				// T test;
+				// const T &test = key;
+				// T test2;
 
 				z->parent = _nil; // NULL
-				this->_alloc.construct(z, Node<T>());
-				z->key = key;
+				this->_alloc.construct(z, Node<T>(key));
+				// z->key = key;
 
 				// test = key;
-				
+				// test2 = key;
+
 				// key = key;  // pk ca marche pas non plus?
 				z->leftChild = _nil;
 				z->rightChild = _nil;
@@ -333,7 +335,7 @@ namespace	ft
 				return (z);
 			};
 
-			Node<T>	*rbt_min(Node<T> *x)
+			Node<T>	*rbt_min(Node<T> *x) const
 			{
 				while (x->leftChild != _nil)
 					x = x->leftChild;
@@ -382,6 +384,7 @@ namespace	ft
 					y->leftChild->parent = y;
 					y->color = z->color;
 				}
+				this->_alloc.destroy(z);
 				_alloc.deallocate(z, 1);
 				_size--;
 				if (color == 0)

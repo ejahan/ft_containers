@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 14:33:34 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 23:11:32 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "enable_if.hpp"
 #include "rbt_iterator.hpp"
 #include "node.hpp"
+#include "rbt.hpp"
 
 namespace ft {
 
@@ -79,7 +80,6 @@ namespace ft {
 
 			explicit map( const Compare& comp = Compare(), const Allocator& alloc = Allocator() )
 			{
-				std::cout << "CONSTRUCTEUR" << std::endl;
 				_cmp = comp;
 				_alloc = alloc;
 			};
@@ -99,10 +99,7 @@ namespace ft {
 					// insert(*it);
 			};
 
-			~map()
-			{
-				std::cout << "DESTRUCTEUR" << std::endl;
-			};
+			~map() {};
 
 			map<Key, T, Compare, Allocator> & operator=(map<Key, T, Compare, Allocator> const & rhs)
 			{
@@ -121,7 +118,7 @@ namespace ft {
 
 			const_iterator			begin() const
 			{
-				const_iterator	test(this->_p.rbt_min());
+				const_iterator	test(this->_p.rbt_min(_p.root()));
 				return (test);
 			};
 
@@ -178,7 +175,7 @@ namespace ft {
 
 			size_type	max_size() const
 			{
-				return (this->_allocator.max_size());
+				return (this->_alloc.max_size());
 			};
 
 
@@ -208,58 +205,16 @@ namespace ft {
 
 			ft::pair<iterator, bool> insert( const value_type& val )
 			{
-
-
-				ft::pair<std::string, int>	test2("first", 1);
-				ft::pair< std::string, int >	test("sredtf", 1);
-
-				test = val;
-				std::cout << "test1 first = " << test.first << std::endl;
-				std::cout << "test1 second = " << test.second << std::endl;
-
-
-
-				_p.insert(test);
-				// if (_p.searchTree(val) != _p.nil())
-				// 	return (ft::make_pair(iterator(_p.searchTree(val)), 0));
-				// return (ft::make_pair(iterator(_p.insert(val)), 1));
-
-
-
-
-
+				_p.insert(val);
 				return (ft::make_pair(begin(), 1));
-
-
-
-				// if (_p.searchTree(value) == _p.nil())
-				// {
-				// 	_p.insert(value);
-				// 	return (ft::make_pair(iterator(_p.searchTree(value)), 1));
-				// }
-				// return (ft::make_pair(iterator(_p.searchTree(value)), 0));
 			};
 
 			iterator			insert (iterator position, const value_type& val)
 			{
-
-
-
 				(void)position;
 				if (_p.searchTree(val) != _p.nil())
 					return (_p.searchTree(val));
 				return (iterator(_p.insert(val)));
-
-
-
-				// if (_p.searchTree(val) == _p.nil())
-				// 	_p.insert(val);
-				// return (iterator(_p.searchTree(val)));
-
-
-				// if (_p.searchTree(val) == _p.nil())
-				// 	_p.insert(val);
-				// return (iterator(_p.searchTree(val)));
 			};
 
 			template <class InputIterator>
@@ -268,6 +223,7 @@ namespace ft {
 			{
 				while (first != last)
 				{
+					// std::cout << "ta mere" << std::endl;
 					insert(*first);
 					first++;
 				}
@@ -280,15 +236,19 @@ namespace ft {
 
 			size_type		erase(const key_type& k)
 			{
-				iterator	it(_p.root());
+				iterator	it(_p.rbt_min(_p.root()));
+				ft::Node<ft::pair<const Key, T > >	*node;
 
 				while (it != _p.nil())
 				{
-					if (*it->first == k)
+					std::cout << "erase" << std::endl;
+					node = it.base();
+					if (node->key.first == k)
 					{
-						_p.delete_node(*it);
+						_p.delete_node(node);
 						return (1);
 					}
+					it++;
 				}
 				return (0);
 			};
@@ -332,32 +292,25 @@ namespace ft {
 
 			iterator		find(const key_type &k)
 			{
-				// iterator	it(_p.root());
 				iterator	it(_p.rbt_min(_p.root()));
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
 					it++;
 				}
-				// std::cout << "ca marche" << std::endl;
 				return (end());
 			};
 
 			const_iterator	find(const key_type &k) const
 			{
-				// const_iterator	it(_p.root());
 				const_iterator	it(_p.rbt_min(_p.root()));
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
@@ -370,14 +323,13 @@ namespace ft {
 			{
 				const_iterator	it(_p.root());
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (1);
+					it++;
 				}
 				return (0);
 			};
@@ -386,14 +338,14 @@ namespace ft {
 			{
 				iterator	it(_p.root());
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
+				// std::cout << "LOWER_BOUND" << std::endl;
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
+					it++;
 				}
 				return (it);
 			};
@@ -402,14 +354,14 @@ namespace ft {
 			{
 				const_iterator	it(_p.root());
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
+				// std::cout << "LOWER_BOUND" << std::endl;
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
+					it++;
 				}
 				return (it);
 			};
@@ -418,14 +370,14 @@ namespace ft {
 			{
 				iterator	it(_p.root());
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
+				// std::cout << "UPPER_BOUND" << std::endl;
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
+					it++;
 				}
 				return (it);
 			};
@@ -434,25 +386,27 @@ namespace ft {
 			{
 				const_iterator	it(_p.root());
 				ft::Node<ft::pair<const Key, T > >	*node;
-				// ft::pair<const Key, T>	test;
 
+				// std::cout << "UPPER_BOUND" << std::endl;
 				while (it != _p.nil())
 				{
-					// test = *it;
 					node = it.base();
 					if (node->key.first == k)
 						return (it);
+					it++;
 				}
 				return (it);
 			};
 
 			pair<const_iterator,const_iterator>	equal_range(const key_type &k) const
 			{
+				// std::cout << "EQUAL_RANGE" << std::endl;
 				return (ft::make_pair<const_iterator,const_iterator>(lower_bound(k), upper_bound(k)));
 			};
 
 			pair<iterator,iterator>	equal_range(const key_type &k)
 			{
+				// std::cout << "EQUAL_RANGE" << std::endl;
 				return (ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
 			};
 
@@ -460,6 +414,11 @@ namespace ft {
 			{
 				return (this->_allocator);
 			};
+
+			void	print()
+			{
+				_p.print();
+			}
 
 	};
 

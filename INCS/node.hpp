@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 21:53:46 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 11:08:30 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:29:28 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ namespace ft
 		Node	*rightChild;
 		Node	*parent;
 		Node	*_nil;
+
+		Node() {};
+		Node(T val) : key(val) {};
+		~Node() {};
+
 	};
 
 }
