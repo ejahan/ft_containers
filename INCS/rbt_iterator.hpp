@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 23:12:09 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/30 22:35:09 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,32 @@ namespace	ft
 	======================================================================================
 	*/
 
-	template<class T, class Allocator = std::allocator<Node<T> > >
+	template<class T>
 	struct rbt_iterator
 	{
 		protected:
 
 			ft::Node<T>		*_node;
-			Allocator	_alloc;
+			ft::Node<T>		*_root;
 
 			void Increment()
 			{
-				std::cout << "increment" << std::endl;
-				if (_node == _node->_nil)
-					return ;
 				if (_node->rightChild != _node->_nil)
 				{
 					ft::Node<T> *temp = _node->rightChild;
 					while (temp->leftChild != _node->_nil)
-					{
-						std::cout << "ici" << std::endl;
 						temp = temp->leftChild;
-					}
 					_node = temp;
 
 				}
 				else
 				{
 					ft::Node<T> *tmp = _node->parent;
+					if (tmp == _node->_nil)
+					{
+						_node = _node->_nil;
+						return ;
+					}
 					if (tmp->rightChild ==_node)
 					{
 						while (_node == tmp->rightChild)
@@ -66,14 +65,11 @@ namespace	ft
 			void Decrement()
 			{
 				if (_node->parent->parent == _node && _node->color == 1)
-				{
 					_node = _node->leftChild;
-					// j'ai pas compris l'interet
-				}
 				else if (_node->leftChild != _node->_nil)
 				{
 					_node = _node->leftChild;
-					while (_node->rightChild != _node->_nil)
+					while (_node->rightChild != _node->rightChild->_nil)
 						_node = _node->rightChild;
 				}
 				else
@@ -88,15 +84,26 @@ namespace	ft
 				}
 			};
 
+			Node<T>	*rbt_max(Node<T> *x)
+			{
+				while (x->rightChild != x->_nil)
+					x = x->rightChild;
+				return x;
+			};
+
+
 		public:
 
-			rbt_iterator(ft::Node<T> *n, const Allocator& alloc = Allocator()) : _node(n), _alloc(alloc)
-			{
-			};
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>:: pointer			pointer;
 
-			rbt_iterator(const Allocator& alloc = Allocator()) : _node(0), _alloc(alloc)
-			{
-			};
+
+			rbt_iterator() : _node(0) {};
+
+			rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
 
 			template< class U >
 			rbt_iterator(const rbt_iterator<U>& other)
@@ -132,31 +139,34 @@ namespace	ft
 
 			rbt_iterator<T>& operator++()
 			{
-				if (_node != _node->_nil)
-					Increment();
+				Increment();
 				return *this;
 			};
 
 			rbt_iterator<T> operator++(int)
 			{
 				rbt_iterator tmp = *this;
-				if (_node != _node->_nil)
-					Increment();
-				// std::cout << "la" << std::endl;
+				Increment();
 				return tmp;
 			};
 
 			rbt_iterator<T>& operator--()
 			{
-				Decrement();
+				if (_node == _node->_nil)
+					_node = rbt_max(_root);
+				else
+					Decrement();
 				return *this;
 			};
 
 			rbt_iterator<T> operator--(int)
 			{
 				rbt_iterator tmp = *this;
-				// rbt_iterator tmp = this;
-				Decrement();
+
+				if (_node == _node->_nil)
+					_node = rbt_max(_root);
+				else
+					Decrement();
 				return tmp;
 			};
 
@@ -170,15 +180,17 @@ namespace	ft
 				return _node != s._node;
 			};
 
-			// rbt_iterator<T>& operator+(size_t n)
-			// {
-			// 	while (n > 0)
-			// 		Increment();
-			// 	return *this;
-			// };
+			Node<T>	*node() const
+			{
+				return (this->_node);
+			}
+
+			Node<T>	*root() const
+			{
+				return (this->_root);
+			}
+
 	};
-
-
 
 
 	/*
@@ -187,14 +199,13 @@ namespace	ft
 	======================================================================================
 	*/
 
-	template<class T, class Allocator = std::allocator<ft::Node<T> > >
+	template<class T>
 	struct const_rbt_iterator
 	{
-
 		protected:
 
 			ft::Node<T>		*_node;
-			Allocator		_alloc;
+			ft::Node<T>		*_root;
 
 			void Increment()
 			{
@@ -209,6 +220,11 @@ namespace	ft
 				else
 				{
 					ft::Node<T> *tmp = _node->parent;
+					if (tmp == _node->_nil)
+					{
+						_node = _node->_nil;
+						return ;
+					}
 					if (tmp->rightChild ==_node)
 					{
 						while (_node == tmp->rightChild)
@@ -226,11 +242,10 @@ namespace	ft
 			{
 				if (_node->parent->parent == _node && _node->color == 1)
 					_node = _node->leftChild;
-
 				else if (_node->leftChild != _node->_nil)
 				{
 					_node = _node->leftChild;
-					while (_node->rightChild != _node->_nil)
+					while (_node->rightChild != _node->rightChild->_nil)
 						_node = _node->rightChild;
 				}
 				else
@@ -245,21 +260,38 @@ namespace	ft
 				}
 			};
 
+			Node<T>	*rbt_max(Node<T> *x)
+			{
+				while (x->rightChild != x->_nil)
+					x = x->rightChild;
+				return x;
+			};
+
+
 		public:
 
-			const_rbt_iterator(ft::Node<T> *n = NULL, const Allocator& alloc = Allocator()) : _node(n), _alloc(alloc)
-			{
-			};
-		
-			// autre constructeur a partir d'un iterator
-		
+
+			typedef typename ft::iterator<ft::random_access_iterator_tag, const T>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, const T>::iterator_category	iterator_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, const T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, const T>::reference			reference;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, const T>:: pointer			pointer;
+
+
+
+			const_rbt_iterator() : _node(0) {};
+
+			const_rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
+
 			template< class U >
-			const_rbt_iterator(const const_rbt_iterator<U>& other)
+			const_rbt_iterator(const const_rbt_iterator<U>& other) : _node(other._node), _root(other._root)
 			{
-				this->_node = other.base();
+				// this->_node = other.base();
 			};
 
 			~const_rbt_iterator() {};
+
+			const_rbt_iterator(const rbt_iterator<T> &iterator) : _node(iterator.node()), _root(iterator.root()) {};
 
 			template< class U >
 			const_rbt_iterator	&operator=(const const_rbt_iterator<U>& other)
@@ -273,50 +305,55 @@ namespace	ft
 				return (this->_node);
 			};
 
-			T& operator*()
+			const T& operator*() const
 			{
 				return _node->key;
 			};
 
-			T* operator->()
+			const T* operator->() const 
 			{
 				return &(_node->key);
 			};
 
-			const_rbt_iterator& operator++()
+			const_rbt_iterator<T>& operator++()
 			{
-				if (_node != _node->_nil)
-					Increment();
+				Increment();
 				return *this;
 			};
 
-			const_rbt_iterator operator++(int)
+			const_rbt_iterator<T> operator++(int)
 			{
 				const_rbt_iterator tmp = *this;
-				if (_node != _node->_nil)
-					Increment();
+				Increment();
 				return tmp;
 			};
 
-			const_rbt_iterator& operator--()
+			const_rbt_iterator<T>& operator--()
 			{
-				Decrement();
+				if (_node == _node->_nil)
+					_node = rbt_max(_root);
+				else
+					Decrement();
 				return *this;
 			};
 
-			const_rbt_iterator operator--(int)
+			const_rbt_iterator<T> operator--(int)
 			{
 				const_rbt_iterator tmp = *this;
-				Decrement();
+
+				if (_node == _node->_nil)
+					_node = rbt_max(_root);
+				else
+					Decrement();
 				return tmp;
 			};
 
-			bool operator==(const const_rbt_iterator& s)
+			bool operator==(const const_rbt_iterator<T>& s)
 			{
 				return _node == s._node;
 			};
 
-			bool operator!=(const const_rbt_iterator& s)
+			bool operator!=(const const_rbt_iterator<T>& s)
 			{
 				return _node != s._node;
 			};

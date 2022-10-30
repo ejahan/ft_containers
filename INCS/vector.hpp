@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:06:00 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/19 17:24:18 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/28 03:07:10 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,6 @@ namespace ft {
 
 			reference		at(size_type n)
 			{
-				// if (this->_size - 1 < n)
 				if (this->_size < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
 				return (*(this->begin() + n));
@@ -265,7 +264,6 @@ namespace ft {
 
 			const_reference	at(size_type n) const
 			{
-				// if (this->_size - 1 < n)
 				if (this->_size < n)
 					throw std::out_of_range("ERROR : out_of_range exception");
 				return (*(this->begin() + n));

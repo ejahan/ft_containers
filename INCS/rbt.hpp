@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/26 19:46:01 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/30 23:42:51 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 # include <algorithm>
 # include <memory>
 # include <cstddef>
-// # include <iomanip>
 # include <utility>
-// # include <string>
 # include <sstream>
 # include <iostream>
 # include "node.hpp"
@@ -28,7 +26,7 @@
 namespace	ft
 {
 
-	template<class T, class Allocator = std::allocator<Node<T> > >
+	template<class T, class Compare, class Allocator = std::allocator<Node<T> > >
 	class	red_black_tree
 	{
 		private:
@@ -37,6 +35,7 @@ namespace	ft
 			Node<T>		*_root;
 			Node<T>		*_nil;
 			size_t		_size;
+			Compare		_cmp;
 
 
 
@@ -172,8 +171,6 @@ namespace	ft
 			{
 				Node<T>	*y;
 
-				// std::cout << z->leftChild->color << std::endl;
-				// std::cout << z->color << std::endl;
 				while (z->parent->color == 1)
 				{
 					if (z->parent == z->parent->parent->leftChild)
@@ -242,14 +239,15 @@ namespace	ft
 
 		public:
 
-			red_black_tree()
+			red_black_tree(const Compare& cmp = Compare()) : _cmp(cmp)
 			{
 				_nil = _alloc.allocate(1);
-				this->_alloc.construct(_nil, Node<T>());
+				_alloc.construct(_nil, Node<T>());
 				_nil->color = 0;
 				_nil->leftChild = _nil;
 				_nil->rightChild = _nil;
 				_nil->parent = _nil;
+				_nil->_nil = _nil;
 				_root = _nil;
 				_size = 0;
 			};
@@ -290,28 +288,19 @@ namespace	ft
 				Node<T>	*z = _alloc.allocate(1);
 				Node<T>	*y = _nil; // NULL
 				Node<T>	*x = _root;
-				// const T &test = key;
-				// T test2;
 
-				z->parent = _nil; // NULL
 				this->_alloc.construct(z, Node<T>(key));
-				// z->key = key;
-
-				// test = key;
-				// test2 = key;
-
-				// key = key;  // pk ca marche pas non plus?
+				z->parent = _nil; // NULL
 				z->leftChild = _nil;
 				z->rightChild = _nil;
 				z->color = 1;
 				z->_nil = _nil;
 
-
 				_size++;
 				while (x != _nil)
 				{
 					y = x;
-					if (z->key < x->key)
+					if (_cmp(z->key, y->key) == true)
 						x = x->leftChild;
 					else
 						x = x->rightChild;
@@ -319,7 +308,7 @@ namespace	ft
 				z->parent = y;
 				if (y == _nil) // NULL
 					_root = z;
-				else if (z->key < y->key)
+				else if (_cmp(z->key, y->key) == true)
 					y->leftChild = z;
 				else
 					y->rightChild = z;
@@ -403,10 +392,13 @@ namespace	ft
 				}
 			};
 
-
-			// count
-			// lower_bound
-			// upper_bound
+			void	swap(red_black_tree& x)
+			{
+				std::swap(this->_alloc, x._alloc);
+				std::swap(this->_root, x._root);
+				std::swap(this->_nil, x._nil);
+				std::swap(this->_size, x._size);
+			};
 
 	};
 
