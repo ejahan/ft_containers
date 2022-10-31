@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 02:27:49 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 20:23:50 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,10 +418,10 @@ namespace ft {
 				return (this->_allocator);
 			};
 
-			void	print()
-			{
-				_p.print();
-			}
+			// void	print()
+			// {
+			// 	_p.print();
+			// }
 
 	};
 

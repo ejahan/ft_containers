@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 02:29:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 02:55:37 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 19:43:25 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ namespace ft {
 				TYPES
 			*/
 
-			typedef Key 											key_type;
-			typedef Key 											value_type;
-			typedef Compare 										key_compare;
-			typedef Compare 										value_compare;
-			typedef Allocator 										allocator_type;
-			typedef value_type&							reference;
-			typedef const value_type&						const_reference;
-			typedef ft::rbt_iterator<Key>							iterator;
-			typedef ft::const_rbt_iterator<Key>				const_iterator;
-			typedef size_t											size_type;
-			typedef ptrdiff_t			 							difference_type;
-			typedef typename Allocator::pointer 					pointer;
-			typedef typename Allocator::const_pointer 				const_pointer;
+			typedef Key 												key_type;
+			typedef Key 												value_type;
+			typedef Compare 											key_compare;
+			typedef Compare 											value_compare;
+			typedef Allocator 											allocator_type;
+			typedef value_type&											reference;
+			typedef const value_type&									const_reference;
+			typedef ft::rbt_iterator<Key>								iterator;
+			typedef ft::const_rbt_iterator<Key>							const_iterator;
+			typedef size_t												size_type;
+			typedef ptrdiff_t			 								difference_type;
+			typedef typename Allocator::pointer 						pointer;
+			typedef typename Allocator::const_pointer 					const_pointer;
 			typedef ft::reverse_iterator<ft::rbt_iterator<Key> >		reverse_iterator;
 			typedef ft::reverse_iterator<ft::const_rbt_iterator<Key> > 	const_reverse_iterator;
 

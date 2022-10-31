@@ -154,3 +154,63 @@ MEMBER TYPE				DEFINITION										NOTES
 				// std::cout << "capacity = " << this->_capacity << std::endl;
 
 
+
+
+
+long long int	get_time_ms()
+{
+	struct timeval		tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+long long int get_prog_time(long long int first_time)
+{
+	return (get_time_ms() - first_time);
+}
+
+int	main(void)
+{
+	long long int		first_time;
+
+	first_time = get_time_ms();
+
+	test_stack();
+	test_vector();
+	test_map();
+
+	std::cout << "execution terminated after " << get_prog_time(first_time) << "ms" << std::endl;
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
+
+void	init_time(t_philo *philo)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	philo->time = (time.tv_sec * 1000 + time.tv_usec / 1000);
+	pthread_mutex_lock(&philo->mutex_last_meal);
+	philo->time_last_meal = (time.tv_sec * 1000 + time.tv_usec / 1000);
+	pthread_mutex_unlock(&philo->mutex_last_meal);
+}
+
+
+
+	long long int	time;
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	time = t.tv_sec * 1000 + t.tv_usec / 1000;
+	time -= start_time;
+	return (time);

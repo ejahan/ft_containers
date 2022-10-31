@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   main_std.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 23:19:43 by ejahan           ###   ########.fr       */
+/*   Created: 2022/10/31 20:13:37 by ejahan            #+#    #+#             */
+/*   Updated: 2022/10/31 23:02:37 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 /*
 ================================================================================
@@ -144,14 +145,6 @@ TEST SUJET
 
 
 
-
-
-
-
-
-
-
-
 /*
 ===================================================================================
 ===================================================================================
@@ -161,6 +154,7 @@ TEST SUJET
 ===================================================================================
 ===================================================================================
 */
+
 #include <sys/time.h>
 #include <iostream>
 # define NOR "\033[m"
@@ -191,12 +185,12 @@ TESTS VECTOR
 ================================================================================
 */
 
-#include "./INCS/vector.hpp"
+#include <vector>
 
-void	print_vector(ft::vector<int> vect, std::string str)
+void	print_vector(std::vector<int> vect, std::string str)
 {
-	ft::vector<int>::iterator	it = vect.begin();
-	ft::vector<int>::iterator	ite = vect.end();
+	std::vector<int>::iterator	it = vect.begin();
+	std::vector<int>::iterator	ite = vect.end();
 
 	std::cout << std::endl << WHITE << str << NOR << std::endl;
 	while (it != ite)
@@ -210,7 +204,7 @@ void	vector_test()
 {
 	std::cout << "=====================================================================" << std::endl << "				VECTOR" <<std::endl << "=====================================================================" << std::endl << std::endl << std::endl;
 
-	ft::vector<int>	vector1;
+	std::vector<int>	vector1;
 	if (vector1.empty() == true)
 		std::cout << GREEN << "vector1 is empty" << NOR << std::endl << std::endl;
 	for (int n(5); n > 0; n--)
@@ -304,20 +298,20 @@ void	vector_test()
 
 	std::cout << std::endl << CYAN << "========================" << std::endl << NOR;
 	std::cout << CYAN << "CONSTRUCT vector_range :" << std::endl << NOR;
-	ft::vector<int>	vector_range(vector1.begin() + 1, vector1.begin() + 8);
+	std::vector<int>	vector_range(vector1.begin() + 1, vector1.begin() + 8);
 	print_vector(vector_range, "vector_range :");
 
 	std::cout << std::endl << CYAN << "===================" << std::endl << NOR;
 	std::cout << CYAN << "CONSTRUCT vector2 :" << std::endl << NOR;
-	ft::vector<int>	vector2(6, 123);
+	std::vector<int>	vector2(6, 123);
 	print_vector(vector2, "vector2 :");
 
 	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
 	std::cout << "*vector2 = vector1*" << std::endl;
 	std::cout << "===================" << std::endl << NOR;
 	vector2 = vector1;
-	ft::vector<int>::iterator	it = vector2.begin();
-	ft::vector<int>::iterator	ite = vector2.end();
+	std::vector<int>::iterator	it = vector2.begin();
+	std::vector<int>::iterator	ite = vector2.end();
 	int	i = 0;
 
 	std::cout << std::endl << WHITE << "vector2	:		vector1 :" << NOR << std::endl;
@@ -369,7 +363,7 @@ TESTS STACK
 ================================================================================
 */
 
-#include "./INCS/stack.hpp"
+#include <stack>
 
 void	stack_test()
 {
@@ -390,7 +384,7 @@ TESTS MAP
 ================================================================================
 */
 
-#include "./INCS/map.hpp"
+#include <map>
 
 void	map_test()
 {
@@ -416,23 +410,18 @@ MAIN TESTS
 
 int	main()
 {
-	long long int	i;
-	long long int	j;
+	unsigned int	i;
+	unsigned int	j;
 	struct timeval	time;
-	struct timeval	time2;
 	gettimeofday(&time, NULL);
 	i = (time.tv_sec * 1000 + time.tv_usec / 1000);
-
 	vector_test();
 	// stack_test();
 	// map_test();
 
-	gettimeofday(&time2, NULL);
-	j = (time2.tv_sec * 1000 + time2.tv_usec / 1000);
-	std::cout << i << std::endl;
-	std::cout << j << std::endl;
+	gettimeofday(&time, NULL);
+	j = (time.tv_sec * 1000 + time.tv_usec / 1000);
 	std::cout << "TIME = " << j - i << std::endl;
-
 	return (0);
 }
 
@@ -441,109 +430,3 @@ int	main()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-===================================================================================
-===================================================================================
-===================================================================================
-TESTEUR 
-===================================================================================
-===================================================================================
-===================================================================================
-*/
-
-
-// #define _pair ft::pair
-
-// template <typename T>
-// std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
-// {
-// 	o << "value: " << *iterator;
-// 	if (nl)
-// 		o << std::endl;
-// 	return ("");
-// }
-
-// template <typename T_SET>
-// void	printSize(T_SET const &st, bool print_content = 1)
-// {
-// 	std::cout << "size: " << st.size() << std::endl;
-// 	std::cout << "max_size: " << st.max_size() << std::endl;
-// 	if (print_content)
-// 	{
-// 		typename T_SET::const_iterator it = st.begin(), ite = st.end();
-// 		std::cout << std::endl << "Content is:" << std::endl;
-// 		for (; it != ite; ++it)
-// 			std::cout << "- " << printPair(it, false) << std::endl;
-// 	}
-// 	std::cout << "###############################################" << std::endl;
-// }
-
-// template <typename T1>
-// void	printReverse(ft::set<T1> &st)
-// {
-// 	typename ft::set<T1>::iterator it = st.end(), ite = st.begin();
-
-// 	std::cout << "printReverse:" << std::endl;
-// 	while (it-- != ite)
-// 		std::cout << "-> " << printPair(it, false) << std::endl;
-// 	std::cout << "_______________________________________________" << std::endl;
-// }
-
-
-
-
-
-
-// #define T1 int
-
-// int		main(void)
-// {
-// 	ft::set<T1> const st;
-// 	ft::set<T1>::iterator it = st.begin(); // <-- no error, actually ! set allows for const_iterator => iterator conversion
-
-// 	(void)it;
-// 	return (0);
-// }

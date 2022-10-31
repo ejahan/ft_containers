@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 03:12:12 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 19:38:20 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ namespace	ft
 			template< class U >
 			rbt_iterator(const rbt_iterator<U>& other)
 			{
-				this->_node = other.base();
+				// this->_node = other.base();
+				_node = other.node();
+				_root = other.root();
 			};
 
 			~rbt_iterator()
@@ -118,7 +120,9 @@ namespace	ft
 			template< class U >
 			rbt_iterator	&operator=(const rbt_iterator<U>& other)
 			{
-				this->_node = other.base();
+				// this->_node = other.base();
+				_node = other.node();
+				_root = other.root();
 				return (*this);
 			};
 
@@ -132,7 +136,17 @@ namespace	ft
 				return _node->key;
 			};
 
-			T* operator->() const 
+			const T& operator*() const
+			{
+				return _node->key;
+			};
+
+			const T* operator->() const 
+			{
+				return &(_node->key);
+			};
+
+			T* operator->()
 			{
 				return &(_node->key);
 			};
@@ -297,6 +311,15 @@ namespace	ft
 			const_rbt_iterator	&operator=(const const_rbt_iterator<U>& other)
 			{
 				this->_node = other.base();
+				_root = other.root();
+				return (*this);
+			};
+
+			template< class U >
+			const_rbt_iterator	&operator=(const rbt_iterator<U>& other)
+			{
+				this->_node = other.base();
+				_root = other.root();
 				return (*this);
 			};
 
@@ -311,6 +334,16 @@ namespace	ft
 			};
 
 			const T* operator->() const 
+			{
+				return &(_node->key);
+			};
+
+			const T& operator*()
+			{
+				return _node->key;
+			};
+
+			const T* operator->()
 			{
 				return &(_node->key);
 			};
@@ -357,6 +390,17 @@ namespace	ft
 			{
 				return _node != s._node;
 			};
+
+			Node<T>	*node() const
+			{
+				return (this->_node);
+			}
+
+			Node<T>	*root() const
+			{
+				return (this->_root);
+			}
+
 	};
 
 }
