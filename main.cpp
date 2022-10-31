@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 17:50:27 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 02:20:11 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 03:11:13 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,11 @@
 
 
 // // #include <iostream>
-// #include "./INCS/containers_test/srcs/base.hpp"
+#include "./INCS/containers_test/srcs/base.hpp"
 
 // // #include <map>
 
+#include "./INCS/set.hpp"
 
 
 // #define _pair ft::pair
@@ -219,6 +220,374 @@
 // 	}
 // 	std::cout << "_______________________________________________" << std::endl;
 // }
+
+
+
+
+
+#define _pair ft::pair
+
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+{
+	o << "value: " << *iterator;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
+
+template <typename T_SET>
+void	printSize(T_SET const &st, bool print_content = 1)
+{
+	std::cout << "size: " << st.size() << std::endl;
+	std::cout << "max_size: " << st.max_size() << std::endl;
+	if (print_content)
+	{
+		typename T_SET::const_iterator it = st.begin(), ite = st.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
+
+template <typename T1>
+void	printReverse(ft::set<T1> &st)
+{
+	typename ft::set<T1>::iterator it = st.end(), ite = st.begin();
+
+	std::cout << "printReverse:" << std::endl;
+	while (it-- != ite)
+		std::cout << "-> " << printPair(it, false) << std::endl;
+	std::cout << "_______________________________________________" << std::endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <list>
+
+#define T1 foo<int>
+
+int		main(void)
+{
+	std::list<T1> lst;
+	unsigned int lst_size = 5;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(2.5 + i);
+
+	ft::set<T1> st(lst.begin(), lst.end());
+	ft::set<T1>::iterator it(st.begin());
+	ft::set<T1>::const_iterator ite(st.begin());
+	printSize(st);
+
+	printPair(++ite);
+	printPair(ite++);
+	printPair(ite++);
+	printPair(++ite);
+
+	it->m();
+	ite->m();
+
+	printPair(++it);
+	printPair(it++);
+	printPair(it++);
+	printPair(++it);
+
+	printPair(--ite);
+	printPair(ite--);
+	printPair(--ite);
+	printPair(ite--);
+
+	(*it).m();
+	(*ite).m();
+
+	printPair(--it);
+	printPair(it--);
+	printPair(it--);
+	printPair(--it);
+
+	return (0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #define T1 std::string
+// typedef ft::set<T1>::iterator iterator;
+
+// static int iter = 0;
+
+// template <typename SET, typename U>
+// void	ft_insert(SET &st, U param)
+// {
+// 	_pair<iterator, bool> tmp;
+
+// 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+// 	tmp = st.insert(param);
+// 	std::cout << "insert return: " << printPair(tmp.first);
+// 	std::cout << "Created new node: " << tmp.second << std::endl;
+// 	printSize(st);
+// }
+
+// template <typename SET, typename U, typename V>
+// void	ft_insert(SET &st, U param, V param2)
+// {
+// 	iterator tst;
+
+// 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+// 	tst = st.insert(param, param2);
+// 	std::cout << "insert return: " << printPair(tst);
+// 	printSize(st);
+// }
+
+// int		main(void)
+// {
+// 	ft::set<T1> st, st2;
+
+// 	ft_insert(st, "lol");
+// 	ft_insert(st, "mdr");
+
+// 	ft_insert(st, "mdr");
+// 	ft_insert(st, "funny");
+
+// 	ft_insert(st, "bunny");
+// 	ft_insert(st, "fizz");
+// 	ft_insert(st, "buzz");
+
+// 	ft_insert(st, st.begin(), "fuzzy");
+
+// 	ft_insert(st2, st2.begin(), "beauty");
+// 	ft_insert(st2, st2.end(), "Hello");
+// 	ft_insert(st2, st2.end(), "World");
+
+// 	return (0);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #define T1 int
+
+// ft::set<T1> st;
+// ft::set<T1>::iterator it = st.end();
+
+// void	ft_find(T1 const &k)
+// {
+// 	ft::set<T1>::iterator ret = st.find(k);
+
+// 	if (ret != it)
+// 		printPair(ret);
+// 	else
+// 		std::cout << "set::find(" << k << ") returned end()" << std::endl;
+// }
+
+// void	ft_count(T1 const &k)
+// {
+// 	std::cout << "set::count(" << k << ")\treturned [" << st.count(k) << "]" << std::endl;
+// }
+
+// int		main(void)
+// {
+// 	st.insert(42);
+// 	st.insert(25);
+// 	st.insert(80);
+// 	st.insert(12);
+// 	st.insert(27);
+// 	st.insert(90);
+// 	printSize(st);
+
+// 	std::cout << "\t-- FIND --" << std::endl;
+// 	ft_find(12);
+// 	ft_find(3);
+// 	ft_find(35);
+// 	ft_find(90);
+// 	ft_find(100);
+
+// 	std::cout << "\t-- COUNT --" << std::endl;
+// 	ft_count(-3);
+// 	ft_count(12);
+// 	ft_count(3);
+// 	ft_count(35);
+// 	ft_count(90);
+// 	ft_count(100);
+
+// 	st.erase(st.find(27));
+
+// 	printSize(st);
+
+// 	ft::set<T1> const c_set(st.begin(), st.end());
+// 	std::cout << "const set.find(" << 42 << ")->second: [" << *(c_set.find(42)) << "]" << std::endl;
+// 	std::cout << "const set.count(" << 80 << "): [" << c_set.count(80) << "]" << std::endl;
+// 	return (0);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #include <list>
+
+// #define T1 int
+// typedef ft::set<T1>::iterator ft_iterator;
+// typedef ft::set<T1>::const_iterator ft_const_iterator;
+
+// static int iter = 0;
+
+// template <typename SET>
+// void	ft_bound(SET &st, const T1 &param)
+// {
+// 	ft_iterator ite = st.end(), it[2];
+// 	_pair<ft_iterator, ft_iterator> ft_range;
+
+// 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+// 	std::cout << "with key [" << param << "]:" << std::endl;
+// 	it[0] = st.lower_bound(param); it[1] = st.upper_bound(param);
+// 	ft_range = st.equal_range(param);
+// 	std::cout << "lower_bound: " << (it[0] == ite ? "end()" : printPair(it[0], false)) << std::endl;
+// 	std::cout << "upper_bound: " << (it[1] == ite ? "end()" : printPair(it[1], false)) << std::endl;
+// 	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
+// }
+
+// template <typename SET>
+// void	ft_const_bound(const SET &st, const T1 &param)
+// {
+// 	ft_const_iterator ite = st.end(), it[2];
+// 	_pair<ft_const_iterator, ft_const_iterator> ft_range;
+
+// 	std::cout << "\t-- [" << iter++ << "] (const) --" << std::endl;
+// 	std::cout << "with key [" << param << "]:" << std::endl;
+// 	it[0] = st.lower_bound(param); it[1] = st.upper_bound(param);
+// 	ft_range = st.equal_range(param);
+// 	std::cout << "lower_bound: " << (it[0] == ite ? "end()" : printPair(it[0], false)) << std::endl;
+// 	std::cout << "upper_bound: " << (it[1] == ite ? "end()" : printPair(it[1], false)) << std::endl;
+// 	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
+// }
+
+// int		main(void)
+// {
+// 	std::list<T1> lst;
+// 	unsigned int lst_size = 10;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back((i + 1) * 3);
+// 	ft::set<T1> st(lst.begin(), lst.end());
+// 	printSize(st);
+
+// 	ft_const_bound(st, -10);
+// 	ft_const_bound(st, 1);
+// 	ft_const_bound(st, 5);
+// 	ft_const_bound(st, 10);
+// 	ft_const_bound(st, 50);
+
+// 	printSize(st);
+
+// 	ft_bound(st, 5);
+// 	ft_bound(st, 7);
+
+// 	printSize(st);
+// 	return (0);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -508,25 +877,25 @@ je sais plus
 
 
 
-#include <iostream>
-#include <map>
+// #include <iostream>
+// #include <map>
 
-int	main()
-{
-	std::map<std::string, int>	map;
-	std::map<std::string, int>	map2;
+// int	main()
+// {
+// 	std::map<std::string, int>	map;
+// 	std::map<std::string, int>	map2;
 
-	map.insert(std::make_pair<std::string, int>("satan", 666));
-	map.insert(std::make_pair<std::string, int>("lol", 8));
-	map.insert(std::make_pair<std::string, int>("uch", 442));
-	map.insert(std::make_pair<std::string, int>("xD", 123));
-	// map.insert(std::make_pair<int, std::string>(5, "qwe"));
-	// map.insert(std::make_pair<int, std::string>(6, "qwe"));
-	// map.insert(std::make_pair<int, std::string>(78, "qwe"));
-	// map.insert(std::make_pair<int, std::string>(465, "qwe"));
-	// std::cout << "size = " << map.size() << std::endl;
-	if (map > map2)
-		std::cout << true << std::endl;
+// 	map.insert(std::make_pair<std::string, int>("satan", 666));
+// 	map.insert(std::make_pair<std::string, int>("lol", 8));
+// 	map.insert(std::make_pair<std::string, int>("uch", 442));
+// 	map.insert(std::make_pair<std::string, int>("xD", 123));
+// 	// map.insert(std::make_pair<int, std::string>(5, "qwe"));
+// 	// map.insert(std::make_pair<int, std::string>(6, "qwe"));
+// 	// map.insert(std::make_pair<int, std::string>(78, "qwe"));
+// 	// map.insert(std::make_pair<int, std::string>(465, "qwe"));
+// 	// std::cout << "size = " << map.size() << std::endl;
+// 	if (map > map2)
+// 		std::cout << true << std::endl;
 
-	return (0);
-}
+// 	return (0);
+// }
