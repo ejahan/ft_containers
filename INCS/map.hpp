@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/30 23:46:29 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:05:50 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,7 @@ namespace ft {
 			mapped_type&		operator[](const key_type& k)
 			{
 				iterator	it;
-				T	test;
-				value_type	pair(k, test);
+				value_type	pair(k, T());
 
 				if (count(k) == 0)
 					insert(pair);
@@ -216,14 +215,15 @@ namespace ft {
 			ft::pair<iterator, bool> insert( const value_type& val )
 			{
 				if (count(val.first) == 1)
-					return (ft::make_pair(begin(), 0));
+					return (ft::make_pair(find(val.first), 0));
 				return (ft::make_pair(iterator(_p.insert(val), _p.root()), 1));
 			};
 
 			iterator			insert(iterator position, const value_type& val)
 			{
 				(void)position;
-				if (_p.searchTree(val) != _p.nil())
+				// if (_p.searchTree(val) != _p.nil())
+				if (count(val.first) == 1)
 					return (iterator(_p.searchTree(val), _p.root()));
 				return (iterator(_p.insert(val), _p.root()));
 			};
@@ -289,13 +289,11 @@ namespace ft {
 
 			// // 	OBSERVERS
 
-			// j ai pas trop compris je crois
 			key_compare		key_comp() const
 			{
 				return (_cmp);
 			};
 
-			// j ai pas trop compris non plus du coup 
 			value_compare	value_comp() const
 			{
 				return (value_compare(_cmp));
@@ -434,7 +432,6 @@ namespace ft {
 			lhs.swap(rhs);
 		};
 
-
 		/*
 		======================================================================================
 		OPERATORS
@@ -453,8 +450,7 @@ namespace ft {
 		template< class Key, class T, class Compare, class Alloc >
 		bool	operator!=( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
-			if (ft::equal(lhs.begin(), lhs.end(), rhs.begin()) == false
-					|| (lhs.size() != rhs.size()))
+			if (!(lhs == rhs))
 				return (true);
 			return (false);
 		};
@@ -462,8 +458,15 @@ namespace ft {
 		template< class Key, class T, class Compare, class Alloc >
 		bool	operator<( const ft::map<Key,T,Compare,Alloc> &lhs, const ft::map<Key,T,Compare,Alloc> &rhs )
 		{
+			// if (lhs.size() < rhs.size())
+			// {
+			// 	std::cout << "SIZE" << std::endl;
+			// 	return (true);
+			// }
 			if (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) == true)
+			{
 				return (true);
+			}
 			return (false);
 		};
 

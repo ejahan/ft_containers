@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:03:08 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/16 21:00:43 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 02:24:14 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ namespace	ft
 	template <class InputIt1, class InputIt2>
 	bool	lexicographical_compare(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2)
 	{
-		--last1;
-		--last2;
 		for ( ; (first1 != last1) && (first2 != last2); ++first1, (void) ++first2 )
 		{
 			if (*first1 < *first2)
@@ -34,7 +32,6 @@ namespace	ft
 	template< class InputIt1, class InputIt2 >
 	bool	equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
 	{
-		// --last1;
 		for ( ; (first1 != last1); ++first1, ++first2)
 		{
 			if (*first1 != *first2)

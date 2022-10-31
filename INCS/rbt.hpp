@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/30 23:42:51 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/10/31 01:06:02 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ namespace	ft
 				buffer << prefix << (isTail ? "└── " : "┌── ");
 				if (node->color == 1)
 					buffer << "\033[31m";
-				buffer << node->key << "\033[0m" << std::endl;
+				// buffer << node->key << "\033[0m" << std::endl;
 				if (node->leftChild != _nil)
 					_print(node->leftChild, buffer, true, std::string(prefix).append(isTail ? "    " : "│   "));
 			};
