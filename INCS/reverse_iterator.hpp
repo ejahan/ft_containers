@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/11/01 05:44:17 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/01 23:02:40 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ namespace	ft {
 			typedef	typename	ft::iterator_traits<Iter>::pointer			pointer;
 
 
-			// reverse_iterator() : _current(0) {};
 			reverse_iterator() : _current() {};
 
 			explicit	reverse_iterator(iterator_type x) : _current(x) {};

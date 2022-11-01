@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 02:29:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/11/01 06:07:17 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/01 23:20:41 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include "lexicographical_compare.hpp"
 #include "enable_if.hpp"
 #include "rbt_iterator.hpp"
-#include "set_iterator.hpp"
 #include "node.hpp"
 #include "rbt.hpp"
 
@@ -44,17 +43,14 @@ namespace ft {
 			typedef Allocator 											allocator_type;
 			typedef value_type&											reference;
 			typedef const value_type&									const_reference;
-			typedef ft::set_rbt_iterator<Key>								iterator;
-			typedef ft::set_rbt_iterator<Key>								const_iterator;
-			// typedef ft::const_rbt_iterator<Key>							const_iterator;
+			typedef ft::rbt_iterator<Key>							iterator;
+			typedef ft::rbt_iterator<Key>							const_iterator;
 			typedef size_t												size_type;
 			typedef ptrdiff_t			 								difference_type;
 			typedef typename Allocator::pointer 						pointer;
 			typedef typename Allocator::const_pointer 					const_pointer;
-			// typedef ft::reverse_iterator<iterator>		reverse_iterator;
-			// typedef ft::reverse_iterator<iterator> 	const_reverse_iterator;
-			typedef ft::set_rev_iterator<iterator>		reverse_iterator;
-			typedef ft::set_rbt_iterator<iterator> 	const_reverse_iterator;
+			typedef ft::reverse_iterator<iterator>		reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator> 	const_reverse_iterator;
 
 
 		private:
@@ -166,34 +162,6 @@ namespace ft {
 			{
 				return (this->_alloc.max_size());
 			};
-
-
-			// // 	ELEMENT ACCESS
-
-			// setped_type&		operator[](const key_type& k)
-			// {
-			// 	iterator	it;
-			// 	value_type	pair(k, T());
-
-			// 	if (count(k) == 0)
-			// 		insert(pair);
-			// 	it = find(k);
-			// 	return (it->second);
-			// };
-
-			// setped_type&		at(const key_type& k)
-			// {
-			// 	if (this->_p.size() < k)
-			// 		throw std::out_of_range("ERROR : out_of_range exception");
-			// 	return (*(this->begin() + k));
-			// };
-
-			// const setped_type&	at(const key_type& k) const
-			// {
-			// 	if (this->_p.size() < k)
-			// 		throw std::out_of_range("ERROR : out_of_range exception");
-			// 	return (*(this->begin() + k));
-			// };
 
 
 			// 	MODIFIERS
