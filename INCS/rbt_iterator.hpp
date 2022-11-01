@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 19:38:20 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/01 02:51:12 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RBT_ITERATOR_HPP
 
 # include "node.hpp"
+
 
 namespace	ft
 {
@@ -99,72 +100,168 @@ namespace	ft
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>:: pointer			pointer;
+			typedef	ft::Node<T> *		n_pointer;
 
+			// rbt_iterator() : _node() {};
 
-			rbt_iterator() : _node(0) {};
+			// rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
 
-			rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
+			// // rbt_iterator(const n_pointer &n, const n_pointer &root) : _node(n), _root(root) {};
 
-			template< class U >
-			rbt_iterator(const rbt_iterator<U>& other)
-			{
-				// this->_node = other.base();
-				_node = other.node();
-				_root = other.root();
-			};
+			// template< class U >
+			// rbt_iterator(const rbt_iterator<U>& other)
+			// {
+			// 	// this->_node = other.base();
+			// 	_node = other.node();
+			// 	_root = other.root();
+			// };
 
-			~rbt_iterator()
-			{
-			}
+			// operator rbt_iterator<const T> (void) {
+			// 	return (rbt_iterator<const T>(_node, _root));
+			// }
 
-			template< class U >
-			rbt_iterator	&operator=(const rbt_iterator<U>& other)
-			{
-				// this->_node = other.base();
-				_node = other.node();
-				_root = other.root();
-				return (*this);
-			};
+			// ~rbt_iterator()
+			// {
+			// }
+
+			// template< class U >
+			// rbt_iterator	&operator=(const rbt_iterator<U>& other)
+			// {
+			// 	// this->_node = other.base();
+			// 	_node = other.node();
+			// 	_root = other.root();
+			// 	return (*this);
+			// };
 
 			ft::Node<T> *base() const
 			{
 				return (this->_node);
 			};
 
-			T& operator*()
-			{
-				return _node->key;
-			};
 
-			const T& operator*() const
-			{
-				return _node->key;
-			};
+			// T& operator*()
+			// {
+			// 	return _node->key;
+			// };
 
-			const T* operator->() const 
-			{
-				return &(_node->key);
-			};
+			// const T& operator*() const
+			// {
+			// 	return _node->key;
+			// };
 
-			T* operator->()
-			{
-				return &(_node->key);
-			};
+			// const T* operator->() const 
+			// {
+			// 	return &(_node->key);
+			// };
 
-			rbt_iterator<T>& operator++()
+			// T* operator->()
+			// {
+			// 	return &(_node->key);
+			// };
+
+
+
+
+			rbt_iterator (void) : _node(), _root() {};
+
+			// rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
+
+			rbt_iterator (const n_pointer& val, const n_pointer& root) : _node(val), _root(root) {};
+
+			rbt_iterator (const rbt_iterator& other) : _node(other._node), _root(other._root) {};
+
+			operator rbt_iterator<const T> (void) {
+				return (rbt_iterator<const T>(_node, _root));
+			}
+
+			rbt_iterator&
+			operator=(const rbt_iterator& other) {
+				if (this == &other) {return (*this);}
+
+				_node = other._node;
+				_root = other._root;
+
+				return (*this);
+			}
+
+			const reference operator* (void) const {
+				return (_node->key);
+			}
+
+			const pointer operator-> (void) const {
+				return (&operator*());
+			}
+
+			reference operator* (void) {
+				return (_node->key);
+			}
+
+			pointer operator-> (void) {
+				return (&operator*());
+			}
+
+
+
+
+
+			// const T& operator*() const
+			// {
+			// 	return _node->key;
+			// };
+
+			// const T* operator->() const 
+			// {
+			// 	return &(_node->key);
+			// };
+
+			// const T& operator*() 
+			// {
+			// 	return _node->key;
+			// };
+
+			// const T* operator->()
+			// {
+			// 	return &(_node->key);
+			// };
+
+
+			// T& operator*()
+			// {
+			// 	return _node->key;
+			// };
+
+			// const T& operator*() const
+			// {
+			// 	return _node->key;
+			// };
+
+			// const T* operator->() const 
+			// {
+			// 	return &(_node->key);
+			// };
+
+			// T* operator->()
+			// {
+			// 	return &(_node->key);
+			// };
+
+
+
+
+			rbt_iterator& operator++()
 			{
 				Increment();
 				return *this;
 			};
 
-			rbt_iterator<T> operator++(int)
+			rbt_iterator operator++(int)
 			{
 				rbt_iterator tmp = *this;
 				Increment();
 				return tmp;
 			};
 
-			rbt_iterator<T>& operator--()
+			rbt_iterator& operator--()
 			{
 				if (_node == _node->_nil)
 					_node = rbt_max(_root);
@@ -173,7 +270,7 @@ namespace	ft
 				return *this;
 			};
 
-			rbt_iterator<T> operator--(int)
+			rbt_iterator operator--(int)
 			{
 				rbt_iterator tmp = *this;
 

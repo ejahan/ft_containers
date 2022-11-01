@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/30 22:38:22 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/01 05:44:17 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define REVERSE_ITERATOR_HPP
 
 #include "iterator_traits.hpp"
-#include "random_access.hpp"
 
 namespace	ft {
 
@@ -42,6 +41,11 @@ namespace	ft {
 			reverse_iterator() : _current() {};
 
 			explicit	reverse_iterator(iterator_type x) : _current(x) {};
+
+			// operator reverse_iterator<const iterator_type>() const
+			// {
+			// 	return (reverse_iterator<const iterator_type>(_current));
+			// }
 
 			template< class U >
 			reverse_iterator(const reverse_iterator<U>& other) : _current(other.base()) {};
@@ -172,7 +176,6 @@ namespace	ft {
 		return (rhs.base() - lhs.base());
 	};
 
-	// j ai compris mais comment il a trouve qu il fallait mettre ca aussi?
 	template <class T1, class T2>
 	typename reverse_iterator<T1>::difference_type operator-(const reverse_iterator<T1>& x, const reverse_iterator<T2>& y) {
 		return y.base() - x.base();
@@ -180,75 +183,4 @@ namespace	ft {
 
 }
 
-	// template <class Iterator>
-	// bool operator==(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-	
-	// template <class Iterator>
-	// bool operator<(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-	
-	// template <class Iterator>
-	// bool operator!=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-	
-	// template <class Iterator>
-	// bool operator>(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-	
-	// template <class Iterator>
-	// bool operator>=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-	
-	// template <class Iterator>
-	// bool operator<=(const reverse_iterator<Iterator>& x, const reverse_iterator<Iterator>& y);
-
-
-
-
-
-
-
-
-	// reverse_iterator();
-	// explicit reverse_iterator(Iterator x);
-	// template <class U> reverse_iterator(const reverse_iterator<U>& u);
-	// Iterator base() const; // explicit
-	// reference operator*() const;
-	// pointer operator->() const;
-	// reverse_iterator& operator++();
-	// reverse_iterator operator++(int);
-	// reverse_iterator& operator--();
-	// reverse_iterator operator--(int);
-	// reverse_iterator operator+ (difference_type n) const;
-	// reverse_iterator& operator+=(difference_type n);
-	// reverse_iterator operator- (difference_type n) const;
-	// reverse_iterator& operator-=(difference_type n);
-	// reference operator[](difference_type n) const;
-	// };
-	
 #endif
-
-    // explicit reverse_iterator(Itr itr): itr(itr) {}
-    // auto& operator*() {
-    //     return *std::prev(itr); // <== returns the content of prev
-    // }
-    // auto& operator++() {
-    //     --itr;
-    //     return *this;
-    // }
-    // friend bool operator!=(reverse_iterator<Itr> a, reverse_iterator<Itr> b) {
-    //     return a.itr != b.itr;
-    // }
-
-
-
-
-// template <class BidirectionalIterator>
-// void reverse(BidirectionalIterator first, BidirectionalIterator last) {
-// typename iterator_traits<BidirectionalIterator>::difference_type n =
-// distance(first, last);
-// --n;
-// while(n > 0) {
-// typename iterator_traits<BidirectionalIterator>::value_type
-// tmp = *first;
-// *first++ = *--last;
-// *last = tmp;
-// n -= 2;
-// }
-// }
