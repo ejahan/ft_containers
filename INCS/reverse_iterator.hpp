@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:10:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/11/01 23:02:40 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:27:45 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ namespace	ft {
 			reverse_iterator() : _current() {};
 
 			explicit	reverse_iterator(iterator_type x) : _current(x) {};
-
-			// operator reverse_iterator<const iterator_type>() const
-			// {
-			// 	return (reverse_iterator<const iterator_type>(_current));
-			// }
 
 			template< class U >
 			reverse_iterator(const reverse_iterator<U>& other) : _current(other.base()) {};

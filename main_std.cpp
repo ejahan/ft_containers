@@ -6,10 +6,9 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 20:13:37 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 23:02:37 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/04 01:08:06 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 /*
 ================================================================================
@@ -145,6 +144,14 @@ TEST SUJET
 
 
 
+
+
+
+
+
+
+
+
 /*
 ===================================================================================
 ===================================================================================
@@ -154,7 +161,6 @@ TEST SUJET
 ===================================================================================
 ===================================================================================
 */
-
 #include <sys/time.h>
 #include <iostream>
 # define NOR "\033[m"
@@ -202,7 +208,7 @@ void	print_vector(std::vector<int> vect, std::string str)
 
 void	vector_test()
 {
-	std::cout << "=====================================================================" << std::endl << "				VECTOR" <<std::endl << "=====================================================================" << std::endl << std::endl << std::endl;
+	std::cout << RED << "=====================================================================" << std::endl << "				VECTOR" <<std::endl << "=====================================================================" << NOR << std::endl << std::endl << std::endl;
 
 	std::vector<int>	vector1;
 	if (vector1.empty() == true)
@@ -367,8 +373,29 @@ TESTS STACK
 
 void	stack_test()
 {
-	std::cout << "=====================================================================" << std::endl << "				STACK" <<std::endl << "=====================================================================" << std::endl << std::endl << std::endl;
+	std::cout << RED << "=====================================================================" << std::endl << "				STACK" <<std::endl << "=====================================================================" << NOR << std::endl << std::endl << std::endl;
 
+	std::stack<int>	stack;
+
+	if (stack.empty() == 1)
+		std::cout << GREEN << "stack is empty" << NOR << std::endl;
+	int i = 7;
+	while (i > 0)
+	{
+		stack.push(i * 6);
+		i--;
+	}
+	std::cout << PURPLE << "size = " << NOR << stack.size() << std::endl;
+	std::cout << GREY << "*pop*" << std::endl;
+	stack.pop();
+	std::cout << GREY << "*pop*" << std::endl;
+	stack.pop();
+	std::cout << GREY << "*pop*" << std::endl;
+	stack.pop();
+	std::cout << PURPLE << "size = " << NOR << stack.size() << std::endl;
+	std::cout << "TOP = " << stack.top() << std::endl;
+
+	std::cout << std::endl << std::endl;
 }
 
 
@@ -386,10 +413,158 @@ TESTS MAP
 
 #include <map>
 
+void	map_print(std::map<int, std::string> map, std::string str)
+{
+	std::map<int, std::string>::iterator	it = map.begin();
+	std::map<int, std::string>::iterator	ite = map.end();
+
+	std::cout << std::endl << WHITE << str << NOR << std::endl;
+	while (it != ite)
+	{
+		std::cout << it->first << " | " << it->second << std::endl;
+		it++;
+	}
+}
+
 void	map_test()
 {
-	std::cout << "=====================================================================" << std::endl << "				 MAP" <<std::endl << "=====================================================================" << std::endl << std::endl << std::endl;
+	std::cout << RED << "=====================================================================" << std::endl << "				 MAP" <<std::endl << "=====================================================================" << NOR << std::endl << std::endl << std::endl;
 
+	std::map<int, std::string>	map;
+	if (map.empty() == true)
+		std::cout << GREEN << "map is empty" << NOR << std::endl << std::endl;
+	for (int n(5); n > 0; n--)
+	{
+		std::cout << GREY << "insert" << NOR << std::endl;
+		map.insert(std::make_pair<int, std::string>(n * 4, "insert"));
+	}
+	map_print(map, "map : ");
+	std::cout << std::endl << PURPLE << "size " << NOR << "map = " << map.size() << std::endl;
+
+	if (map.empty() != true)
+		std::cout << std::endl << GREEN << "map is not empty" << NOR << std::endl << std::endl;
+
+	std::cout << GREY << "*erase*" << NOR << std::endl;
+	map.erase(--(map.end()));
+	std::cout << GREY << "*erase*" << NOR << std::endl;
+	map.erase(--(map.end()));
+
+	map_print(map, "map : ");
+	std::cout << std::endl << PURPLE << "size " << NOR << "map = " << map.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "===============" << std::endl;
+	std::cout << "*erase_range*" << std::endl;
+	std::cout << "===============" << std::endl << NOR;
+	map.erase(++(++(map.begin())), --(map.end()));
+	map_print(map, "map : ");
+	std::cout << std::endl << PURPLE << "size " << NOR << "map = " << map.size() << std::endl;
+
+	std::cout << std::endl << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(10, "a"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(452, "b"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(45, "c"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(-123, "d"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(-1, "e"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(58, "f"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(0, "g"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(754, "h"));
+	std::cout << GREY << "*insert*" << std::endl << NOR;
+	map.insert(std::make_pair<int, std::string>(-11, "i"));
+	map_print(map, "map : ");
+	std::cout << std::endl << PURPLE << "size " << NOR << "map = " << map.size() << std::endl;
+
+	std::cout << std::endl << CYAN << "========================" << std::endl << NOR;
+	std::cout << CYAN << "CONSTRUCT map_range :" << std::endl << std::endl << NOR;
+	std::map<int, std::string>	map_range(++(map.begin()), --(--(--(map.begin()))));
+	map_print(map_range, "map_range : ");
+	std::cout << std::endl << PURPLE << "size " << NOR << "map_range = " << map_range.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "============================" << std::endl;
+	std::cout << "*insert value already exist*" << std::endl;
+	std::cout << "============================" << std::endl << NOR << std::endl;
+	std::cout << PURPLE << "size before -> " << NOR << "map = " << map.size() << std::endl;
+	map.insert(std::make_pair<int, std::string>(-1, "e"));
+	std::cout << PURPLE << "size after -> " << NOR << "map = " << map.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "============================" << std::endl;
+	std::cout << "*insert value already exist*" << std::endl;
+	std::cout << "============================" << std::endl << NOR << std::endl;
+	std::cout << PURPLE << "size before -> " << NOR << "map = " << map.size() << std::endl;
+	map.insert(std::make_pair<int, std::string>(-1, "j"));
+	std::cout << PURPLE << "size after -> " << NOR << "map = " << map.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*map2 = map*" << std::endl;
+	std::cout << "===================" << std::endl << NOR;
+	std::map<int, std::string>	map2;
+	map2 = map;
+	map_print(map2, "map2 : ");
+	map_print(map, "map : ");
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*SWAP*" << std::endl;
+	std::cout << "===================" << std::endl << NOR;
+	map2.swap(map_range);
+	map_print(map2, "map2 : ");
+	map_print(map_range, "map_range : ");
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*CLEAR*" << std::endl;
+	std::cout << "===================" << std::endl << NOR;
+	map2.clear();
+	std::cout << std::endl << PURPLE << "size map2 = " << NOR << "= " << map2.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*OPERATOR[]*" << std::endl;
+	std::cout << "===================" << std::endl << NOR << std::endl;
+	std::cout << "map[58] = " << map[58] << std::endl;
+	std::cout << PURPLE << "size map = " << NOR << "= " << map.size() << std::endl;
+	std::cout << std::endl << "map[789] = " << map[789] << std::endl;
+	std::cout << PURPLE << "size map = " << NOR << "= " << map.size() << std::endl;
+
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*AT*" << std::endl;
+	std::cout << "===================" << std::endl << NOR << std::endl;
+	std::cout << "map[58] = " << map.at(58) << std::endl;
+	try
+	{
+		std::cout << "map.at(18) -> ";
+		map.at(18);
+	}
+	catch (std::out_of_range e)
+	{
+		std::cout << RED << e.what() << std::endl << NOR;
+	}
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*BOUNDS*" << std::endl;
+	std::cout << "===================" << std::endl << NOR << std::endl;
+	std::map<int, std::string>::iterator	it = map.lower_bound(1);
+	std::cout << "lower_bound(0) -> " << it->first << " | " << it->second  << std::endl;
+	it = map.upper_bound(1);
+	std::cout << "upper_bound(0) -> " << it->first << " | " << it->second  << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*FIND*" << std::endl;
+	std::cout << "===================" << std::endl << NOR << std::endl;
+	it = map.find(12);
+	std::cout << it->first << " | " << it->second << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE << "===================" << std::endl;
+	std::cout << "*COUNT*" << std::endl;
+	std::cout << "===================" << std::endl << NOR << std::endl;
+	std::cout << "count(1) = " << map.count(1) << std::endl;
+	std::cout << "count(12) = " << map.count(12) << std::endl;
+
+	std::cout << std::endl << std::endl;
 }
 
 
@@ -410,23 +585,22 @@ MAIN TESTS
 
 int	main()
 {
-	unsigned int	i;
-	unsigned int	j;
+	long long int	i;
+	long long int	j;
 	struct timeval	time;
+	struct timeval	time2;
 	gettimeofday(&time, NULL);
 	i = (time.tv_sec * 1000 + time.tv_usec / 1000);
-	vector_test();
-	// stack_test();
-	// map_test();
 
-	gettimeofday(&time, NULL);
-	j = (time.tv_sec * 1000 + time.tv_usec / 1000);
-	std::cout << "TIME = " << j - i << std::endl;
+	vector_test();
+	stack_test();
+	map_test();
+
+	gettimeofday(&time2, NULL);
+	j = (time2.tv_sec * 1000 + time2.tv_usec / 1000);
+	// std::cout << i << std::endl;
+	// std::cout << j << std::endl;
+	std::cout << "TIME = " << j - i << "ms" << std::endl;
+
 	return (0);
 }
-
-
-
-
-
-

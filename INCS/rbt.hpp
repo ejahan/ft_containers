@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 18:04:13 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 01:06:02 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:28:18 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ namespace	ft
 				buffer << prefix << (isTail ? "└── " : "┌── ");
 				if (node->color == 1)
 					buffer << "\033[31m";
-				// buffer << node->key << "\033[0m" << std::endl;
+				buffer << node->key << "\033[0m" << std::endl;
 				if (node->leftChild != _nil)
 					_print(node->leftChild, buffer, true, std::string(prefix).append(isTail ? "    " : "│   "));
 			};
@@ -139,7 +139,7 @@ namespace	ft
 				if (y->leftChild != _nil)
 					y->leftChild->parent = x;
 				y->parent = x->parent;
-				if (x->parent == _nil) // NULL
+				if (x->parent == _nil)
 					_root = y;
 				else if (x == x->parent->leftChild)
 					x->parent->leftChild = y;
@@ -157,7 +157,7 @@ namespace	ft
 				if (y->rightChild != _nil)
 					y->rightChild->parent = x;
 				y->parent = x->parent;
-				if (x->parent == _nil) // NULL
+				if (x->parent == _nil)
 					_root = y;
 				else if (x->parent->rightChild == x)
 					x->parent->rightChild = y;
@@ -227,7 +227,7 @@ namespace	ft
 
 			void	transplant(Node<T> *u, Node<T> *v)
 			{
-				if (u->parent == _nil) // NULL
+				if (u->parent == _nil)
 					_root = v;
 				else if (u == u->parent->leftChild)
 					u->parent->leftChild = v;
@@ -286,11 +286,11 @@ namespace	ft
 			Node<T>	*insert(T key)
 			{
 				Node<T>	*z = _alloc.allocate(1);
-				Node<T>	*y = _nil; // NULL
+				Node<T>	*y = _nil;
 				Node<T>	*x = _root;
 
 				this->_alloc.construct(z, Node<T>(key));
-				z->parent = _nil; // NULL
+				z->parent = _nil;
 				z->leftChild = _nil;
 				z->rightChild = _nil;
 				z->color = 1;
@@ -306,19 +306,19 @@ namespace	ft
 						x = x->rightChild;
 				}
 				z->parent = y;
-				if (y == _nil) // NULL
+				if (y == _nil)
 					_root = z;
 				else if (_cmp(z->key, y->key) == true)
 					y->leftChild = z;
 				else
 					y->rightChild = z;
 
-				if (z->parent == _nil) // NULL
+				if (z->parent == _nil)
 				{
 					z->color = 0;
 					return (z);
 				}
-				if (z->parent->parent == _nil) // NULL
+				if (z->parent->parent == _nil)
 					return (z);
 				insert_fix(z);
 				return (z);
@@ -384,7 +384,6 @@ namespace	ft
 			{
 				std::stringstream	buffer;
 
-				std::cout << "size: " << this->_size << std::endl;
 				if (_root != _nil)
 				{
 					_print(_root, buffer, true, "");

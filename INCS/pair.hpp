@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:13:38 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 03:07:50 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:28:46 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ namespace	ft {
 	{
 		typedef T1 first_type;
 		typedef T2 second_type;
-
-		// static	T1 first;
-		// static	T2 second;
 
 		first_type first;
 		second_type second;
@@ -56,7 +53,6 @@ namespace	ft {
 	template < class T1, class T2 >
 	bool operator!=( const ft::pair<T1,T2>& x, const ft::pair<T1,T2>& y )
 	{
-		// return (x.first != y.first || x.second != y.second);
 		return (!(x == y));
 	};
 
@@ -96,14 +92,6 @@ namespace	ft {
 		return (false);
 	};
 
-
-	// template<class T1, class T2>
-	// std::ostream &operator<<(std::ostream &o, ft::pair<T1, T2> const &x)
-	// {
-	// 	o << "[" << x.first << " | " << x.second << "]";
-	// 	return (o);
-	// };
-
 //=================================================================================
 
 	template <class T1, class T2>
@@ -111,12 +99,6 @@ namespace	ft {
 	{
 		return (ft::pair<T1, T2>(x, y));
 	};
-
-	// template< class T1, class T2 >
-	// ft::pair<T1,T2> make_pair( T1 x, T2 y )
-	// {
-	// 	return (ft::pair<T1, T2>(x, y));
-	// }
 
 }
 

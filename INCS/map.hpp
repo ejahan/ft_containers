@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:03:59 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/31 20:23:50 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/04 00:16:52 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,16 +197,28 @@ namespace ft {
 
 			mapped_type&		at(const key_type& k)
 			{
-				if (this->_p.size() < k)
-					throw std::out_of_range("ERROR : out_of_range exception");
-				return (*(this->begin() + k));
+				if (this->count(k) == 0)
+					throw std::out_of_range("map::at");
+				iterator	it;
+				value_type	pair(k, T());
+
+				if (count(k) == 0)
+					insert(pair);
+				it = find(k);
+				return (it->second);
 			};
 
 			const mapped_type&	at(const key_type& k) const
 			{
-				if (this->_p.size() < k)
-					throw std::out_of_range("ERROR : out_of_range exception");
-				return (*(this->begin() + k));
+				if (this->count(k) == 0)
+					throw std::out_of_range("map::at");
+				iterator	it;
+				value_type	pair(k, T());
+
+				if (count(k) == 0)
+					insert(pair);
+				it = find(k);
+				return (it->second);
 			};
 
 
@@ -417,11 +429,6 @@ namespace ft {
 			{
 				return (this->_allocator);
 			};
-
-			// void	print()
-			// {
-			// 	_p.print();
-			// }
 
 	};
 
