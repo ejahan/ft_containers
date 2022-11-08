@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:42:05 by ejahan            #+#    #+#             */
-/*   Updated: 2022/10/18 18:00:22 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/08 13:49:25 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ namespace	ft {
 		return (lhs.base() - rhs.base());
 	};
 
-// WALTER
+
 	template <class T1, class T2>
 	typename random_access_iterator<T1>::difference_type operator-(const random_access_iterator<T1>& x, const random_access_iterator<T2>& y) {
 		return x.base() - y.base();

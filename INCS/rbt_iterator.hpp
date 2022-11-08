@@ -6,7 +6,7 @@
 /*   By: ejahan <ejahan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 04:36:32 by ejahan            #+#    #+#             */
-/*   Updated: 2022/11/01 23:09:23 by ejahan           ###   ########.fr       */
+/*   Updated: 2022/11/08 13:50:38 by ejahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,10 +289,7 @@ namespace	ft
 			const_rbt_iterator(ft::Node<T> *n, ft::Node<T> *root) : _node(n), _root(root) {};
 
 			template< class U >
-			const_rbt_iterator(const const_rbt_iterator<U>& other) : _node(other._node), _root(other._root)
-			{
-				// this->_node = other.base();
-			};
+			const_rbt_iterator(const const_rbt_iterator<U>& other) : _node(other._node), _root(other._root) {};
 
 			~const_rbt_iterator() {};
 
